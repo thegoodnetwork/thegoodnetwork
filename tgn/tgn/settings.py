@@ -27,8 +27,8 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 # django_facebook variables
-FACEBOOK_APP_ID = 1423043987951286
-FACEBOOK_APP_SECRET = edfca14666d06d7c3a688c5899d5f2e2
+FACEBOOK_APP_ID = '1423043987951286'
+FACEBOOK_APP_SECRET = 'edfca14666d06d7c3a688c5899d5f2e2'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django_facebook.context_processors.facebook',
@@ -86,7 +86,7 @@ DATABASES = {
         'PASSWORD': 'tgn813',
         'HOST': 'mysql.thegoodnetwork.dreamhosters.com',
         'PORT': '',
-        'TEST_NAME' 'tgntest',
+        'TEST_NAME': 'tgntest',
     }
 }
 
