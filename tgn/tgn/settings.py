@@ -1,3 +1,7 @@
+import os
+
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
 """
 Django settings for tgn project.
 
@@ -43,6 +47,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django_facebook.context_processors.facebook',
 )
+
+TEMPLATE_DIRS = (
+    PROJECT_PATH + '/templates/'
+    )
+
 
 AUTHENTICATION_BACKENDS = (
     'django_facebook.auth_backends.FacebookBackend',
