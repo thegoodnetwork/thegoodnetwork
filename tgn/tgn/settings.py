@@ -68,6 +68,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_facebook',
+    'tgn',
 )
 
 MIDDLEWARE_CLASSES = (
