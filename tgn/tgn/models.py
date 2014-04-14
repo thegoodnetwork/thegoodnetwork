@@ -15,7 +15,7 @@ class Account(models.Model):
 class Nonprofit(models.Model):
     name = models.CharField(max_length=200)
     mission = models.CharField(max_length=200)
-    description = models.CharField()
+    description = models.CharField(max_length=500)
 
 class UserProfileImage(models.Model):
     account = models.ForeignKey(Account)
