@@ -1,8 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
-from models import Account, PostedJob, CurrentJob, CompletedJob, UserSkill, \
-    PostedJobSkill, CurrentJobSkill, CompletedJobSkill
+from helperFunctions import *
 
 from django.forms.util import ValidationError
 from open_facebook.api import FacebookAuthorization, OpenFacebook

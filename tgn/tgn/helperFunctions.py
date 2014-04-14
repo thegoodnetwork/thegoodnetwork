@@ -5,7 +5,7 @@ to views functions used for the server-to-client interaction
 
 from models import Account, PostedJob, CurrentJob, CompletedJob, UserSkill, \
     PostedJobSkill, CurrentJobSkill, CompletedJobSkill, UserProfileImage, \
-    NonprofitProfileImage, NonprofitRelations
+    NonprofitProfileImage, NonprofitRelations, Nonprofit
 
 
 def verifyRequest(request, requiredFields):
@@ -47,8 +47,10 @@ def formatJob(job, hasEmployee=False):
         #    )
         #    .profileImageUrl),
         'title': str(job.title),
-        'description': str(job.jobDescription),
-        'compensation': str(job.jobCompensation),
+        'description': str(job.description),
+        'compensation': str(job.compensation),
+        'city': str(job.city),
+        'state': str(job.state),
         'jobId': str(job.pk),
         'timeCreated': str(job.timeCreated),
         'skills': formatSkills(skills)
@@ -58,15 +60,11 @@ def formatJob(job, hasEmployee=False):
         formattedJob['employeeId'] = str(job.employee.userId)
         formattedJob['employeeFirstName'] = str(job.employee.firstName)
         formattedJob['employeeLastName'] = str(job.employee.lastName)
-        formattedJob['employeeProfileImageUrl'] = str(
-            UserProfileImage
-            .objects
-            .get(
-                account=job.employee
-            )
-            .profileImageUrl)
+        formattedJob['employeeProfileImageUrl'] = getUserProfileImageUrl(job
+                                                                         .employee)
 
     return formattedJob
+
 
 def formatJobs(jobs, hasEmployee=False):
     formattedJobs = None
@@ -79,21 +77,137 @@ def formatJobs(jobs, hasEmployee=False):
 
     return formattedJobs
 
+
 def formatSkills(skills, hasStrength=False):
     formattedSkills = None
 
     if skills is not None:
         formattedSkills = []
         for skill in skills:
-            
-            if hasStrength:
-                formattedSkill = {
-                    'skill': str(skill.skill),
-                    'strength': str(skill.strength)
-                }
-            else:
-                formattedSkill = str(skill.skill)
-
+            formattedSkill = str(skill.skill)
             formattedSkills.append(formattedSkill)
 
     return formattedSkills
+
+
+def getUserProfileImageUrl(account):
+    return None if not UserProfileImage.objects.filter(account=account) \
+        .exists() else str(UserProfileImage.objects.get(account=account).url)
+
+
+def getUserModel(account):
+    userId = str(account.userId)
+    firstName = str(account.firstName)
+    lastName = str(account.lastName)
+    aboutMe = str(account.aboutMe)
+    profileImageUrl = getUserProfileImageUrl(account)
+
+    # get user-specific jobs
+    currentJobsAsEmployee = None if not CurrentJob.objects.filter(
+        employee=account).exists() else \
+        formatJobs(
+            CurrentJob.objects.filter(employee=account),
+            hasEmployee=True
+        )
+
+    completedJobsAsEmployee = None if not CompletedJob.objects.filter(
+        employee=account).exists() else \
+        formatJobs(
+            CompletedJob.objects.filter(employee=account),
+            hasEmployee=True
+        )
+
+    jobs = {
+        'currentJobsAsEmployee': currentJobsAsEmployee,
+        'completedJobsAsEmployee': completedJobsAsEmployee
+    }
+
+    # get skills
+    skills = None if not UserSkill.objects.filter(
+        account=account).exists() else formatSkills(
+        UserSkill.objects.get(account=account), hasStrength=True)
+
+    # get nonprofits
+    nonprofitRelations = None if not NonprofitRelations.objects.filter(
+        userId=userId) \
+        .exists() else NonprofitRelations.objects.filter(userId=userId)
+
+    nonprofits = []
+    if nonprofitRelations is not None:
+        for relation in nonprofitRelations:
+            nonprofit = Nonprofit.objects.get(pk=relation.nonprofitId)
+            nonprofits.append({
+                'nonprofitId': nonprofit.pk,
+                'name': nonprofit.name,
+            })
+
+    userModel = {
+        'userId': userId,
+        'profileImageUrl': profileImageUrl,
+        'firstName': firstName,
+        'lastName': lastName,
+        'aboutMe': aboutMe,
+        'skills': skills,
+        'jobs': jobs,
+        'nonprofits': nonprofits
+    }
+
+    return userModel
+
+
+def getNonprofitModel(nonprofit):
+    nonprofitId = str(nonprofit.pk)
+    name = str(nonprofit.name)
+    mission = str(nonprofit.mission)
+    description = str(nonprofit.description)
+
+    # get the jobs associated with the nonprofit
+    postedJobs = None if not PostedJob.objects.filter(nonprofit=nonprofit) \
+        .exists() else formatJobs(PostedJob.objects.filter(nonprofit=nonprofit))
+
+    currentJobs = None if not CurrentJob.objects.filter(nonprofit=nonprofit) \
+        .exists() else formatJobs(
+        CurrentJob.objects.filter(nonprofit=nonprofit),
+        hasEmployee=True
+    )
+
+    completedJobs = None if not CompletedJob.objects.filter(
+        nonprofit=nonprofit) \
+        .exists() else formatJobs(
+        CompletedJob.objects.filter(nonprofit=nonprofit),
+        hasEmployee=True
+    )
+
+    jobs = {
+        'postedJobs': postedJobs,
+        'currentJobs': currentJobs,
+        'completedJobs': completedJobs
+    }
+
+    # get the nonprofit affiliates
+    nonprofitRelations = None if not NonprofitRelations.objects.filter(
+        nonprofitId=nonprofit.pk).exists() else NonprofitRelations.objects \
+        .filter(nonprofitId=nonprofit.pk)
+
+    nonprofitAffiliates = []
+    if nonprofitRelations is not None:
+        for relation in nonprofitRelations:
+            nonprofitAffiliate = Account.objects.get(userId=str(relation
+                                                                .userId))
+            nonprofitAffiliates.append({
+                'userId': str(nonprofitAffiliate.userId),
+                'firstName': str(nonprofitAffiliate.firstName),
+                'lastName': str(nonprofitAffiliate.lastName),
+                'profileImageUrl': getUserProfileImageUrl(nonprofitAffiliate)
+            })
+
+    nonprofitModel = {
+        'nonprofitId': nonprofitId,
+        'name': name,
+        'mission': mission,
+        'description': description,
+        'jobs': jobs,
+        'affiliates': nonprofitAffiliates
+    }
+
+    return nonprofitModel
