@@ -104,3 +104,7 @@ def loginWithFacebook(request):
     }
 
     return formattedResponse(data=loginWithFacebookReturn)
+
+
+def loggedIn(request):
+    return render_to_response('loggedIn.html');
