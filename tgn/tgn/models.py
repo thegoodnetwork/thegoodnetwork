@@ -16,6 +16,8 @@ class Nonprofit(models.Model):
     name = models.CharField(max_length=200)
     mission = models.CharField(max_length=200)
     description = models.CharField()
+    website = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
 
 
 class UserProfileImage(models.Model):

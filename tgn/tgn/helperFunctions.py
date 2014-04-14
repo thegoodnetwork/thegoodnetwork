@@ -239,6 +239,8 @@ def getNonprofitModel(nonprofit):
     name = str(nonprofit.name)
     mission = str(nonprofit.mission)
     description = str(nonprofit.description)
+    website = str(nonprofit.website)
+    address = str(nonprofit.address)
 
     # get the jobs associated with the nonprofit
     postedJobs = formatJobs(getNonprofitPostedJobs(nonprofit),
@@ -268,6 +270,8 @@ def getNonprofitModel(nonprofit):
         'name': name,
         'mission': mission,
         'description': description,
+        'website': website,
+        'address': address,
         'jobs': jobs,
         'affiliates': nonprofitAffiliates
     }
