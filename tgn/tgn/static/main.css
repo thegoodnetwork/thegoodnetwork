@@ -43,7 +43,7 @@ li {
 .rightNavItem {
     float: right;
     margin-top: 15px;
-    margin-right: 15px;
+    margin-left: 15px;
     margin-bottom: 10px;
 }
 
@@ -68,9 +68,10 @@ li {
     background-color: #136A7F;
 }
 
-.main-top-navbar {
+#main-top-navbar {
     background-color: #136A7F;
     height: 60px;
+    padding-right: 100px;
 }
 
 #asSeenIn {
@@ -80,6 +81,12 @@ li {
     padding-bottom: 0px;
 }
 
-#networkImageContainer {
+#profileName {
 
+}
+
+#aboutMe {
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

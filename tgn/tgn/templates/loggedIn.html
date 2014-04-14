@@ -1,19 +1,18 @@
 {% extends "header.html" %}
 {% block topbar %}
-<nav class="navbar navbar-default main-top-navbar" role="navigation">
-  <div class="container">
-    <span id="mainLogo" class="mainNavItem navbarText">The Good Network</span>
-    <div class="col-md-4">
-      <input class="form-control" type="search" />
+<nav id="main-top-navbar" class="navbar navbar-default" role="navigation">
+    <div id="mainLogo" class="mainNavItem navbarText">The Good Network</div>
+    <form class="col-xs-4">
+      <input class="form-control input-sm" type="search"/>
       <span class="glyphicon glyphicon-search"></span>
-    </div>
-    <ul class="rightNavItem navbarText">Me
+      <input type="submit" class="hidden"/>
+    </form>
+    <ul class="navbarText rightNavItem">Me
     </ul>
-    <ul class="rightNavItem navbarText">My jobs
+    <ul class="navbarText rightNavItem">My jobs
     </ul>
-    <ul class="rightNavItem navbarText">My nonprofits
+    <ul class="navbarText rightNavItem">My nonprofits
     </ul>
-  </div>
 </nav>
 {% endblock %}
 
