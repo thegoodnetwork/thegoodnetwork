@@ -20,6 +20,9 @@ def fbtest(request):
     return render_to_response('fbloginindex.html')
 
 
+def loggedIn(request):
+    return render_to_response('loggedIn.html');
+
 def formattedResponse(isError=False, errorMessage=None, data=None):
     '''
     Returns a properly formatted response for our API.
@@ -105,6 +108,3 @@ def loginWithFacebook(request):
 
     return formattedResponse(data=loginWithFacebookReturn)
 
-
-def loggedIn(request):
-    return render_to_response('loggedIn.html');
