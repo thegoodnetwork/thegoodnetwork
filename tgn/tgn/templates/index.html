@@ -1,39 +1,31 @@
+{% extends "header.html" %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>The Good Network</title>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<link href="//cdn.jsdelivr.net/flat-ui/2.0/css/flat-ui.css" rel="stylesheet">
-<script type="text/javascript" src="{% static "main.js" %}"></script>
-<link href="{% static "main.css" %}" rel="stylesheet">
-  </head>
+{% block content %}
   <body>
     <nav class="navbar navbar-default custom-top-navbar" role="navigation">
       <div class="container-fluid">
 	<div id="logoText">The Good Network</div>
       </div><!-- /.container-fluid -->
     </nav>
-    <div id="homePageContent" class="row">
-      <div class="col-sm-6">
-	<ul>
-	  <li>Find good people.</li>
-	  <li>Find good work.</li>
-	  <li>Connect and make the world a better place.</li>
-	</ul>
-	<div id="networkImageContainer">
-	  <img src="{% static "images/networkArt.png" %}" width="333" height="273"/>
+    <div id="homePageContent" class="container">
+      <div class="row">
+	<div class="col-sm-6">
+	  <ul>
+	    <li>Find good people.</li>
+	    <li>Find good work.</li>
+	    <li>Connect and make the world a better place.</li>
+	  </ul>
 	</div>
-      </div>
-      <div class="col-sm-6 center">
-	<button class="btn btn-primary btn-lrg">Login with Facebook</button>
-	<br>
-	<br>
-	<p>
-	  We integrate with Facebook so you can connect with people you already know.
-	</p>
+	<div class="col-sm-6 center">
+	  <form action="/loggedIn">
+	    <button class="btn btn-primary btn-lrg">Login with Facebook</button>
+	  </form>
+	  <br>
+	  <br>
+	  <div id="networkImageContainer">
+	    <img src="{% static "images/networkArt.png" %}" width="333" height="273"/>
+	  </div>
+	</div>
       </div>
     </div> <!-- END ROW !-->
     <nav class="navbar navbar-default navbar-fixed-bottom custom-bottom-navbar" role="navigation">
@@ -47,3 +39,4 @@
     </nav>
   </body>
 </html>
+{% endblock %}
