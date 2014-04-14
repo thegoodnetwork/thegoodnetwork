@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^facebook/', include('django_facebook.urls')),
     url(r'^accounts/', include('django_facebook.auth_urls')),
-    url(r'tgn/api/loginWithFacebook', 'tgn.views.loginWithFacebook'),
+    url(r'tgn/api/loginWithFacebook', 'tgn.api.loginWithFacebook'),
     url(r'^$', 'tgn.views.test'),
     url(r'^loggedIn/', 'tgn.views.loggedIn'),                   
     url(r'fbtest/', 'tgn.views.fbtest')
