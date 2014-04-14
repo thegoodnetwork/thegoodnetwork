@@ -1,14 +1,19 @@
 {% extends "header.html" %}
 {% block topbar %}
-<nav class="navbar navbar-default custom-top-navbar" role="navigation">
+<nav class="navbar navbar-default main-top-navbar" role="navigation">
   <div class="container">
-       <span id="mainLogo" class="mainNavItem">The Good Network</span>
-       <form>
-	 <input id="mainSearchBar" class="mainNavItem" type="text"
-		placeholder="Search jobs, nonoprofits, and people"/>
-	 <span id="searchIcon" class="glyphicon glyphicon-search"></span>
-       </form>
-       
+    <span id="mainLogo" class="mainNavItem navbarText">The Good Network</span>
+    <div class="col-md-4">
+      <input class="form-control" type="search" />
+      <span class="glyphicon glyphicon-search"></span>
+    </div>
+    <ul class="rightNavItem navbarText">Me
+    </ul>
+    <ul class="rightNavItem navbarText">My jobs
+    </ul>
+    <ul class="rightNavItem navbarText">My nonprofits
+    </ul>
   </div>
 </nav>
 {% endblock %}
+

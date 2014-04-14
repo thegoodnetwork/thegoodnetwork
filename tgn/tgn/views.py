@@ -35,4 +35,4 @@ def formattedResponse(isError=False, errorMessage=None, data=None):
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 def loggedIn(request):
-    return render_to_response('loggedIn.html');
+    return render_to_response('profile.html');
