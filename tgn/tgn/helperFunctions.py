@@ -8,6 +8,10 @@ from models import Account, PostedJob, CurrentJob, CompletedJob, UserSkill, \
     NonprofitProfileImage, NonprofitRelations, Nonprofit, UserTitle, \
     PostedJobTitle, CurrentJobTitle, CompletedJobTitle
 
+POSTED_JOB_TYPE = 'postedJob'
+CURRENT_JOB_TYPE = 'currentJob'
+COMPLETED_JOB_TYPE = 'completedJob'
+
 
 def verifyRequest(request, requiredFields):
     params = request.POST
@@ -29,21 +33,21 @@ def verifyRequest(request, requiredFields):
     }
 
 
-def formatJob(job, hasEmployee=False):
+def formatJob(job, jobType):
     formattedJob = {
         'nonprofitId': str(job.nonprofit.pk),
         'nonprofitName': str(job.nonprofit.name),
-        'titles': formatTitles(getJobTitles(job, hasEmployee=hasEmployee)),
+        'titles': formatTitles(getJobTitles(job, jobType=jobType)),
         'description': str(job.description),
         'compensation': str(job.compensation),
         'city': str(job.city),
         'state': str(job.state),
         'jobId': str(job.pk),
         'timeCreated': str(job.timeCreated),
-        'skills': formatSkills(getJobSkills(job, hasEmployee=hasEmployee))
+        'skills': formatSkills(getJobSkills(job, jobType=jobType))
     }
 
-    if hasEmployee:
+    if jobType != POSTED_JOB_TYPE:
         formattedJob['employeeId'] = str(job.employee.userId)
         formattedJob['employeeFirstName'] = str(job.employee.firstName)
         formattedJob['employeeLastName'] = str(job.employee.lastName)
@@ -52,16 +56,19 @@ def formatJob(job, hasEmployee=False):
         )
         formattedJob['timeTaken'] = str(job.timeTaken)
 
+    if jobType == COMPLETED_JOB_TYPE:
+        formattedJob['timeCompleted'] = str(job.timeCompleted)
+
     return formattedJob
 
 
-def formatJobs(jobs, hasEmployee=False):
+def formatJobs(jobs, jobType):
     formattedJobs = None
 
     if jobs is not None:
         formattedJobs = []
         for job in jobs:
-            formattedJob = formatJob(job, hasEmployee=hasEmployee)
+            formattedJob = formatJob(job, jobType=jobType)
             formattedJobs.append(formattedJob)
 
     return formattedJobs
@@ -80,24 +87,24 @@ def getUserProfileImageUrl(account):
         .exists() else str(UserProfileImage.objects.get(account=account).url)
 
 
-def getJobSkills(job, hasEmployee=False):
-    if not hasEmployee:
+def getJobSkills(job, jobType):
+    if jobType == POSTED_JOB_TYPE:
         skills = PostedJobSkill.objects.filter(job=job)
+    elif jobType == CURRENT_JOB_TYPE:
+        skills = CurrentJobSkill.objects.filter(job=job)
     else:
-        skills = CurrentJobSkill.objects.filter(job=job) if \
-            CurrentJobSkill.objects.filter(job=job).exists() else \
-            CompletedJobSkill.objects.filter(job=job)
+        skills = CompletedJobSkill.objects.filter(job=job)
 
     return skills
 
 
-def getJobTitles(job, hasEmployee=False):
-    if not hasEmployee:
+def getJobTitles(job, jobType):
+    if jobType == POSTED_JOB_TYPE:
         titles = PostedJobTitle.objects.filter(job=job)
+    elif jobType == CURRENT_JOB_TYPE:
+        titles = CurrentJobTitle.objects.filter(job=job)
     else:
-        titles = CurrentJobTitle.objects.filter(job=job) if \
-            CurrentJobTitle.objects.filter(job=job).exists() else \
-            CompletedJobTitle.filter(job=job)
+        titles = CompletedJobTitle.objects.filter(job=job)
 
     return titles
 
@@ -154,9 +161,9 @@ def getUserModel(account):
 
     # get user-specific jobs
     currentJobsAsEmployee = formatJobs(getCurrentJobsAsEmployee(account),
-                                       hasEmployee=True)
+                                       jobType=CURRENT_JOB_TYPE)
     completedJobsAsEmployee = formatJobs(getCompletedJobsAsEmpployee(account),
-                                         hasEmployee=True)
+                                         jobType=COMPLETED_JOB_TYPE)
 
     jobs = {
         'currentJobsAsEmployee': currentJobsAsEmployee,
@@ -234,11 +241,12 @@ def getNonprofitModel(nonprofit):
     description = str(nonprofit.description)
 
     # get the jobs associated with the nonprofit
-    postedJobs = formatJobs(getNonprofitPostedJobs(nonprofit))
+    postedJobs = formatJobs(getNonprofitPostedJobs(nonprofit),
+                            jobType=POSTED_JOB_TYPE)
     currentJobs = formatJobs(getNonprofitCurrentJobs(nonprofit),
-                             hasEmployee=True)
+                             jobType=CURRENT_JOB_TYPE)
     completedJobs = formatJobs(getNonprofitCompletedJobs(nonprofit),
-                               hasEmployee=True)
+                               jobType=COMPLETED_JOB_TYPE)
 
     jobs = {
         'postedJobs': postedJobs,
