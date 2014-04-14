@@ -5,7 +5,8 @@ to views functions used for the server-to-client interaction
 
 from models import Account, PostedJob, CurrentJob, CompletedJob, UserSkill, \
     PostedJobSkill, CurrentJobSkill, CompletedJobSkill, UserProfileImage, \
-    NonprofitProfileImage, NonprofitRelations, Nonprofit
+    NonprofitProfileImage, NonprofitRelations, Nonprofit, UserTitle, \
+    PostedJobTitle, CurrentJobTitle, CompletedJobTitle
 
 
 def verifyRequest(request, requiredFields):
@@ -29,39 +30,27 @@ def verifyRequest(request, requiredFields):
 
 
 def formatJob(job, hasEmployee=False):
-    if not hasEmployee:
-        skills = PostedJobSkill.objects.filter(job=job)
-    else:
-        skills = CurrentJobSkill.objects.filter(job=job) if \
-            CurrentJobSkill.objects.filter(job=job).exists() else \
-            CompletedJobSkill.objects.filter(job=job)
-
     formattedJob = {
         'nonprofitId': str(job.nonprofit.pk),
         'nonprofitName': str(job.nonprofit.name),
-        #'employerProfileImageUrl': str(
-        #    ProfileImage
-        #   .objects
-        #    .get(
-        #        account=job.employer
-        #    )
-        #    .profileImageUrl),
-        'title': str(job.title),
+        'titles': formatTitles(getJobTitles(job, hasEmployee=hasEmployee)),
         'description': str(job.description),
         'compensation': str(job.compensation),
         'city': str(job.city),
         'state': str(job.state),
         'jobId': str(job.pk),
         'timeCreated': str(job.timeCreated),
-        'skills': formatSkills(skills)
+        'skills': formatSkills(getJobSkills(job, hasEmployee=hasEmployee))
     }
 
     if hasEmployee:
         formattedJob['employeeId'] = str(job.employee.userId)
         formattedJob['employeeFirstName'] = str(job.employee.firstName)
         formattedJob['employeeLastName'] = str(job.employee.lastName)
-        formattedJob['employeeProfileImageUrl'] = getUserProfileImageUrl(job
-                                                                         .employee)
+        formattedJob['employeeProfileImageUrl'] = getUserProfileImageUrl(
+            job.employee
+        )
+        formattedJob['timeTaken'] = str(job.timeTaken)
 
     return formattedJob
 
@@ -78,21 +67,81 @@ def formatJobs(jobs, hasEmployee=False):
     return formattedJobs
 
 
-def formatSkills(skills, hasStrength=False):
-    formattedSkills = None
+def formatSkills(skills):
+    return map(lambda skillObject: str(skillObject.skill), skills)
 
-    if skills is not None:
-        formattedSkills = []
-        for skill in skills:
-            formattedSkill = str(skill.skill)
-            formattedSkills.append(formattedSkill)
 
-    return formattedSkills
+def formatTitles(titles):
+    return map(lambda titleObject: str(titleObject.title), titles)
 
 
 def getUserProfileImageUrl(account):
     return None if not UserProfileImage.objects.filter(account=account) \
         .exists() else str(UserProfileImage.objects.get(account=account).url)
+
+
+def getJobSkills(job, hasEmployee=False):
+    if not hasEmployee:
+        skills = PostedJobSkill.objects.filter(job=job)
+    else:
+        skills = CurrentJobSkill.objects.filter(job=job) if \
+            CurrentJobSkill.objects.filter(job=job).exists() else \
+            CompletedJobSkill.objects.filter(job=job)
+
+    return skills
+
+
+def getJobTitles(job, hasEmployee=False):
+    if not hasEmployee:
+        titles = PostedJobTitle.objects.filter(job=job)
+    else:
+        titles = CurrentJobTitle.objects.filter(job=job) if \
+            CurrentJobTitle.objects.filter(job=job).exists() else \
+            CompletedJobTitle.filter(job=job)
+
+    return titles
+
+
+def getUserSkills(account):
+    skills = None if not UserSkill.objects.filter(account=account).exists() \
+        else UserSkill.objects.filter(account=account)
+
+    return skills
+
+
+def getCurrentJobsAsEmployee(account):
+    currentJobsAsEmployee = None if not CurrentJob.objects.filter(
+        employee=account).exists() else \
+        CurrentJob.objects.filter(employee=account)
+
+    return currentJobsAsEmployee
+
+
+def getCompletedJobsAsEmpployee(account):
+    completedJobsAsEmployee = None if not CompletedJob.objects.filter(
+        employee=account).exists() else \
+        CompletedJob.objects.filter(employee=account)
+
+    return completedJobsAsEmployee
+
+
+def getUserNonprofits(account):
+    userId = str(account.userId)
+    nonprofitRelations = NonprofitRelations.objects.filter(userId=userId) if \
+        NonprofitRelations.objects.filter(userId=userId).exists() else None
+
+    nonprofits = []
+    if nonprofitRelations is not None:
+        for relation in nonprofitRelations:
+            nonprofit = Nonprofit.objects.get(pk=str(relation.nonprofitId))
+            nonprofits.append(nonprofit)
+
+    return nonprofits
+
+
+def getUserTitles(account):
+    titles = UserTitle.objects.filter(account=account)
+    return titles
 
 
 def getUserModel(account):
@@ -101,21 +150,13 @@ def getUserModel(account):
     lastName = str(account.lastName)
     aboutMe = str(account.aboutMe)
     profileImageUrl = getUserProfileImageUrl(account)
+    titles = formatTitles(getUserTitles(account))
 
     # get user-specific jobs
-    currentJobsAsEmployee = None if not CurrentJob.objects.filter(
-        employee=account).exists() else \
-        formatJobs(
-            CurrentJob.objects.filter(employee=account),
-            hasEmployee=True
-        )
-
-    completedJobsAsEmployee = None if not CompletedJob.objects.filter(
-        employee=account).exists() else \
-        formatJobs(
-            CompletedJob.objects.filter(employee=account),
-            hasEmployee=True
-        )
+    currentJobsAsEmployee = formatJobs(getCurrentJobsAsEmployee(account),
+                                       hasEmployee=True)
+    completedJobsAsEmployee = formatJobs(getCompletedJobsAsEmpployee(account),
+                                         hasEmployee=True)
 
     jobs = {
         'currentJobsAsEmployee': currentJobsAsEmployee,
@@ -123,23 +164,15 @@ def getUserModel(account):
     }
 
     # get skills
-    skills = None if not UserSkill.objects.filter(
-        account=account).exists() else formatSkills(
-        UserSkill.objects.get(account=account), hasStrength=True)
+    skills = formatSkills(getUserSkills(account))
 
     # get nonprofits
-    nonprofitRelations = None if not NonprofitRelations.objects.filter(
-        userId=userId) \
-        .exists() else NonprofitRelations.objects.filter(userId=userId)
-
-    nonprofits = []
-    if nonprofitRelations is not None:
-        for relation in nonprofitRelations:
-            nonprofit = Nonprofit.objects.get(pk=relation.nonprofitId)
-            nonprofits.append({
-                'nonprofitId': nonprofit.pk,
-                'name': nonprofit.name,
-            })
+    unformattedUserNonprofits = getUserNonprofits(account)
+    formattedUserNonprofits = map(lambda nonprofitObject: {
+        'nonprofitId': str(nonprofitObject.pk),
+        'name': str(nonprofitObject.name),
+        'mission': str(nonprofitObject.mission)},
+                                  unformattedUserNonprofits)
 
     userModel = {
         'userId': userId,
@@ -147,12 +180,51 @@ def getUserModel(account):
         'firstName': firstName,
         'lastName': lastName,
         'aboutMe': aboutMe,
+        'titles': titles,
         'skills': skills,
         'jobs': jobs,
-        'nonprofits': nonprofits
+        'nonprofits': formattedUserNonprofits
     }
 
     return userModel
+
+
+def getNonprofitPostedJobs(nonprofit):
+    postedJobs = PostedJob.objects.filter(nonprofit=nonprofit) if \
+        PostedJob.objects.filter(nonprofit=nonprofit).exists() else None
+
+    return postedJobs
+
+
+def getNonprofitCurrentJobs(nonprofit):
+    currentJobs = CurrentJob.objects.filter(nonprofit=nonprofit) if \
+        CurrentJob.objects.filter(nonprofit=nonprofit).exists() else None
+
+    return currentJobs
+
+
+def getNonprofitCompletedJobs(nonprofit):
+    completedJobs = CompletedJob.objects.filter(nonprofit=nonprofit) if \
+        CompletedJob.objects.filter(nonprofit=nonprofit).exists() else None
+
+    return completedJobs
+
+
+def getNonprofitAffiliates(nonprofit):
+    nonprofitId = str(nonprofit.pk)
+    nonprofitRelations = NonprofitRelations.objects.filter(
+        nonprofitId=nonprofitId) if \
+        NonprofitRelations.objects.filter(nonprofitId=nonprofitId).exists() \
+        else None
+
+    nonprofitAffiliates = []
+    if nonprofitRelations is not None:
+        for relation in nonprofitRelations:
+            nonprofitAffiliate = Account.objects.get(userId=str(relation
+                                                                .userId))
+            nonprofitAffiliates.append(nonprofitAffiliate)
+
+    return nonprofitAffiliates
 
 
 def getNonprofitModel(nonprofit):
@@ -162,21 +234,11 @@ def getNonprofitModel(nonprofit):
     description = str(nonprofit.description)
 
     # get the jobs associated with the nonprofit
-    postedJobs = None if not PostedJob.objects.filter(nonprofit=nonprofit) \
-        .exists() else formatJobs(PostedJob.objects.filter(nonprofit=nonprofit))
-
-    currentJobs = None if not CurrentJob.objects.filter(nonprofit=nonprofit) \
-        .exists() else formatJobs(
-        CurrentJob.objects.filter(nonprofit=nonprofit),
-        hasEmployee=True
-    )
-
-    completedJobs = None if not CompletedJob.objects.filter(
-        nonprofit=nonprofit) \
-        .exists() else formatJobs(
-        CompletedJob.objects.filter(nonprofit=nonprofit),
-        hasEmployee=True
-    )
+    postedJobs = formatJobs(getNonprofitPostedJobs(nonprofit))
+    currentJobs = formatJobs(getNonprofitCurrentJobs(nonprofit),
+                             hasEmployee=True)
+    completedJobs = formatJobs(getNonprofitCompletedJobs(nonprofit),
+                               hasEmployee=True)
 
     jobs = {
         'postedJobs': postedJobs,
@@ -185,21 +247,13 @@ def getNonprofitModel(nonprofit):
     }
 
     # get the nonprofit affiliates
-    nonprofitRelations = None if not NonprofitRelations.objects.filter(
-        nonprofitId=nonprofit.pk).exists() else NonprofitRelations.objects \
-        .filter(nonprofitId=nonprofit.pk)
 
-    nonprofitAffiliates = []
-    if nonprofitRelations is not None:
-        for relation in nonprofitRelations:
-            nonprofitAffiliate = Account.objects.get(userId=str(relation
-                                                                .userId))
-            nonprofitAffiliates.append({
-                'userId': str(nonprofitAffiliate.userId),
-                'firstName': str(nonprofitAffiliate.firstName),
-                'lastName': str(nonprofitAffiliate.lastName),
-                'profileImageUrl': getUserProfileImageUrl(nonprofitAffiliate)
-            })
+    nonprofitAffiliates = map(lambda affiliateObject: {
+        'userId': str(affiliateObject.userId),
+        'firstName': str(affiliateObject.firstName),
+        'lastName': str(affiliateObject.lastName),
+        'profielImageUrl': getUserProfileImageUrl(affiliateObject)
+    }, getNonprofitAffiliates(nonprofit))
 
     nonprofitModel = {
         'nonprofitId': nonprofitId,
