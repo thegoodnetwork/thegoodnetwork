@@ -9,6 +9,8 @@ from django_facebook.auth_backends import FacebookBackend
 
 import json
 
+FBOpen = OpenFacebook
+
 
 def test(request):
     return render_to_response("index.html")
@@ -33,3 +35,72 @@ def formattedResponse(isError=False, errorMessage=None, data=None):
     }
 
     return HttpResponse(json.dumps(response), content_type="application/json")
+
+
+def loginWithFacebook(request):
+    '''
+    Required fields:
+
+        accessToken
+
+    '''
+    requiredFields = ['accessToken']
+
+    verifiedRequestResponse = verifyRequest(request, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+    accessToken = request['accessToken']
+
+    graph = FBOpen(access_token=accessToken)
+
+    try:
+        userInfo = graph.get('me', fields='name, picture, id')
+    except:
+        errorMessage = 'Bad access token'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    userName = userInfo['name']
+    userId = userInfo['userId']
+
+    account, isAccountCreated = Account.objects.get_or_create(
+        userId=userId,
+        name=userName
+    )
+
+    if isAccountCreated:
+        titles = []
+        aboutMe = ''
+        jobs = {}
+        nonprofits = []
+        skills = []
+        profileImageUrl = userInfo['picture']['data']['url']
+
+        UserProfileImage.objects.create(account=account, url=profileImageUrl)
+
+    else:
+        userModel = getUserModel(account)
+
+        titles = userModel['titles']
+        aboutMe = userModel['aboutMe']
+        jobs = userModel['jobs']
+        nonprofits = userModel['nonprofits']
+        skills = userModel['skills']
+        profileImageUrl = userModel['profileImageUrl']
+
+    loginWithFacebookReturn = {
+        'me': {
+            'userId': userId,
+            'name': userName,
+            'titles': titles,
+            'aboutMe': aboutMe,
+            'jobs': jobs,
+            'nonprofits': nonprofits,
+            'skills': skills,
+            'profileImageUrl': profileImageUrl
+        }
+    }
+
+    return formattedResponse(data=loginWithFacebookReturn)

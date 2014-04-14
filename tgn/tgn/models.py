@@ -3,9 +3,8 @@ from django.db import models
 
 class Account(models.Model):
     userId = models.CharField(max_length=200)
-    firstName = models.CharField(max_length=200)
-    lastName = models.CharField(max_length=200)
-    aboutMe = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    aboutMe = models.CharField(max_length=200, default='')
 
     def __unicode__(self):
         return str(self.firstName) + ' ' + str(self.lastName) + ', ' + \
@@ -16,8 +15,8 @@ class Nonprofit(models.Model):
     name = models.CharField(max_length=200)
     mission = models.CharField(max_length=200)
     description = models.CharField()
-    website = models.CharField(max_length=200)
-    address = models.CharField(max_length=200)
+    website = models.CharField(max_length=200, default='')
+    address = models.CharField(max_length=200, default='')
 
 
 class UserProfileImage(models.Model):

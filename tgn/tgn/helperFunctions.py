@@ -49,8 +49,7 @@ def formatJob(job, jobType):
 
     if jobType != POSTED_JOB_TYPE:
         formattedJob['employeeId'] = str(job.employee.userId)
-        formattedJob['employeeFirstName'] = str(job.employee.firstName)
-        formattedJob['employeeLastName'] = str(job.employee.lastName)
+        formattedJob['employeeName'] = str(job.employee.name)
         formattedJob['employeeProfileImageUrl'] = getUserProfileImageUrl(
             job.employee
         )
@@ -153,8 +152,7 @@ def getUserTitles(account):
 
 def getUserModel(account):
     userId = str(account.userId)
-    firstName = str(account.firstName)
-    lastName = str(account.lastName)
+    name = str(account.name)
     aboutMe = str(account.aboutMe)
     profileImageUrl = getUserProfileImageUrl(account)
     titles = formatTitles(getUserTitles(account))
@@ -184,8 +182,7 @@ def getUserModel(account):
     userModel = {
         'userId': userId,
         'profileImageUrl': profileImageUrl,
-        'firstName': firstName,
-        'lastName': lastName,
+        'name': name,
         'aboutMe': aboutMe,
         'titles': titles,
         'skills': skills,
@@ -260,8 +257,7 @@ def getNonprofitModel(nonprofit):
 
     nonprofitAffiliates = map(lambda affiliateObject: {
         'userId': str(affiliateObject.userId),
-        'firstName': str(affiliateObject.firstName),
-        'lastName': str(affiliateObject.lastName),
+        'name': str(affiliateObject.name),
         'profielImageUrl': getUserProfileImageUrl(affiliateObject)
     }, getNonprofitAffiliates(nonprofit))
 
