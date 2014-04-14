@@ -31,15 +31,7 @@
       </p>
       <br>
       <button class="btn btn-primary">contact</button>
-      <div class="btn-group">
-	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-	  add as affiliate <span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-	  <li><a href="#">CStuy</a></li>
-	  <li><a href="#">The Good Network</a></li>
-	</ul>
-      </div>
+      <button class="btn btn-primary">add as affiliate</button>
     </div>
   </div>
 </div>

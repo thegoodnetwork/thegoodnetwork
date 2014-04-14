@@ -11,13 +11,13 @@
     text-align: center;
 }
 
-ul {
+.homePageList {
     list-style-type: none;
     list-style-position: outside;
     list-style-image: none;
 }
 
-li {
+.homePageListElement {
     font-size: 30px;
     padding-top: 15px;
     padding-bottom: 15px;
