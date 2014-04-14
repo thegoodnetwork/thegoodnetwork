@@ -22,7 +22,7 @@ class UserProfileImage(models.Model):
 
 class NonprofitProfileImage(models.Model):
     nonprofit = models.ForeignKey(Nonprofit)
-    image = models.ImageField(height_field=200, width_field=200)
+#    image = models.ImageField(height_field=200, width_field=200)
 
 class NonprofitRelations(models.Model):
     userId = models.CharField(max_length=200)

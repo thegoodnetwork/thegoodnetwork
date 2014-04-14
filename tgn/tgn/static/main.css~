@@ -1,0 +1,22 @@
+#logoText {
+    text-align: center;
+    font-size: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    list-style-position: outside;
+    list-style-image: none;
+}
+
+li {
+    font-size: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}

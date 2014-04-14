@@ -11,18 +11,21 @@
 <link href="{% static "main.css" %}" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default custom-top-navbar" role="navigation">
       <div class="container-fluid">
 	<div id="logoText">The Good Network</div>
       </div><!-- /.container-fluid -->
     </nav>
-    <div class="row">
+    <div id="homePageContent" class="row">
       <div class="col-sm-6">
 	<ul>
 	  <li>Find good people.</li>
 	  <li>Find good work.</li>
 	  <li>Connect and make the world a better place.</li>
 	</ul>
+	<div id="networkImageContainer">
+	  <img src="{% static "images/networkArt.png" %}" width="333" height="273"/>
+	</div>
       </div>
       <div class="col-sm-6 center">
 	<button class="btn btn-primary btn-lrg">Login with Facebook</button>
@@ -33,10 +36,14 @@
 	</p>
       </div>
     </div> <!-- END ROW !-->
-    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-      <div class="container">
-	EXAMPLE BOTTOM NAVBAR
-      </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom custom-bottom-navbar" role="navigation">
+      <!-- Fake Logos !-->
+      <img src="https://d2tqk49yez7kzo.cloudfront.net/press/logos/ENGADGET.png"></img>
+      <img src="//d2tqk49yez7kzo.cloudfront.net/press/logos/FORBES.png"></img>
+      <img src="//d2tqk49yez7kzo.cloudfront.net/press/logos/ALLTHINGSDIGITAL.png"></img>
+      <img src="//d2tqk49yez7kzo.cloudfront.net/press/logos/GIZMODO.png"></img>
+      <img src="//d2tqk49yez7kzo.cloudfront.net/press/logos/THEVERGE.png"></img>
+      
     </nav>
   </body>
 </html>
