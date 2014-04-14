@@ -1,0 +1,38 @@
+{% extends "loggedIn.html" %}
+{% block content %}
+{% verbatim %} 
+<div class="container" data-ng-app="angularTGN">
+  <div class="row" data-ng-controller="myProfileController">
+    <div class="col-sm-6">
+    <h1 id="profileName">{{name}}
+    </h1>
+      <img id="profileImage" src="{{profileLink}}" width="180px" height="160px"/>
+      <br>
+      <h3>Resume
+      </h3>
+      <a>{{resumeLink}}</a>
+      <h3>
+	Skills
+      </h3>
+    <p>
+      {{skills}}
+    </p>
+    <h3>
+	Affiliations
+    </h3>
+    <p>
+      {{affiliations}}
+    </p>
+    </div>
+    <div class="col-sm-6">
+      <h1> Quick Biography: </h1>
+      <p id="aboutMe">
+	{{aboutMe}}
+      </p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+{% endverbatim %}
+{% endblock %}
