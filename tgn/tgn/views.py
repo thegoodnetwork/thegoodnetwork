@@ -1,13 +1,4 @@
-from django.http import HttpResponse
 from django.shortcuts import render_to_response
-
-from helperFunctions import *
-
-from django.forms.util import ValidationError
-from open_facebook.api import FacebookAuthorization, OpenFacebook
-from django_facebook.auth_backends import FacebookBackend
-
-import json
 
 
 def test(request):
@@ -39,3 +30,4 @@ def profile(request):
 
 def otherProfile(request):
     return render_to_response('otherProfile.html');
+
