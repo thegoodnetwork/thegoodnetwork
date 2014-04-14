@@ -6,7 +6,6 @@ class Account(models.Model):
     firstName = models.CharField(max_length=200)
     lastName = models.CharField(max_length=200)
     aboutMe = models.CharField(max_length=200)
-    profileImageUrl = models.URLField()
 
     def __unicode__(self):
         return str(self.firstName) + ' ' + str(self.lastName) + ', ' + \
@@ -16,8 +15,14 @@ class Account(models.Model):
 class Nonprofit(models.Model):
     name = models.CharField(max_length=200)
     mission = models.CharField(max_length=200)
-    picture = models.ImageField(height_field=200, width_field=200)
 
+class UserProfileImage(models.Model):
+    account = models.ForeignKey(Account)
+    url = models.URLField()
+
+class NonprofitProfileImage(models.Model):
+    nonprofit = models.ForeignKey(Nonprofit)
+    image = models.ImageField(height_field=200, width_field=200)
 
 class NonprofitRelations(models.Model):
     userId = models.CharField(max_length=200)
@@ -64,9 +69,33 @@ class UserTitle(models.Model):
         return str(self.title) + ', ' + str(self.account)
 
 
-class UserSkill(models.Model):
-    account = models.ForeignKey(Account)
+class Skill(models.Model):
     skill = models.CharField(max_length=200)
+
+    class Meta:
+        abstract = True
+
+class UserSkill(Skill):
+    account = models.ForeignKey(Account)
+    #strength = models.CharField(max_length=200) maybe add this in
 
     def __unicode__(self):
         return str(self.skill) + ', ' + str(self.account)
+
+class PostedJobSkill(Skill):
+    job = models.ForeignKey(PostedJob)
+
+    def __unicode__(self):
+        return str(self.skill) + ', ' + str(self.job)
+
+class CurrentJobSkill(Skill):
+    job = models.ForeignKey(CurrentJob)
+
+    def __unicode__(self):
+        return str(self.skill) + ', ' + str(self.job)
+
+class CompletedJobSkill(Skill):
+    job = models.ForeignKey(CompletedJob)
+
+    def __unicode__(self):
+        return str(self.skill) + ', ' + str(self.job)
