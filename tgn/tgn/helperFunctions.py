@@ -5,7 +5,7 @@ to views functions used for the server-to-client interaction
 
 from models import Account, PostedJob, CurrentJob, CompletedJob, UserSkill, \
     PostedJobSkill, CurrentJobSkill, CompletedJobSkill, UserProfileImage, \
-    NonprofitProfileImage, NonprofitRelations, Nonprofit, UserTitle, \
+    NonprofitProfileImage, NonprofitRelation, Nonprofit, UserTitle, \
     PostedJobTitle, CurrentJobTitle, CompletedJobTitle
 
 POSTED_JOB_TYPE = 'postedJob'
@@ -134,8 +134,8 @@ def getCompletedJobsAsEmployee(account):
 
 def getUserNonprofits(account):
     userId = str(account.userId)
-    nonprofitRelations = NonprofitRelations.objects.filter(userId=userId) if \
-        NonprofitRelations.objects.filter(userId=userId).exists() else None
+    nonprofitRelations = NonprofitRelation.objects.filter(userId=userId) if \
+        NonprofitRelation.objects.filter(userId=userId).exists() else None
 
     nonprofits = []
     if nonprofitRelations is not None:
@@ -208,7 +208,7 @@ def getNonprofitCompletedJobs(nonprofit):
 
 def getNonprofitAffiliates(nonprofit):
     nonprofitId = str(nonprofit.pk)
-    nonprofitRelations = NonprofitRelations.objects.filter(
+    nonprofitRelations = NonprofitRelation.objects.filter(
         nonprofitId=nonprofitId)
 
     nonprofitAffiliates = []

@@ -30,7 +30,7 @@ class NonprofitProfileImage(models.Model):
 
 #    image = models.ImageField(height_field=200, width_field=200)
 
-class NonprofitRelations(models.Model):
+class NonprofitRelation(models.Model):
     userId = models.CharField(max_length=200)
     nonprofitId = models.CharField(max_length=200)
 

@@ -229,7 +229,7 @@ def createNonprofit(request):
             newNonprofitModel = getNonprofitModel(newNonprofit)
 
             # add nonprofit relation
-            NonprofitRelations.objects.create(
+            NonprofitRelation.objects.create(
                 nonprofitId=str(newNonprofit.pk),
                 userId=userId
             )
@@ -248,3 +248,54 @@ def createNonprofit(request):
 
     return formattedResponse(data=userNonprofitModels)
 
+
+def postJobAsNonprofit(request):
+    '''
+    Required fields:
+        userId
+        nonproftId
+        jobToPost
+    '''
+
+    # verify top-level objects
+    requiredFields = ['userId', 'nonprofitId', 'jobToPost']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    # verify jobToPost object
+    try:
+        requiredFields = ['name', 'compensation', 'description', 'city',
+                          'state', 'titles', 'skills']
+        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+            'jobToPost']), requiredFields)
+        if verifiedRequestResponse['isMissingFields']:
+            errorMessage = verifiedRequestResponse['errorMessage']
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    except:
+        errorMessage = 'jobToPost was not a valid JSON'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+    nonprofitId = request['nonprofitId']
+    jobToPost = json.loads(request['jobToPost'])
+
+    if Account.objects.filter(userId=userId).exists():
+        if Nonprofit.objects.filter(pk=nonprofitId).exists():
+            if NonprofitRelation.objects.filter(userId=userId,
+                                                nonprofitId=nonprofitId).exists():
+                nonprofit = Nonprofit.objects.get(pk=nonprofitId)
+                
+
+            else:
+                errorMessage = 'User is not an affiliate of the nonprofit'
+        else:
+            errorMessage = 'Unknown nonprofit'
+            return formattedResponse(isError=True,
+                                     errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
