@@ -50,7 +50,7 @@ def loginWithFacebook(request):
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
     userName = userInfo['name']
-    userId = userInfo['userId']
+    userId = userInfo['id']
 
     account, isAccountCreated = Account.objects.get_or_create(
         userId=userId,
@@ -60,7 +60,10 @@ def loginWithFacebook(request):
     if isAccountCreated:
         titles = []
         aboutMe = ''
-        jobs = {}
+        jobs = {
+            'currentJobsAsEmployee': [],
+            'completedJobsAsEmployee': []
+        }
         nonprofits = []
         skills = []
         profileImageUrl = userInfo['picture']['data']['url']
@@ -92,3 +95,70 @@ def loginWithFacebook(request):
 
     return formattedResponse(data=loginWithFacebookReturn)
 
+
+def updateProfile(request):
+    '''
+    Required fields:
+
+        userId
+        profile
+
+    '''
+    requiredFields = ['userId', 'profile']
+
+    verifiedRequestResponse = verifyRequest(request, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+    userId = request['userId']
+    profile = json.loads(request['profile'])
+
+    aboutMe = profile['aboutMe']
+    titles = profile['titles']
+    skills = profile['skills']
+
+    if Account.objects.filter(userId=userId).exists():
+        account = Account.objects.get(userId=userId)
+
+        account.aboutMe = aboutMe
+
+        # remove current skills from the new skills list
+        # if skill not in the new skills list, delete it
+        currentSkills = getUserSkills(account)
+        for skillObject in currentSkills:
+            skill = str(skillObject.skill)
+            if skill in skills:
+                skills.remove(skill)
+            else:
+                skillObject.delete()
+        # add the new skills
+        for skill in skills:
+            UserSkill.objects.create(account=account, skill=skill)
+
+        # remove current titles from the new titles list
+        # if title not in the new titles list, delete it
+        currentTitles = getUserTitles(account)
+        for titleObject in currentTitles:
+            title = str(title.title)
+            if title in titles:
+                titles.remove(title)
+            else:
+                titleObject.delete()
+        # add the new titles
+        for title in titles:
+            UserTitle.objects.create(account=account, title=title)
+
+        account.save()
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    updatedProfileModel = {
+        'titles': formatTitles(getUserTitles(account)),
+        'skills': formatSkills(getUserSkills(account)),
+        'aboutMe': str(account.aboutMe)
+    }
+
+    return formattedResponse(data=updatedProfileModel)

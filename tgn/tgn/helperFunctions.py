@@ -62,10 +62,9 @@ def formatJob(job, jobType):
 
 
 def formatJobs(jobs, jobType):
-    formattedJobs = None
+    formattedJobs = []
 
     if jobs is not None:
-        formattedJobs = []
         for job in jobs:
             formattedJob = formatJob(job, jobType=jobType)
             formattedJobs.append(formattedJob)
@@ -87,46 +86,43 @@ def getUserProfileImageUrl(account):
 
 
 def getJobSkills(job, jobType):
+    skills = []
     if jobType == POSTED_JOB_TYPE:
         skills = PostedJobSkill.objects.filter(job=job)
     elif jobType == CURRENT_JOB_TYPE:
         skills = CurrentJobSkill.objects.filter(job=job)
-    else:
+    elif jobType == COMPLETED_JOB_TYPE:
         skills = CompletedJobSkill.objects.filter(job=job)
 
     return skills
 
 
 def getJobTitles(job, jobType):
+    titles = []
     if jobType == POSTED_JOB_TYPE:
         titles = PostedJobTitle.objects.filter(job=job)
     elif jobType == CURRENT_JOB_TYPE:
         titles = CurrentJobTitle.objects.filter(job=job)
-    else:
+    elif jobType == COMPLETED_JOB_TYPE:
         titles = CompletedJobTitle.objects.filter(job=job)
 
     return titles
 
 
 def getUserSkills(account):
-    skills = None if not UserSkill.objects.filter(account=account).exists() \
-        else UserSkill.objects.filter(account=account)
+    skills = UserSkill.objects.filter(account=account)
 
     return skills
 
 
 def getCurrentJobsAsEmployee(account):
-    currentJobsAsEmployee = None if not CurrentJob.objects.filter(
-        employee=account).exists() else \
-        CurrentJob.objects.filter(employee=account)
+    currentJobsAsEmployee = CurrentJob.objects.filter(employee=account)
 
     return currentJobsAsEmployee
 
 
-def getCompletedJobsAsEmpployee(account):
-    completedJobsAsEmployee = None if not CompletedJob.objects.filter(
-        employee=account).exists() else \
-        CompletedJob.objects.filter(employee=account)
+def getCompletedJobsAsEmployee(account):
+    completedJobsAsEmployee = CompletedJob.objects.filter(employee=account)
 
     return completedJobsAsEmployee
 
@@ -160,7 +156,7 @@ def getUserModel(account):
     # get user-specific jobs
     currentJobsAsEmployee = formatJobs(getCurrentJobsAsEmployee(account),
                                        jobType=CURRENT_JOB_TYPE)
-    completedJobsAsEmployee = formatJobs(getCompletedJobsAsEmpployee(account),
+    completedJobsAsEmployee = formatJobs(getCompletedJobsAsEmployee(account),
                                          jobType=COMPLETED_JOB_TYPE)
 
     jobs = {
@@ -194,39 +190,30 @@ def getUserModel(account):
 
 
 def getNonprofitPostedJobs(nonprofit):
-    postedJobs = PostedJob.objects.filter(nonprofit=nonprofit) if \
-        PostedJob.objects.filter(nonprofit=nonprofit).exists() else None
-
+    postedJobs = PostedJob.objects.filter(nonprofit=nonprofit)
     return postedJobs
 
 
 def getNonprofitCurrentJobs(nonprofit):
-    currentJobs = CurrentJob.objects.filter(nonprofit=nonprofit) if \
-        CurrentJob.objects.filter(nonprofit=nonprofit).exists() else None
-
+    currentJobs = CurrentJob.objects.filter(nonprofit=nonprofit)
     return currentJobs
 
 
 def getNonprofitCompletedJobs(nonprofit):
-    completedJobs = CompletedJob.objects.filter(nonprofit=nonprofit) if \
-        CompletedJob.objects.filter(nonprofit=nonprofit).exists() else None
-
+    completedJobs = CompletedJob.objects.filter(nonprofit=nonprofit)
     return completedJobs
 
 
 def getNonprofitAffiliates(nonprofit):
     nonprofitId = str(nonprofit.pk)
     nonprofitRelations = NonprofitRelations.objects.filter(
-        nonprofitId=nonprofitId) if \
-        NonprofitRelations.objects.filter(nonprofitId=nonprofitId).exists() \
-        else None
+        nonprofitId=nonprofitId)
 
     nonprofitAffiliates = []
-    if nonprofitRelations is not None:
-        for relation in nonprofitRelations:
-            nonprofitAffiliate = Account.objects.get(userId=str(relation
-                                                                .userId))
-            nonprofitAffiliates.append(nonprofitAffiliate)
+    for relation in nonprofitRelations:
+        nonprofitAffiliate = Account.objects.get(userId=str(relation
+                                                            .userId))
+        nonprofitAffiliates.append(nonprofitAffiliate)
 
     return nonprofitAffiliates
 
