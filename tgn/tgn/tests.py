@@ -103,7 +103,7 @@ class testAllRequests(TestCase):
             '/postJobAsNonprofit',
             {
                 'userId': TEST_USER_ID,
-                'nonprofiId': nonprofitId,
+                'nonprofitId': nonprofitId,
                 'jobToPost': json.dumps(TEST_JOB)
             }
         )
@@ -178,10 +178,11 @@ class testAllRequests(TestCase):
 
     def testPostJob(self):
         requiredFields = ['nonprofitPostedJobs', 'newPostedJob']
-        requiredFieldsInNewPostedJob = ['jobId', 'name', 'description',
-                                        'compensation', 'city', 'state',
-                                        'titles', 'skills',
-                                        'nonprofitId', 'nonprofitName']
+        requiredFieldsInNewPostedJob = [
+            'jobId', 'name', 'description', 'compensation', 'city', 'state',
+            'titles', 'skills', 'nonprofitId', 'nonprofitName', 'timeCreated'
+        ]
+
         response = self.postJob()
         data = getResponseObject(response)['data']
         newPostedJob = data['newPostedJob']
