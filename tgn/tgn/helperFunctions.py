@@ -156,6 +156,8 @@ def getUserModel(account):
     name = str(account.name)
     aboutMe = str(account.aboutMe)
     profileImageUrl = getUserProfileImageUrl(account)
+
+    # get titles
     titles = formatTitles(getUserTitles(account))
 
     # get user-specific jobs
@@ -262,3 +264,20 @@ def getNonprofitModel(nonprofit):
     }
 
     return nonprofitModel
+
+def getJob(jobId, jobType):
+    job = None
+
+    if jobType == POSTED_JOB_TYPE:
+        job = PostedJob.objects.get(pk=jobId) if PostedJob.objects.filter(
+            pk=jobId).exists() else None
+
+    elif jobType == CURRENT_JOB_TYPE:
+        job = CurrentJob.objects.get(pk=jobId) if CurrentJob.objects.filter(
+            pk=jobId).exists() else None
+
+    elif jobType == COMPLETED_JOB_TYPE:
+        job = CompletedJob.objects.get(pk=jobId) if CompletedJob.objects\
+            .filter(pk=jobId).exists() else None
+
+    return job

@@ -341,3 +341,98 @@ def postJobAsNonprofit(request):
     }
 
     return formattedResponse(data=updatedNonprofitPostedJobModel)
+
+
+def viewOtherProfile(request):
+    '''
+    Required fields:
+        userId
+    '''
+
+    requiredFields = ['userId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+
+    if Account.objects.filter(userId=userId).exists():
+        userToView = Account.objects.get(userId=userId)
+        userToViewModel = getUserModel(userToView)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    otherProfileData = {
+        'userToView': userToViewModel
+    }
+
+    return formattedResponse(data=otherProfileData)
+
+def viewJob(request):
+    '''
+    Required fields:
+        jobId
+        jobType
+    '''
+
+    requiredFields = ['jobId', 'jobType']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+    jobId = request['jobId']
+    jobType = request['jobType']
+
+    jobToView = getJob(jobId=jobId, jobType=jobType)
+
+    if jobToView is not None:
+        jobToViewModel = formatJob(
+            job=jobToView,
+            jobType=jobType
+        )
+
+    else:
+        errorMessage = 'Unknown job'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    jobData = {
+        'jobToView': jobToViewModel
+    }
+
+    return formattedResponse(data=jobData)
+
+def viewNonprofit(request):
+    '''
+    Required fields:
+        nonprofitId
+    '''
+
+    requiredFields = ['nonprofitId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    nonprofitId = request['nonprofitId']
+
+    if Nonprofit.objects.filter(pk=nonprofitId).exists():
+        nonprofitToView = Nonprofit.objects.get(pk=nonprofitId)
+        nonprofitToViewModel = getNonprofitModel(nonprofitToView)
+
+    else:
+        errorMessage = 'Unknown nonprofit'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    nonprofitData = {
+        'nonprofitToView': nonprofitToViewModel
+    }
+
+    return formattedResponse(data=nonprofitData)
