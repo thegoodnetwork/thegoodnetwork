@@ -288,10 +288,39 @@ def postJobAsNonprofit(request):
             if NonprofitRelation.objects.filter(userId=userId,
                                                 nonprofitId=nonprofitId).exists():
                 nonprofit = Nonprofit.objects.get(pk=nonprofitId)
-                
 
+                newPostedJob, isNewPostedJobCreated = PostedJob.objects \
+                    .get_or_create(
+                    name=jobToPost['name'],
+                    compensation=jobToPost['compensation'],
+                    description=jobToPost['description'],
+                    city=jobToPost['city'],
+                    state=jobToPost['state'],
+                    nonprofit=nonprofit
+                )
+
+                if isNewPostedJobCreated:
+                    # add skills
+                    for skill in jobToPost['skills']:
+                        PostedJobSkill.objects.create(
+                            job=newPostedJob,
+                            skill=skill
+                        )
+
+                    for title in jobToPost['titles']:
+                        PostedJobTitle.objects.create(
+                            job=newPostedJob,
+                            title=title
+                        )
+
+                else:
+                    errorMessage = 'Failed to post job, job already exists'
+                    return formattedResponse(isError=True,
+                                             errorMessage=errorMessage)
             else:
                 errorMessage = 'User is not an affiliate of the nonprofit'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
         else:
             errorMessage = 'Unknown nonprofit'
             return formattedResponse(isError=True,
@@ -299,3 +328,16 @@ def postJobAsNonprofit(request):
     else:
         errorMessage = 'Unknown user'
         return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    updatedNonprofitPostedJobModel = {
+        'nonprofitPostedJobs': formatJobs(
+            getNonprofitPostedJobs(nonprofit),
+            jobType=POSTED_JOB_TYPE
+        ),
+        'newPostedJob': formatJob(
+            newPostedJob,
+            jobType=POSTED_JOB_TYPE
+        )
+    }
+
+    return formattedResponse(data=updatedNonprofitPostedJobModel)

@@ -13,6 +13,7 @@ TEST_ACCESS_TOKEN_2 = ''
 TEST_ABOUT_ME = 'Hello Im demitri and this is my about me'
 TEST_USER_TITLES = ['Software Engineer', 'Student', 'Designer']
 TEST_USER_SKILLS = ['Python', 'JavaScript', 'HTML/CSS']
+
 TEST_NONPROFIT = {
     'name': 'CStuy',
     'mission': 'Help underprivelaged students get CS opportunities',
@@ -20,6 +21,15 @@ TEST_NONPROFIT = {
                    'technology related educational opportunities to high school and middle school students. ',
     'address': 'Manhattan, New York',
     'website': 'https://cstuy.org'
+}
+
+TEST_JOB = {
+    'name': 'Event planner for fancy dinner',
+    'description': 'CStuy is looking for an event planner to plan all parts '
+                   'of a dinner for our annual fundraising event.',
+    'compensation': '20/hr',
+    'state': 'NY',
+    'city': 'New York City'
 }
 
 
@@ -85,6 +95,19 @@ class testAllRequests(TestCase):
         )
         return createNonprofit(request)
 
+    def postJob(self):
+        nonprofit = getUserNonprofits(self.account)[0]
+        nonprofitId = str(nonprofit.pk)
+        request = self.factory.post(
+            '/postJobAsNonprofit',
+            {
+                'userId': TEST_USER_ID,
+                'nonprofiId': nonprofitId,
+                'jobToPost': json.dumps(TEST_JOB)
+            }
+        )
+        return postJobAsNonprofit(request)
+
     def testLoginWithFacebook(self):
         requiredFields = ['me']
         requiredFieldsInMe = ['userId', 'name', 'titles', 'aboutMe',
@@ -104,6 +127,7 @@ class testAllRequests(TestCase):
         data = getResponseObject(response)['data']
         account = Account.objects.get(userId=TEST_USER_ID)
         self.assertTrue(hasFields(data, requiredFields))
+        self.assertTrue(responseIsSuccess(response))
         self.assertEqual(
             len(TEST_USER_SKILLS),
             len(getUserSkills(account))
@@ -150,3 +174,18 @@ class testAllRequests(TestCase):
             newNonprofit['website'],
             TEST_NONPROFIT['website']
         )
+
+    def testPostJob(self):
+        requiredFields = ['nonprofitPostedJobs', 'newPostedJob']
+        requiredFieldsInNewPostedJob = ['jobId', 'name', 'description',
+                                        'compensation', 'city', 'state',
+                                        'titles', 'skills',
+                                        'nonprofitId', 'nonprofitName']
+        response = self.postJob()
+        data = getResponseObject(response)['data']
+        newPostedJob = data['newPostedJob']
+        self.assertTrue(responseIsSuccess(response))
+        self.assertTrue(hasFields(data, requiredFields))
+        self.assertTrue(hasFields(newPostedJob, requiredFieldsInNewPostedJob))
+        self.assertTrue(PostedJob.objects.filter(pk=newPostedJob['jobId'])
+                        .exists())
