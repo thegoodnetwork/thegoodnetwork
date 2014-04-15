@@ -96,6 +96,7 @@ class testAllRequests(TestCase):
         return createNonprofit(request)
 
     def postJob(self):
+        self.createNonprofit()
         nonprofit = getUserNonprofits(self.account)[0]
         nonprofitId = str(nonprofit.pk)
         request = self.factory.post(
