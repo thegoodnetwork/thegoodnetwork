@@ -372,6 +372,7 @@ def viewOtherProfile(request):
 
     return formattedResponse(data=otherProfileData)
 
+
 def viewJob(request):
     '''
     Required fields:
@@ -407,6 +408,7 @@ def viewJob(request):
 
     return formattedResponse(data=jobData)
 
+
 def viewNonprofit(request):
     '''
     Required fields:
@@ -436,3 +438,23 @@ def viewNonprofit(request):
     }
 
     return formattedResponse(data=nonprofitData)
+
+
+def getPostedJobs(request):
+    '''
+    Required fields:
+        query
+    '''
+
+    requiredFields = ['query']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    # currently ignoring query
+
+    postedJobs = PostedJob.objects.all()
+    formattedPostedJobs = formatJobs(postedJobs, jobType=POSTED_JOB_TYPE)
