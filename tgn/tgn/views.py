@@ -33,3 +33,6 @@ def otherProfile(request):
 
 def otherNonprofit(request):
     return render_to_response('otherNonprofit.html');
+
+def myNonprofit(request):
+    return render_to_response('myNonprofit.html');

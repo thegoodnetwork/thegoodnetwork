@@ -21,9 +21,17 @@ angularTGN.controller('otherProfileController', function($scope) {
 });
 
 angularTGN.controller('otherNonprofitController', function($scope) {
-    $scope.name = "Sean's Outpost"
-    $scope.bannerLink = "http://bitcoinacrossamerica.com/wp-content/uploads/2014/01/LogoOutpost-300x300.jpg"
-    $scope.description = "If you’re interested in helping the less fortunate among us, you are in the right place. If you love Bitcoin, so much the better. There’s no watchers here though. Everybody works.  If you really want to start a revolution, don’t pick up a gun.  Pick up a soup ladle."
-    $scope.address = "Pensacola, Florida"
-    $scope.website = "http://seansoutpost.com/"
+    $scope.name = "Sean's Outpost";
+    $scope.bannerLink = "http://bitcoinacrossamerica.com/wp-content/uploads/2014/01/LogoOutpost-300x300.jpg";
+    $scope.description = "If you’re interested in helping the less fortunate among us, you are in the right place. If you love Bitcoin, so much the better. There’s no watchers here though. Everybody works.  If you really want to start a revolution, don’t pick up a gun.  Pick up a soup ladle.";
+    $scope.address = "Pensacola, Florida";
+    $scope.website = "http://seansoutpost.com/";
+});
+
+angularTGN.controller('myNonprofitController', function($scope) {
+    $scope.name = "CStuy";
+    $scope.bannerLink = "https://cstuy.org/sites/c.drupal.cstuy.org/files/styles/hp_slideshow/public/field/image/slideshow/cstuy-hero2.jpg";
+    $scope.description = "Having dealt with the frustrations of working within the system to try to bring more opportunities to more youngsters and inspired by their alumni community, Mike, Sam, and JonAlf, have joined with Jennifer Hsu and Artie Jordan along with other members of the Stuy CS Community to form CSTUY, Computer Science and Technology for Urban Youth. An organization dedicated to bringing computer science and technology related educational opportunities to high school and middle school students."
+    $scope.address = "Manhattan, New York";
+    $scope.website = "https://cstuy.org";
 });

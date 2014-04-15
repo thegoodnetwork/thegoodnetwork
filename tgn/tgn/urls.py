@@ -14,7 +14,8 @@ urlpatterns = patterns('',
     url(r'tgn/api/loginWithFacebook', 'tgn.api.loginWithFacebook'),
     url(r'^$', 'tgn.views.test'),
     url(r'^profile/', 'tgn.views.profile'),                   
-    url(r'^otherProfile/', 'tgn.views.otherProfile'),                   
+    url(r'^otherProfile/', 'tgn.views.otherProfile'),               
     url(r'^otherNonprofit/', 'tgn.views.otherNonprofit'),
+    url(r'^myNonprofit/', 'tgn.views.myNonprofit'),
     url(r'fbtest/', 'tgn.views.fbtest')
 )
