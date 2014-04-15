@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^otherProfile/', 'tgn.views.otherProfile'),               
     url(r'^otherNonprofit/', 'tgn.views.otherNonprofit'),
     url(r'^myNonprofit/', 'tgn.views.myNonprofit'),
-    url(r'fbtest/', 'tgn.views.fbtest')
+    url(r'fbtest/', 'tgn.views.fbtest'),
     url(r'^tgn/api/loginWithFacebook', 'tgn.api.loginWithFacebook'),
     url(r'^tgn/api/updateProfile', 'tgn.api.updateProfile'),
     url(r'^tgn/api/createNonprofit', 'tgn.api.createNonprofit')
