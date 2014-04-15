@@ -187,7 +187,7 @@ def createNonprofit(request):
     '''
 
     # verify top-level objects
-    requiredFields = ['userId', 'profile']
+    requiredFields = ['userId', 'nonprofit']
     verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
@@ -221,10 +221,19 @@ def createNonprofit(request):
             address=nonprofit['address']
         )
         if isNewNonprofitCreated:
+
+            # get user nonprofit models
             account = Account.objects.get(userId=userId)
             userNonprofits = formatNonprofitsForUserModel(getUserNonprofits(
                 account))
             newNonprofitModel = getNonprofitModel(newNonprofit)
+
+            # add nonprofit relation
+            NonprofitRelations.objects.create(
+                nonprofitId=str(newNonprofit.pk),
+                userId=userId
+            )
+
         else:
             errorMessage = 'Failed to create nonprofit'
             return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -238,3 +247,4 @@ def createNonprofit(request):
     }
 
     return formattedResponse(data=userNonprofitModels)
+
