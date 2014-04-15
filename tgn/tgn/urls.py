@@ -15,5 +15,6 @@ urlpatterns = patterns('',
     url(r'^$', 'tgn.views.test'),
     url(r'^profile/', 'tgn.views.profile'),                   
     url(r'^otherProfile/', 'tgn.views.otherProfile'),                   
+    url(r'^otherNonprofit/', 'tgn.views.otherNonprofit'),
     url(r'fbtest/', 'tgn.views.fbtest')
 )

@@ -19,3 +19,11 @@ angularTGN.controller('otherProfileController', function($scope) {
     $scope.skills = "surfer, singer, writer";
     $scope.affiliations = "The Farm Co, Sean's Outpost";   
 });
+
+angularTGN.controller('otherNonprofitController', function($scope) {
+    $scope.name = "Sean's Outpost"
+    $scope.bannerLink = "http://bitcoinacrossamerica.com/wp-content/uploads/2014/01/LogoOutpost-300x300.jpg"
+    $scope.description = "If you’re interested in helping the less fortunate among us, you are in the right place. If you love Bitcoin, so much the better. There’s no watchers here though. Everybody works.  If you really want to start a revolution, don’t pick up a gun.  Pick up a soup ladle."
+    $scope.address = "Pensacola, Florida"
+    $scope.website = "http://seansoutpost.com/"
+});

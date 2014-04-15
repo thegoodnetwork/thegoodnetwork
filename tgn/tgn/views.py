@@ -31,3 +31,5 @@ def profile(request):
 def otherProfile(request):
     return render_to_response('otherProfile.html');
 
+def otherNonprofit(request):
+    return render_to_response('otherNonprofit.html');
