@@ -187,7 +187,7 @@ def createNonprofit(request):
     '''
 
     # verify top-level objects
-    requiredFields = ['userId', 'profile']
+    requiredFields = ['userId', 'nonprofit']
     verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
@@ -221,10 +221,19 @@ def createNonprofit(request):
             address=nonprofit['address']
         )
         if isNewNonprofitCreated:
+
+            # get user nonprofit models
             account = Account.objects.get(userId=userId)
             userNonprofits = formatNonprofitsForUserModel(getUserNonprofits(
                 account))
             newNonprofitModel = getNonprofitModel(newNonprofit)
+
+            # add nonprofit relation
+            NonprofitRelation.objects.create(
+                nonprofitId=str(newNonprofit.pk),
+                userId=userId
+            )
+
         else:
             errorMessage = 'Failed to create nonprofit'
             return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -238,3 +247,97 @@ def createNonprofit(request):
     }
 
     return formattedResponse(data=userNonprofitModels)
+
+
+def postJobAsNonprofit(request):
+    '''
+    Required fields:
+        userId
+        nonproftId
+        jobToPost
+    '''
+
+    # verify top-level objects
+    requiredFields = ['userId', 'nonprofitId', 'jobToPost']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    # verify jobToPost object
+    try:
+        requiredFields = ['name', 'compensation', 'description', 'city',
+                          'state', 'titles', 'skills']
+        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+            'jobToPost']), requiredFields)
+        if verifiedRequestResponse['isMissingFields']:
+            errorMessage = verifiedRequestResponse['errorMessage']
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    except:
+        errorMessage = 'jobToPost was not a valid JSON'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+    nonprofitId = request['nonprofitId']
+    jobToPost = json.loads(request['jobToPost'])
+
+    if Account.objects.filter(userId=userId).exists():
+        if Nonprofit.objects.filter(pk=nonprofitId).exists():
+            if NonprofitRelation.objects.filter(userId=userId,
+                                                nonprofitId=nonprofitId).exists():
+                nonprofit = Nonprofit.objects.get(pk=nonprofitId)
+
+                newPostedJob, isNewPostedJobCreated = PostedJob.objects \
+                    .get_or_create(
+                    name=jobToPost['name'],
+                    compensation=jobToPost['compensation'],
+                    description=jobToPost['description'],
+                    city=jobToPost['city'],
+                    state=jobToPost['state'],
+                    nonprofit=nonprofit
+                )
+
+                if isNewPostedJobCreated:
+                    # add skills
+                    for skill in jobToPost['skills']:
+                        PostedJobSkill.objects.create(
+                            job=newPostedJob,
+                            skill=skill
+                        )
+
+                    for title in jobToPost['titles']:
+                        PostedJobTitle.objects.create(
+                            job=newPostedJob,
+                            title=title
+                        )
+
+                else:
+                    errorMessage = 'Failed to post job, job already exists'
+                    return formattedResponse(isError=True,
+                                             errorMessage=errorMessage)
+            else:
+                errorMessage = 'User is not an affiliate of the nonprofit'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+        else:
+            errorMessage = 'Unknown nonprofit'
+            return formattedResponse(isError=True,
+                                     errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    updatedNonprofitPostedJobModel = {
+        'nonprofitPostedJobs': formatJobs(
+            getNonprofitPostedJobs(nonprofit),
+            jobType=POSTED_JOB_TYPE
+        ),
+        'newPostedJob': formatJob(
+            newPostedJob,
+            jobType=POSTED_JOB_TYPE
+        )
+    }
+
+    return formattedResponse(data=updatedNonprofitPostedJobModel)

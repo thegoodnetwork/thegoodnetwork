@@ -14,7 +14,7 @@ class Account(models.Model):
 class Nonprofit(models.Model):
     name = models.CharField(max_length=200)
     mission = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=2000)
     website = models.CharField(max_length=200, default='')
     address = models.CharField(max_length=200, default='')
 
@@ -30,7 +30,7 @@ class NonprofitProfileImage(models.Model):
 
 #    image = models.ImageField(height_field=200, width_field=200)
 
-class NonprofitRelations(models.Model):
+class NonprofitRelation(models.Model):
     userId = models.CharField(max_length=200)
     nonprofitId = models.CharField(max_length=200)
 
