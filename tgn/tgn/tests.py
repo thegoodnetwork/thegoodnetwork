@@ -148,6 +148,7 @@ class testAllRequests(TestCase):
                                         'description', 'website', 'jobs',
                                         'affiliates']
         response = self.createNonprofit()
+        print getResponseObject(response)
         data = getResponseObject(response)['data']
         newNonprofit = data['newNonprofit']
 
