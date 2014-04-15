@@ -38,7 +38,7 @@ class NonprofitRelation(models.Model):
 class Job(models.Model):
     nonprofit = models.ForeignKey(Nonprofit)
     name = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=2000)
     compensation = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
     city = models.CharField(max_length=200)

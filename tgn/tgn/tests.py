@@ -187,9 +187,9 @@ class testAllRequests(TestCase):
         ]
 
         response = self.postJob()
-        print getResponseObject(response)
         data = getResponseObject(response)['data']
         newPostedJob = data['newPostedJob']
+        
         self.assertTrue(responseIsSuccess(response))
         self.assertTrue(hasFields(data, requiredFields))
         self.assertTrue(hasFields(newPostedJob, requiredFieldsInNewPostedJob))
