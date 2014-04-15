@@ -111,6 +111,16 @@ class testAllRequests(TestCase):
         )
         return postJobAsNonprofit(request)
 
+    def viewProfile(self):
+        self.updateProfile()
+        request = self.factory.post(
+            '/viewOtherProfile',
+            {
+                'userId': str(self.account.userId)
+            }
+        )
+        return viewOtherProfile(request)
+
     def testLoginWithFacebook(self):
         requiredFields = ['me']
         requiredFieldsInMe = ['userId', 'name', 'titles', 'aboutMe',
@@ -127,6 +137,7 @@ class testAllRequests(TestCase):
     def testUpdateProfile(self):
         requiredFields = ['aboutMe', 'titles', 'skills']
         response = self.updateProfile()
+
         data = getResponseObject(response)['data']
         account = Account.objects.get(userId=TEST_USER_ID)
         self.assertTrue(hasFields(data, requiredFields))
@@ -189,9 +200,43 @@ class testAllRequests(TestCase):
         response = self.postJob()
         data = getResponseObject(response)['data']
         newPostedJob = data['newPostedJob']
-        
+
         self.assertTrue(responseIsSuccess(response))
         self.assertTrue(hasFields(data, requiredFields))
         self.assertTrue(hasFields(newPostedJob, requiredFieldsInNewPostedJob))
         self.assertTrue(PostedJob.objects.filter(pk=newPostedJob['jobId'])
                         .exists())
+
+    def testViewProfile(self):
+        requiredFields = ['userToView']
+        requiredFieldsInUserToView = ['userId', 'name', 'aboutMe', 'titles',
+                                      'skills', 'jobs', 'nonprofits',
+                                      'profileImageUrl']
+
+        response = self.viewProfile()
+        data = getResponseObject(response)['data']
+        userToView = data['userToView']
+
+        self.assertTrue(responseIsSuccess(response))
+        self.assertTrue(hasFields(data, requiredFields))
+        self.assertTrue(hasFields(userToView, requiredFieldsInUserToView))
+        self.assertEqual(
+            TEST_ABOUT_ME,
+            userToView['aboutMe']
+        )
+        self.assertEqual(
+            'Demitri Nava',
+            userToView['name']
+        )
+        self.assertEqual(
+            TEST_USER_ID,
+            userToView['userId']
+        )
+        self.assertEqual(
+            len(TEST_USER_SKILLS),
+            len(userToView['skills'])
+        )
+        self.assertEqual(
+            len(TEST_USER_TITLES),
+            len(userToView['titles'])
+        )
