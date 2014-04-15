@@ -1,19 +1,34 @@
 {% extends "header.html" %}
 {% block topbar %}
 <nav id="main-top-navbar" class="navbar navbar-default" role="navigation">
-    <div id="mainLogo" class="mainNavItem navbarText">The Good Network</div>
-    <form class="col-xs-4">
-      <input class="form-control input-sm" type="search"/>
-      <span class="glyphicon glyphicon-search"></span>
-      <input type="submit" class="hidden"/>
-    </form>
-
-    <ul class="navbarText rightNavItem">Me
-    </ul>
-    <ul class="navbarText rightNavItem">My jobs
-    </ul>
-    <ul class="navbarText rightNavItem">My nonprofits
-    </ul>
+  <div id="mainLogo" class="mainNavItem navbarText">The Good Network</div>
+  <form class="col-xs-4">
+    <input class="form-control input-sm" type="search"/>
+    <span class="glyphicon glyphicon-search"></span>
+    <input type="submit" class="hidden"/>
+  </form>
+  <a href="/profile" class="navbarText rightNavItem">Me
+  </a>
+  <div class="btn-group navbarText rightNavItem">
+    <span class="dropdown-toggle" data-toggle="dropdown">My Jobs <span class="caret"></span>
+    </span>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">Manage Sean's Outpost</a></li>
+      <li><a href="#">Fundraiser for CSTUY</a></li>
+      <li role="presentation" class="divider"></li>
+      <li><a href="#">Find a Job</a></li>
+    </ul>  
+  </div>
+  <div class="btn-group navbarText rightNavItem">
+    <span class="dropdown-toggle" data-toggle="dropdown">My nonprofits <span class="caret"></span>
+    </span>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">CStuy</a></li>
+      <li><a href="#">The Good Network</a></li>
+      <li role="presentation" class="divider"></li>
+      <li><a href="#">Create New Nonprofit</a></li>
+    </ul>  
+  </div>
 </nav>
 {% endblock %}
 
