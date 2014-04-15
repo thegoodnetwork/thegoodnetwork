@@ -148,7 +148,7 @@ class testAllRequests(TestCase):
                                         'description', 'website', 'jobs',
                                         'affiliates']
         response = self.createNonprofit()
-        print getResponseObject(response)
+
         data = getResponseObject(response)['data']
         newNonprofit = data['newNonprofit']
 
@@ -185,6 +185,7 @@ class testAllRequests(TestCase):
         ]
 
         response = self.postJob()
+        print getResponseObject(response)
         data = getResponseObject(response)['data']
         newPostedJob = data['newPostedJob']
         self.assertTrue(responseIsSuccess(response))
