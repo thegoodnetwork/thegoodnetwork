@@ -33,7 +33,7 @@ def loginWithFacebook(request):
     '''
     requiredFields = ['accessToken']
 
-    verifiedRequestResponse = verifyRequest(request, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -104,11 +104,24 @@ def updateProfile(request):
         profile
 
     '''
-    requiredFields = ['userId', 'profile']
 
-    verifiedRequestResponse = verifyRequest(request, requiredFields)
+    # verify top-level objects
+    requiredFields = ['userId', 'profile']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    # verify object nested in profile
+    try:
+        requiredFields = ['aboutMe', 'titles', 'skills']
+        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+            'profile']), requiredFields)
+        if verifiedRequestResponse['isMissingFields']:
+            errorMessage = verifiedRequestResponse['errorMessage']
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    except:
+        errorMessage = 'profile was not a valid JSON'
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
     request = request.POST
@@ -141,7 +154,7 @@ def updateProfile(request):
         # if title not in the new titles list, delete it
         currentTitles = getUserTitles(account)
         for titleObject in currentTitles:
-            title = str(title.title)
+            title = str(titleObject.title)
             if title in titles:
                 titles.remove(title)
             else:
@@ -162,3 +175,66 @@ def updateProfile(request):
     }
 
     return formattedResponse(data=updatedProfileModel)
+
+
+def createNonprofit(request):
+    '''
+    Required fields:
+
+        userId
+        nonprofit
+
+    '''
+
+    # verify top-level objects
+    requiredFields = ['userId', 'profile']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    # verify nonprofit object
+    try:
+        requiredFields = ['name', 'mission', 'description', 'website',
+                          'address']
+        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+            'nonprofit']), requiredFields)
+        if verifiedRequestResponse['isMissingFields']:
+            errorMessage = verifiedRequestResponse['errorMessage']
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    except:
+        errorMessage = 'nonprofit was not a valid JSON'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+    nonprofit = json.loads(request['nonprofit'])
+
+    if Account.objects.filter(userId=userId).exists():
+
+        newNonprofit, isNewNonprofitCreated = Nonprofit.objects.get_or_create(
+            name=nonprofit['name'],
+            description=nonprofit['description'],
+            mission=nonprofit['mission'],
+            website=nonprofit['website'],
+            address=nonprofit['address']
+        )
+        if isNewNonprofitCreated:
+            account = Account.objects.get(userId=userId)
+            userNonprofits = formatNonprofitsForUserModel(getUserNonprofits(
+                account))
+            newNonprofitModel = getNonprofitModel(newNonprofit)
+        else:
+            errorMessage = 'Failed to create nonprofit'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    userNonprofitModels = {
+        'myNonprofits': userNonprofits,
+        'newNonprofit': newNonprofitModel
+    }
+
+    return formattedResponse(data=userNonprofitModels)

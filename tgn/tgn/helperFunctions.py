@@ -13,8 +13,7 @@ CURRENT_JOB_TYPE = 'currentJob'
 COMPLETED_JOB_TYPE = 'completedJob'
 
 
-def verifyRequest(request, requiredFields):
-    params = request.POST
+def verifyRequest(params, requiredFields):
     isMissingFields = False
     missingFields = []
     errorMessage = None
@@ -29,7 +28,6 @@ def verifyRequest(request, requiredFields):
     return {
         'isMissingFields': isMissingFields,
         'errorMessage': errorMessage,
-        'requestAsPost': request.POST
     }
 
 
@@ -78,6 +76,13 @@ def formatSkills(skills):
 
 def formatTitles(titles):
     return map(lambda titleObject: str(titleObject.title), titles)
+
+
+def formatNonprofitsForUserModel(nonprofits):
+    return map(lambda nonprofitObject: {
+        'nonprofitId': str(nonprofitObject.pk),
+        'name': str(nonprofitObject.name),
+        'mission': str(nonprofitObject.mission)}, nonprofits)
 
 
 def getUserProfileImageUrl(account):
@@ -168,12 +173,9 @@ def getUserModel(account):
     skills = formatSkills(getUserSkills(account))
 
     # get nonprofits
-    unformattedUserNonprofits = getUserNonprofits(account)
-    formattedUserNonprofits = map(lambda nonprofitObject: {
-        'nonprofitId': str(nonprofitObject.pk),
-        'name': str(nonprofitObject.name),
-        'mission': str(nonprofitObject.mission)},
-                                  unformattedUserNonprofits)
+    formattedUserNonprofits = formatNonprofitsForUserModel(
+        getUserNonprofits(account)
+    )
 
     userModel = {
         'userId': userId,
