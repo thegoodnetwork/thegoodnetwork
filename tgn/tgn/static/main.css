@@ -92,3 +92,20 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.topNonprofitButton {
+    margin-top: 22px;
+}
+
+.nonprofitDescript {
+    display: inline-block;
+    margin-top: 23px;
+}
+
+.dropdown-toggle:hover {
+    cursor: pointer;
+}
+
+#meLink:hover {
+    color: white;
+}

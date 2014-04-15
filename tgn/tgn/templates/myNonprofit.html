@@ -1,19 +1,11 @@
 {% extends "loggedIn.html" %}
 {% block content %}
 {% verbatim %} 
-<div class="container" data-ng-app="angularTGN" data-ng-controller="otherNonprofitController">
+<div class="container" data-ng-app="angularTGN" data-ng-controller="myNonprofitController">
   <div class="row center">
-    <div class="col-sm-6">
-      <h2>
-	{{name}}
-      </h2>
-    </div>
-    <div class="col-sm-6">
-      <button class="btn btn-lrg btn-primary topNonprofitButton">
-	Request Affiliation</button>
-      <button class="btn btn-lrg btn-primary topNonprofitButton" data-toggle="modal" data-target="#sendMessageModal">
-	Contact Us</button>
-    </div>
+    <h2>
+      {{name}}
+    </h2>
   </div>
   <hr>
   <div class="row center">
