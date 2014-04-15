@@ -39,3 +39,6 @@ def myNonprofit(request):
 
 def myJob(request):
     return render_to_response('myJob.html');
+
+def searchResults(request):
+    return render_to_response('searchResults.html');
