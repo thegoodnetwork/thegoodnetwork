@@ -5,7 +5,7 @@ from django.test.client import RequestFactory
 import json
 
 TEST_USER_ID = '524156482'
-TEST_ACCESS_TOKEN = 'CAAUOQD9mzrYBAIPI35f6Fjv95pXQ1bHqDgujZAz16aeFxZCcmqHZB58f7dw2hW7P3xE74lj9WvzLIXvNPncxfvleyWpfpKWVdyBSeMHXf92HzB9dWEl28uqXZCL7ItnQUQEdyhTARJoigMyqiXSkXAcUYbQiRKT5PwmOYlhAsfruzR5mj53qxu6I1zFBVgYZD'
+TEST_ACCESS_TOKEN = 'CAAUOQD9mzrYBABdluvUoC59g4H76pNa7QBbncfrmVaoE5bqliLhGCzbrWDZBmNxIu0ZC7EaZBKMu9QT6H83uyGMx8lKDJxnGx4LtUq3bYoamtNTiZATRbCIoglSZAZAROzW8p1pf1SgSKmP6zRfPwdd3VeLZBr2AZCoEDUjJ1zvpCamYhIIECl08s6J8fyTDIdXZASMEEcFiTbQZDZD'
 
 TEST_USER_ID_2 = '570053410'
 TEST_ACCESS_TOKEN_2 = ''
@@ -18,7 +18,7 @@ TEST_NONPROFIT = {
     'name': 'CStuy',
     'mission': 'Help underprivelaged students get CS opportunities',
     'description': ' Having dealt with the frustrations of working within the system to try to bring more opportunities to more youngsters and inspired by their alumni community, Mike, Sam, and JonAlf, have joined with Jennifer Hsu and Artie Jordan along with other members of the Stuy CS Community to form CSTUY, Computer Science and Technology for Urban Youth. An organization dedicated to bringing computer science and '
-                   'technology related educational opportunities to high school and middle school students. ',
+                   'technology related educational opportunities to high school and middle school students.',
     'address': 'Manhattan, New York',
     'website': 'https://cstuy.org'
 }
@@ -53,6 +53,22 @@ def hasFields(data, fields):
             missingFields.append(field)
 
     return True if not missingFields else missingFields
+
+
+def areEqualJobs(job1, job2):
+    return (job1['name'] == job2['name']) and (job1['description'] == job2[
+        'description']) and (job1['compensation'] == job2['compensation']) \
+               and (job1['city'] == job2['city']) and (job1['state'] == job2[
+        'state']) and (len(job1['skills']) == len(job2['skills'])) and (len(
+        job1['titles']) == len(job2['titles']))
+
+
+def areEqualNonprofits(nonprofit1, nonprofit2):
+    return (nonprofit1['name'] == nonprofit2['name']) and \
+           (nonprofit1['description'] == nonprofit2['description']) and \
+           (nonprofit1['mission'] == nonprofit2['mission']) and \
+           (nonprofit1['website'] == nonprofit2['website']) and \
+           (nonprofit1['address'] == nonprofit2['address'])
 
 
 class testAllRequests(TestCase):
@@ -111,6 +127,40 @@ class testAllRequests(TestCase):
         )
         return postJobAsNonprofit(request)
 
+    def viewProfile(self):
+        self.updateProfile()
+        request = self.factory.post(
+            '/viewOtherProfile',
+            {
+                'userId': str(self.account.userId)
+            }
+        )
+        return viewOtherProfile(request)
+
+    def viewJob(self):
+        self.postJob()
+        job = getNonprofitPostedJobs(Nonprofit.objects.get(
+            name=TEST_NONPROFIT['name']))[0]
+        request = self.factory.post(
+            '/viewJob',
+            {
+                'jobId': str(job.pk),
+                'jobType': POSTED_JOB_TYPE
+            }
+        )
+        return viewJob(request)
+
+    def viewNonprofit(self):
+        self.postJob()
+        nonprofit = Nonprofit.objects.get(name=TEST_NONPROFIT['name'])
+        request = self.factory.post(
+            'viewNonprofit',
+            {
+                'nonprofitId': str(nonprofit.pk)
+            }
+        )
+        return viewNonprofit(request)
+
     def testLoginWithFacebook(self):
         requiredFields = ['me']
         requiredFieldsInMe = ['userId', 'name', 'titles', 'aboutMe',
@@ -127,6 +177,7 @@ class testAllRequests(TestCase):
     def testUpdateProfile(self):
         requiredFields = ['aboutMe', 'titles', 'skills']
         response = self.updateProfile()
+
         data = getResponseObject(response)['data']
         account = Account.objects.get(userId=TEST_USER_ID)
         self.assertTrue(hasFields(data, requiredFields))
@@ -189,9 +240,92 @@ class testAllRequests(TestCase):
         response = self.postJob()
         data = getResponseObject(response)['data']
         newPostedJob = data['newPostedJob']
-        
+
         self.assertTrue(responseIsSuccess(response))
         self.assertTrue(hasFields(data, requiredFields))
         self.assertTrue(hasFields(newPostedJob, requiredFieldsInNewPostedJob))
         self.assertTrue(PostedJob.objects.filter(pk=newPostedJob['jobId'])
                         .exists())
+
+    def testViewProfile(self):
+        requiredFields = ['userToView']
+        requiredFieldsInUserToView = ['userId', 'name', 'aboutMe', 'titles',
+                                      'skills', 'jobs', 'nonprofits',
+                                      'profileImageUrl']
+
+        response = self.viewProfile()
+        data = getResponseObject(response)['data']
+        userToView = data['userToView']
+
+        self.assertTrue(responseIsSuccess(response))
+        self.assertTrue(hasFields(data, requiredFields))
+        self.assertTrue(hasFields(userToView, requiredFieldsInUserToView))
+        self.assertEqual(
+            TEST_ABOUT_ME,
+            userToView['aboutMe']
+        )
+        self.assertEqual(
+            'Demitri Nava',
+            userToView['name']
+        )
+        self.assertEqual(
+            TEST_USER_ID,
+            userToView['userId']
+        )
+        self.assertEqual(
+            len(TEST_USER_SKILLS),
+            len(userToView['skills'])
+        )
+        self.assertEqual(
+            len(TEST_USER_TITLES),
+            len(userToView['titles'])
+        )
+
+    def testViewJob(self):
+        requiredFields = ['jobToView']
+        requiredFieldsInJobToView = ['jobId', 'nonprofitName', 'nonprofitId',
+                                     'name', 'description', 'compensation',
+                                     'city', 'state', 'titles', 'skills']
+
+        response = self.viewJob()
+        self.assertTrue(responseIsSuccess(response))
+
+        data = getResponseObject(response)['data']
+        jobToView = data['jobToView']
+
+        self.assertTrue(hasFields(data, requiredFields))
+        self.assertTrue(hasFields(jobToView, requiredFieldsInJobToView))
+        self.assertTrue(
+            areEqualJobs(
+                TEST_JOB,
+                jobToView
+            )
+        )
+        self.assertEqual(
+            TEST_NONPROFIT['name'],
+            jobToView['nonprofitName']
+        )
+
+
+    def testViewNonprofit(self):
+        requiredFields = ['nonprofitToView']
+        requiredFieldsInNonprofitToView = ['nonprofitId', 'name',
+                                           'affiliates', 'mission',
+                                           'description', 'jobs', 'website',
+                                           'address']
+
+        response = self.viewNonprofit()
+        self.assertTrue(responseIsSuccess(response))
+
+        data = getResponseObject(response)['data']
+        nonprofitToView = data['nonprofitToView']
+
+        self.assertTrue(hasFields(data, requiredFields))
+        self.assertTrue(
+            hasFields(nonprofitToView, requiredFieldsInNonprofitToView))
+        self.assertTrue(
+            areEqualNonprofits(
+                TEST_NONPROFIT,
+                nonprofitToView
+            )
+        )

@@ -19,5 +19,8 @@ urlpatterns = patterns('',
     url(r'fbtest/', 'tgn.views.fbtest'),
     url(r'^tgn/api/loginWithFacebook', 'tgn.api.loginWithFacebook'),
     url(r'^tgn/api/updateProfile', 'tgn.api.updateProfile'),
-    url(r'^tgn/api/createNonprofit', 'tgn.api.createNonprofit')
+    url(r'^tgn/api/createNonprofit', 'tgn.api.createNonprofit'),
+    url(r'^tgn/api/viewOtherProfile', 'tgn.api.viewOtherProfile'),
+    url(r'^tgn/api/viewJob', 'tgn.api.viewJob'),
+    url(r'^tgn/api/viewNonprofit', 'tgn.api.viewNonprofit')
 )
