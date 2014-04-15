@@ -50,7 +50,7 @@ def loginWithFacebook(request):
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
     userName = userInfo['name']
-    userId = userInfo['userId']
+    userId = userInfo['id']
 
     account, isAccountCreated = Account.objects.get_or_create(
         userId=userId,
@@ -60,7 +60,10 @@ def loginWithFacebook(request):
     if isAccountCreated:
         titles = []
         aboutMe = ''
-        jobs = {}
+        jobs = {
+            'currentJobsAsEmployee': [],
+            'completedJobsAsEmployee': []
+        }
         nonprofits = []
         skills = []
         profileImageUrl = userInfo['picture']['data']['url']
@@ -91,6 +94,7 @@ def loginWithFacebook(request):
     }
 
     return formattedResponse(data=loginWithFacebookReturn)
+
 
 def updateProfile(request):
     '''

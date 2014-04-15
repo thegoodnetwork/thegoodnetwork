@@ -58,11 +58,11 @@ class testAllRequests(TestCase):
             '/updateProfile',
             {
                 'userId': TEST_USER_ID,
-                'profile': {
+                'profile': json.dumps({
                     'aboutMe': TEST_ABOUT_ME,
                     'titles': TEST_USER_TITLES,
                     'skills': TEST_USER_SKILLS
-                }
+                })
             }
         )
         return updateProfile(request)
