@@ -121,6 +121,19 @@ class testAllRequests(TestCase):
         )
         return viewOtherProfile(request)
 
+    def viewJob(self):
+        self.postJob()
+        job = getNonprofitPostedJobs(Nonprofit.objects.get(
+            name=TEST_NONPROFIT['name']))[0]
+        request = self.factory.post(
+            '/viewJob',
+            {
+                'jobId': str(job.pk),
+                'jobType': POSTED_JOB_TYPE
+            }
+        )
+        return viewJob(request)
+
     def testLoginWithFacebook(self):
         requiredFields = ['me']
         requiredFieldsInMe = ['userId', 'name', 'titles', 'aboutMe',
@@ -239,4 +252,51 @@ class testAllRequests(TestCase):
         self.assertEqual(
             len(TEST_USER_TITLES),
             len(userToView['titles'])
+        )
+
+    def testViewJob(self):
+        requiredFields = ['jobToView']
+        requiredFieldsInJobToView = ['jobId', 'nonprofitName', 'nonprofitId',
+                                     'name', 'description', 'compensation',
+                                     'city', 'state', 'titles', 'skills']
+
+        response = self.viewJob()
+        self.assertTrue(responseIsSuccess(response))
+
+        data = getResponseObject(response)['data']
+        jobToView = data['jobToView']
+
+        self.assertTrue(hasFields(data, requiredFields))
+        self.assertTrue(hasFields(jobToView, requiredFieldsInJobToView))
+        self.assertEqual(
+            TEST_JOB['name'],
+            jobToView['name']
+        )
+        self.assertEqual(
+            TEST_JOB['description'],
+            jobToView['description']
+        )
+        self.assertEqual(
+            TEST_JOB['compensation'],
+            jobToView['compensation']
+        )
+        self.assertEqual(
+            TEST_JOB['city'],
+            jobToView['city']
+        )
+        self.assertEqual(
+            TEST_JOB['state'],
+            jobToView['state']
+        )
+        self.assertEqual(
+            TEST_NONPROFIT['name'],
+            jobToView['nonprofitName']
+        )
+        self.assertEqual(
+            len(TEST_JOB['skills']),
+            len(jobToView['skills'])
+        )
+        self.assertEqual(
+            len(TEST_JOB['titles']),
+            len(jobToView['titles'])
         )

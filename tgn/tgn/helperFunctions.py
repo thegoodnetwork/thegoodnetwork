@@ -40,9 +40,10 @@ def formatJob(job, jobType):
         'compensation': str(job.compensation),
         'city': str(job.city),
         'state': str(job.state),
+        'name': str(job.name),
         'jobId': str(job.pk),
         'timeCreated': str(job.timeCreated),
-        'skills': formatSkills(getJobSkills(job, jobType=jobType))
+        'skills': formatSkills(getJobSkills(job, jobType=jobType)),
     }
 
     if jobType != POSTED_JOB_TYPE:
