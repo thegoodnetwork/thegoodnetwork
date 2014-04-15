@@ -29,7 +29,9 @@ TEST_JOB = {
                    'of a dinner for our annual fundraising event.',
     'compensation': '20/hr',
     'state': 'NY',
-    'city': 'New York City'
+    'city': 'New York City',
+    'titles': ['Event planner', 'Chef'],
+    'skills': ['Event planning', 'Cooking', 'Catering']
 }
 
 
