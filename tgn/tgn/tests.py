@@ -18,7 +18,7 @@ TEST_NONPROFIT = {
     'name': 'CStuy',
     'mission': 'Help underprivelaged students get CS opportunities',
     'description': ' Having dealt with the frustrations of working within the system to try to bring more opportunities to more youngsters and inspired by their alumni community, Mike, Sam, and JonAlf, have joined with Jennifer Hsu and Artie Jordan along with other members of the Stuy CS Community to form CSTUY, Computer Science and Technology for Urban Youth. An organization dedicated to bringing computer science and '
-                   'technology related educational opportunities to high school and middle school students. ',
+                   'technology related educational opportunities to high school and middle school students.',
     'address': 'Manhattan, New York',
     'website': 'https://cstuy.org'
 }
@@ -53,6 +53,22 @@ def hasFields(data, fields):
             missingFields.append(field)
 
     return True if not missingFields else missingFields
+
+
+def areEqualJobs(job1, job2):
+    return (job1['name'] == job2['name']) and (job1['description'] == job2[
+        'description']) and (job1['compensation'] == job2['compensation']) \
+               and (job1['city'] == job2['city']) and (job1['state'] == job2[
+        'state']) and (len(job1['skills']) == len(job2['skills'])) and (len(
+        job1['titles']) == len(job2['titles']))
+
+
+def areEqualNonprofits(nonprofit1, nonprofit2):
+    return (nonprofit1['name'] == nonprofit2['name']) and \
+           (nonprofit1['description'] == nonprofit2['description']) and \
+           (nonprofit1['mission'] == nonprofit2['mission']) and \
+           (nonprofit1['website'] == nonprofit2['website']) and \
+           (nonprofit1['address'] == nonprofit2['address'])
 
 
 class testAllRequests(TestCase):
@@ -133,6 +149,17 @@ class testAllRequests(TestCase):
             }
         )
         return viewJob(request)
+
+    def viewNonprofit(self):
+        self.postJob()
+        nonprofit = Nonprofit.objects.get(name=TEST_NONPROFIT['name'])
+        request = self.factory.post(
+            'viewNonprofit',
+            {
+                'nonprofitId': str(nonprofit.pk)
+            }
+        )
+        return viewNonprofit(request)
 
     def testLoginWithFacebook(self):
         requiredFields = ['me']
@@ -268,35 +295,37 @@ class testAllRequests(TestCase):
 
         self.assertTrue(hasFields(data, requiredFields))
         self.assertTrue(hasFields(jobToView, requiredFieldsInJobToView))
-        self.assertEqual(
-            TEST_JOB['name'],
-            jobToView['name']
-        )
-        self.assertEqual(
-            TEST_JOB['description'],
-            jobToView['description']
-        )
-        self.assertEqual(
-            TEST_JOB['compensation'],
-            jobToView['compensation']
-        )
-        self.assertEqual(
-            TEST_JOB['city'],
-            jobToView['city']
-        )
-        self.assertEqual(
-            TEST_JOB['state'],
-            jobToView['state']
+        self.assertTrue(
+            areEqualJobs(
+                TEST_JOB,
+                jobToView
+            )
         )
         self.assertEqual(
             TEST_NONPROFIT['name'],
             jobToView['nonprofitName']
         )
-        self.assertEqual(
-            len(TEST_JOB['skills']),
-            len(jobToView['skills'])
-        )
-        self.assertEqual(
-            len(TEST_JOB['titles']),
-            len(jobToView['titles'])
+
+
+    def testViewNonprofit(self):
+        requiredFields = ['nonprofitToView']
+        requiredFieldsInNonprofitToView = ['nonprofitId', 'name',
+                                           'affiliates', 'mission',
+                                           'description', 'jobs', 'website',
+                                           'address']
+
+        response = self.viewNonprofit()
+        self.assertTrue(responseIsSuccess(response))
+
+        data = getResponseObject(response)['data']
+        nonprofitToView = data['nonprofitToView']
+
+        self.assertTrue(hasFields(data, requiredFields))
+        self.assertTrue(
+            hasFields(nonprofitToView, requiredFieldsInNonprofitToView))
+        self.assertTrue(
+            areEqualNonprofits(
+                TEST_NONPROFIT,
+                nonprofitToView
+            )
         )
