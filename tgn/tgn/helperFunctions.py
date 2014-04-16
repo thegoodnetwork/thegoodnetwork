@@ -338,7 +338,7 @@ def getNonprofitModel(nonprofit):
 
     # get the nonprofit affiliates
 
-    nonprofitAffiliates = formatUsersForAfilliationOrApplications(
+    nonprofitAffiliates = formatUsersForAffiliationOrApplications(
         getNonprofitAffiliates(nonprofit))
 
     nonprofitModel = {
