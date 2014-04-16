@@ -4,6 +4,143 @@
 <div class="container" data-ng-app="angularTGN">
   <div class="row" data-ng-controller="mySearchResults">
   </div>
+  <div class="row resultTitle">
+    <h3>Jobs</h3>
+    <hr>
+  </div>
+  <!---List of Jobs !-->
+  <table id="jobListTable">
+    <tr>
+      <th>Title</th>
+      <th>Nonprofit</th>
+      <th>Compensation</th>
+      <th>Description</th>
+      <th>Affiliate</th>
+    </tr>
+    <tr>
+      <td>Musician</td>
+      <td>Make a Wish</td>
+      <td>None</td>
+      <td>Come jam out at the Mount Sinai hospital. Play whatever you like as long as it's loud and awesome!</td>
+      <td style="width: 200px;">
+	<button class="btn btn-primary">Apply</button>
+	<button class="btn btn-primary">View</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Chef</td>
+      <td>Sean's Outpost</td>
+      <td>$250 + Ingredients</td>
+      <td>Come cook a delicious meal on May 5th for everyone at Sean's outpost. We'll reimburse you for any food you buy and compensate you for your time. Everyone here is friendly and a blast to work with.</td>
+      <td style="width: 200px;">
+	<button class="btn btn-primary">Apply</button>
+	<button class="btn btn-primary">View</button>
+      </td>
+    </tr>
+  </table>
+  <div class="row resultTitle">
+    <h3>People</h3>
+    <hr>
+  </div>
+  <table id="peopleListTable">
+    <tr>
+      <th>
+	Person
+      </th>
+      <th>
+	Skills
+      </th>
+      <th>
+	Resume
+      </th>
+      <th>
+	Affiliate
+      </th>
+    </tr>
+    <tr>
+      <td>
+	<div class="nameInTable">Chris Cristoplas</div>
+	<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c41.41.515.515/s160x160/525082_894169819427_1029426032_n.jpg">
+      </td>
+      <td>
+	Blogger, Facebook Manager, Admissions
+      </td>
+      <td>
+	Unavailable
+      </td>
+      <td>
+	<form action="/otherProfile">
+	<button class="btn btn-primary">View Profile</button>
+	<input type="submit" class="hidden">
+	</form>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<div class="nameInTable">Joe Schmo</div>
+	<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c50.50.621.621/s160x160/1017022_10151920195433185_1534454200_n.jpg">
+      </td>
+      <td>
+	Product Manager, Writer, Trumpet Player
+      </td>
+      <td>
+	Unavailable
+      </td>
+      <td>
+	<form action="/otherProfile">
+	<button class="btn btn-primary">View Profile</button>
+	<input type="submit" class="hidden">
+	</form>
+      </td>
+    </tr>
+  </table>
+  <!-- List of People !-->
+  <div class="row resultTitle">
+    <h3>Nonprofits</h3>
+    <hr>
+  </div>
+  <table id="nonprofitsListTable">
+    <tr>
+      <th>
+	Nonprofit
+      </th>
+      <th>
+	Description
+      </th>
+      <th>
+	Affiliate
+      </th>
+    </tr>
+    <tr>
+      <td>
+	<img class="imageInTable" src="http://officialrobby.files.wordpress.com/2013/11/makeawish.jpg">
+      </td>
+      <td>
+	Make-A-Wish grants the wish of a child diagnosed with a life-threatening medical condition in the United States and its territories, on average, every 38 minutes. We believe that a wish experience can be a game-changer. This one belief guides us. It inspires us to grant wishes that change the lives of the kids we serve.
+      </td>
+      <td>
+	<form action="/otherNonprofit">
+	<button class="btn btn-primary">View Page</button>
+	<input type="submit" class="hidden">
+	</form>
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<img class="imageInTable" src="http://bitcoinacrossamerica.com/wp-content/uploads/2014/01/LogoOutpost-300x300.jpg">
+      </td>
+      <td>
+	If you’re interested in helping the less fortunate among us, you are in the right place. If you love Bitcoin, so much the better. There’s no watchers here though. Everybody works.  If you really want to start a revolution, don’t pick up a gun.  Pick up a soup ladle.
+      </td>
+      <td>
+	<form action="/otherNonprofit">
+	<button class="btn btn-primary">View Page</button>
+	<input type="submit" class="hidden">
+	</form>
+      </td>
+    </tr>
+  </table>
+  <!-- List of nonprofits !-->
 </div>
 </body>
 </html>

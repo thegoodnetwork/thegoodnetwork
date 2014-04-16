@@ -2,26 +2,27 @@ var angularTGN = angular.module('angularTGN', []);
 angularTGN.controller('myProfileController', function($scope) {
   
     $scope.profileLink =
-	"https://scontent-a.xx.fbcdn.net/hphotos-frc3/t1.0-9/1455960_10151916421433411_267410600_n.jpg";
-    $scope.name = "Will Haack";
-    $scope.aboutMe = "I am a super bad programmer as evident by the quality of the site you are currently looking at. This is some text that lets the page look a little more even. Without this text, the left side of the page would look like it had a lot more content than this side of the page. Some say it still looks like that even with all this text. ";
-    $scope.resumeLink = "www.google.com";
-    $scope.skills = "programmer, dancer, runner"
-    $scope.affiliations = "The Good Network, CSTUY"
+"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/t1.0-1/c78.22.280.280/s160x160/230474_5520562657_7481_n.jpg";
+    $scope.name = "Bob Shuman";
+    $scope.aboutMe = "I'm Bob. I like to cook, jam out on my guitar, and tell people what to do. Here's a little text to make the right side of the screen look like it has as much detail as the left side of the screen. I'm going to keep writing stuff here so that there's still content to read. One of my favorite things to cook is apple pie. Apple pie is absolutely delicious when done right.";
+    $scope.resumeLink = "http://jobsearch.about.com/od/sampleresumes/l/blresume3.htm";
+    $scope.skills = "chef, guitar, management";
+    $scope.affiliations = "CStuy"
 });
 
 angularTGN.controller('otherProfileController', function($scope) {
     $scope.profileLink =
-	"https://scontent-b.xx.fbcdn.net/hphotos-prn2/t1.0-9/1780688_10151958313376483_441748523_n.jpg"
-    $scope.name = "Demitri Nava";
-    $scope.aboutMe = "I am a half-decent programmer as evident by the quality of the site you are currently looking at. This is some text that lets the page look a little more even. Without this text, the left side of the page would look like it had a lot more content than this side of the page. Some say it still looks like that even with all this text. ";
-    $scope.resumeLink = "www.yahoo.com";
-    $scope.skills = "surfer, singer, writer";
+	"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c41.41.515.515/s160x160/525082_894169819427_1029426032_n.jpg";
+    $scope.name = "Chris Cristoplas";
+    $scope.aboutMe = "I'm an admissions officer at MIT who is super friendly and likes to hang out on the Facebook group where admitted MIT students chill. I am always looking to do great work and help out whenever possible, so if you have a job you think I might like then please let me know. Let's make a good connection!";
+    $scope.resumeLink = "www.facebook.com";
+    $scope.skills = "admissions officer, social media manager";
     $scope.affiliations = "The Farm Co, Sean's Outpost";   
 });
 
 angularTGN.controller('otherNonprofitController', function($scope) {
     $scope.name = "Sean's Outpost";
+    $scope.mission = "Feed Everyone.";
     $scope.bannerLink = "http://bitcoinacrossamerica.com/wp-content/uploads/2014/01/LogoOutpost-300x300.jpg";
     $scope.description = "If you’re interested in helping the less fortunate among us, you are in the right place. If you love Bitcoin, so much the better. There’s no watchers here though. Everybody works.  If you really want to start a revolution, don’t pick up a gun.  Pick up a soup ladle.";
     $scope.address = "Pensacola, Florida";
@@ -29,11 +30,12 @@ angularTGN.controller('otherNonprofitController', function($scope) {
 });
 
 angularTGN.controller('myNonprofitController', function($scope) {
-    $scope.name = "CStuy";
-    $scope.bannerLink = "https://cstuy.org/sites/c.drupal.cstuy.org/files/styles/hp_slideshow/public/field/image/slideshow/cstuy-hero2.jpg";
-    $scope.description = "Having dealt with the frustrations of working within the system to try to bring more opportunities to more youngsters and inspired by their alumni community, Mike, Sam, and JonAlf, have joined with Jennifer Hsu and Artie Jordan along with other members of the Stuy CS Community to form CSTUY, Computer Science and Technology for Urban Youth. An organization dedicated to bringing computer science and technology related educational opportunities to high school and middle school students."
-    $scope.address = "Manhattan, New York";
-    $scope.website = "https://cstuy.org";
+    $scope.name = "Cash Music";
+    $scope.mission = "Help Musicians";
+    $scope.bannerLink = "http://www.donewaiting.com/wp-content/uploads/2012/03/CashMusic-Logo.png";
+    $scope.description = "We make free, open-source tools that connect musicians to their audience. We work with musicians on outreach and learning efforts for musicians. It's our nonprofit mission to build a sustainable future for music.";
+    $scope.address = "Nashville, Tennessee";
+    $scope.website = "http://cashmusic.org/";
 });
 
 
@@ -46,9 +48,6 @@ angularTGN.controller('myJobController', function($scope) {
 });
 
 angularTGN.controller('mySearchResults', function($scope) {
-    $scope.jobTitle = "Manage Sean's Outpost Event";
-    $scope.description = "Sean's Outpost will be having a fundraising event on May 1, 2014. Your job is to help manage the event staff to make sure everything runs smoothly."
-    $scope.status = "Incomplete";
-    $scope.compensation = "$150";
+
 
 });
