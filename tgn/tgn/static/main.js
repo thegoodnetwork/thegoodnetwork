@@ -30,12 +30,12 @@ angularTGN.controller('otherNonprofitController', function($scope) {
 });
 
 angularTGN.controller('myNonprofitController', function($scope) {
-    $scope.name = "Cash Music";
-    $scope.mission = "Help Musicians";
-    $scope.bannerLink = "http://www.donewaiting.com/wp-content/uploads/2012/03/CashMusic-Logo.png";
-    $scope.description = "We make free, open-source tools that connect musicians to their audience. We work with musicians on outreach and learning efforts for musicians. It's our nonprofit mission to build a sustainable future for music.";
-    $scope.address = "Nashville, Tennessee";
-    $scope.website = "http://cashmusic.org/";
+    $scope.name = "Finding Refuge";
+    $scope.mission = "End child slavery in Ghana.";
+    $scope.bannerLink = "http://www.findingrefuge.com/images/logo.png";
+    $scope.description = "Create a global awareness of child slavery in Ghana by establishing university and regional organizations that educate the public on the existence of slavery. Empower the mothers within the targeted fishing villages by providing education and training for sustainable jobs.";
+    $scope.address = "Boston, MA";
+    $scope.website = "http://findingrefuge.com/";
 });
 
 

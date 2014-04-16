@@ -118,6 +118,24 @@
     margin-left: 30px;
 }
 
+.jobPost {
+    height: 300px;
+    width: 400px;
+    margin-left: 20px;
+}
+
+.myJobPost {
+    height: 200px;
+    width: 400px;
+    margin-left: 20px;
+}
+
+.jobApply {
+    position: absolute;
+    top: 245px;
+    left: 155px;
+}
+
 #peopleListTable {
     margin-left: 30px;
 }
