@@ -1,6 +1,7 @@
 {% extends "loggedIn.html" %}
 {% block content %}
 {% verbatim %}
+<!--Test!-->
 <div class="container" data-ng-app="angularTGN">
     <div class="row resultTitle">
         <h3>Jobs</h3>
@@ -13,9 +14,11 @@
 
         <tr >
             <td class="imageTd">
+	      <a href="/otherNonprofit">
                 <img class="imageInTable"
                      src="{{nonprofit.bannerLink}}"
                      height="160" width="160">
+	      </a>
             </td>
             <td class="contentTd">
                 <h3>{{nonprofit.job.title}}</h3>
@@ -54,9 +57,11 @@
 
             <tr>
                 <td class="imageTd">
+		  <a href="/otherProfile">
                     <img class="imageInTable"
                          src="{{profile.profileLink}}"
                          height="160" width="160">
+		  </a>
                 </td>
                 <td class="contentTd">
                     <h3>{{profile.name}}</h3>
@@ -96,8 +101,10 @@
 
         <tr>
             <td class="imageTd">
+	      <a href="/otherNonprofit">
                 <img class="imageInTable"
                      src="{{ nonprofit.bannerLink }}">
+	      </a>
             </td>
             <td class="contentTd">
                 <h3>{{nonprofit.name}}</h3>
