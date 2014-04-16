@@ -61,6 +61,10 @@
     margin-top: 15px;
 }
 
+.container {
+    max-width: 800px;
+}
+
 .custom-bottom-navbar {
     background-color: #2C6F7F;
     text-align: center;
