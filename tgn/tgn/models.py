@@ -5,6 +5,7 @@ class Account(models.Model):
     userId = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     aboutMe = models.CharField(max_length=200, default='')
+    resume = models.CharField(max_length=200, default='')
 
     def __unicode__(self):
         return str(self.firstName) + ' ' + str(self.lastName) + ', ' + \

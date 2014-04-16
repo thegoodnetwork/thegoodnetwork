@@ -114,7 +114,7 @@ def updateProfile(request):
 
     # verify object nested in profile
     try:
-        requiredFields = ['aboutMe', 'titles', 'skills']
+        requiredFields = ['aboutMe', 'titles', 'skills', 'resume']
         verifiedRequestResponse = verifyRequest(json.loads(request.POST[
             'profile']), requiredFields)
         if verifiedRequestResponse['isMissingFields']:
@@ -129,6 +129,7 @@ def updateProfile(request):
     profile = json.loads(request['profile'])
 
     aboutMe = profile['aboutMe']
+    resume = profile['resume']
     titles = profile['titles']
     skills = profile['skills']
 
@@ -136,7 +137,7 @@ def updateProfile(request):
         account = Account.objects.get(userId=userId)
 
         account.aboutMe = aboutMe
-
+        account.resume = resume
         # remove current skills from the new skills list
         # if skill not in the new skills list, delete it
         currentSkills = getUserSkills(account)
@@ -171,7 +172,8 @@ def updateProfile(request):
     updatedProfileModel = {
         'titles': formatTitles(getUserTitles(account)),
         'skills': formatSkills(getUserSkills(account)),
-        'aboutMe': str(account.aboutMe)
+        'aboutMe': str(account.aboutMe),
+        'resume': str(account.resume)
     }
 
     return formattedResponse(data=updatedProfileModel)

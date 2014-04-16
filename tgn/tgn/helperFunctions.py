@@ -187,7 +187,7 @@ def getUserModel(account):
     name = str(account.name)
     aboutMe = str(account.aboutMe)
     profileImageUrl = getUserProfileImageUrl(account)
-
+    resume = str(account.resume)
     # get titles
     titles = formatTitles(getUserTitles(account))
 
@@ -217,6 +217,7 @@ def getUserModel(account):
 
     userModel = {
         'userId': userId,
+        'resume': resume,
         'profileImageUrl': profileImageUrl,
         'name': name,
         'aboutMe': aboutMe,
