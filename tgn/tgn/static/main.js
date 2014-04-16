@@ -46,9 +46,6 @@ angularTGN.controller('myJobController', function($scope) {
 });
 
 angularTGN.controller('mySearchResults', function($scope) {
-    $scope.jobTitle = "Manage Sean's Outpost Event";
-    $scope.description = "Sean's Outpost will be having a fundraising event on May 1, 2014. Your job is to help manage the event staff to make sure everything runs smoothly."
-    $scope.status = "Incomplete";
-    $scope.compensation = "$150";
+
 
 });

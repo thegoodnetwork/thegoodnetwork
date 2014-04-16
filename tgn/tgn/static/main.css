@@ -109,3 +109,11 @@
 #meLink:hover {
     color: white;
 }
+
+.resultTitle {
+    margin-left: 20px;
+}
+
+#jobListTable {
+    margin-left: 30px;
+}
