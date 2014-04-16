@@ -53,6 +53,9 @@ class Job(models.Model):
 class PostedJob(Job):
     timeCreated = models.DateTimeField(auto_now_add=True)
 
+class PostedJobApplication(models.Model):
+    applicant = models.ForeignKey(Account)
+    job = models.ForeignKey(PostedJob)
 
 class CurrentJob(Job):
     employee = models.ForeignKey(Account)

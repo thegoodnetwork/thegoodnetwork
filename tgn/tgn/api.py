@@ -343,6 +343,63 @@ def postJobAsNonprofit(request):
     return formattedResponse(data=updatedNonprofitPostedJobModel)
 
 
+def applyToJob(request):
+    '''
+    Required fields:
+        userId
+        jobId
+    '''
+
+    requiredFields = ['userId', 'jobId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+    jobId = request['jobId']
+
+    if Account.objects.filter(userId=userId).exists():
+        if PostedJob.objects.filter(pk=jobId).exists():
+            applicant = Account.objects.get(userId=userId)
+            job = PostedJob.objects.get(pk=jobId)
+
+            newJobApplication, isNewApplication = PostedJobApplication \
+                .objects.get_or_create(
+                applicant=applicant,
+                job=job
+            )
+
+            if isNewApplication:
+                allJobsAsApplicant = getPostedJobsAsApplicant(applicant)
+                formattedJobsAsApplicant = formatJobs(allJobsAsApplicant,
+                                                      jobType=POSTED_JOB_TYPE)
+
+                newJobAsApplicant = formatJob(newJobApplication.job,
+                                              jobType=POSTED_JOB_TYPE)
+
+            else:
+                errorMessage = 'User has already applied to that job'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+
+        else:
+            errorMessage = 'Unknown job'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    jobsAsApplicantData = {
+        'jobsAsApplicant': formattedJobsAsApplicant,
+        'newJobAsApplicant': newJobAsApplicant
+    }
+
+    return formattedResponse(data=jobsAsApplicantData)
+
+
 def viewOtherProfile(request):
     '''
     Required fields:

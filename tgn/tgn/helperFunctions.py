@@ -6,7 +6,7 @@ to views functions used for the server-to-client interaction
 from models import Account, PostedJob, CurrentJob, CompletedJob, UserSkill, \
     PostedJobSkill, CurrentJobSkill, CompletedJobSkill, UserProfileImage, \
     NonprofitProfileImage, NonprofitRelation, Nonprofit, UserTitle, \
-    PostedJobTitle, CurrentJobTitle, CompletedJobTitle
+    PostedJobTitle, CurrentJobTitle, CompletedJobTitle, PostedJobApplication
 
 POSTED_JOB_TYPE = 'postedJob'
 CURRENT_JOB_TYPE = 'currentJob'
@@ -46,7 +46,10 @@ def formatJob(job, jobType):
         'skills': formatSkills(getJobSkills(job, jobType=jobType)),
     }
 
-    if jobType != POSTED_JOB_TYPE:
+    if jobType == POSTED_JOB_TYPE:
+        formattedJob['applicants'] = formatUsersForAfilliationOrApplications(
+            getJobApplicants(job))
+    else:
         formattedJob['employeeId'] = str(job.employee.userId)
         formattedJob['employeeName'] = str(job.employee.name)
         formattedJob['employeeProfileImageUrl'] = getUserProfileImageUrl(
@@ -86,6 +89,16 @@ def formatNonprofitsForUserModel(nonprofits):
         'mission': str(nonprofitObject.mission)}, nonprofits)
 
 
+def formatUsersForAfilliationOrApplications(accounts):
+    formattedUsers = map(lambda accountObject: {
+        'userId': str(accountObject.userId),
+        'name': str(accountObject.name),
+        'profielImageUrl': getUserProfileImageUrl(accountObject)
+    }, accounts)
+
+    return formattedUsers
+
+
 def getUserProfileImageUrl(account):
     return None if not UserProfileImage.objects.filter(account=account) \
         .exists() else str(UserProfileImage.objects.get(account=account).url)
@@ -101,6 +114,14 @@ def getJobSkills(job, jobType):
         skills = CompletedJobSkill.objects.filter(job=job)
 
     return skills
+
+
+def getJobApplicants(job):
+    applications = PostedJobApplication.objects.filter(job=job)
+    jobApplicants = map(lambda applicationObject: applicationObject.applicant,
+                        applications)
+
+    return jobApplicants
 
 
 def getJobTitles(job, jobType):
@@ -119,6 +140,15 @@ def getUserSkills(account):
     skills = UserSkill.objects.filter(account=account)
 
     return skills
+
+
+def getPostedJobsAsApplicant(account):
+    userJobApplications = PostedJobApplication.objects.filter(
+        applicant=account)
+    postedJobsAsApplicant = map(lambda applicationObject: applicationObject
+                                .job, userJobApplications)
+
+    return postedJobsAsApplicant
 
 
 def getCurrentJobsAsEmployee(account):
@@ -162,11 +192,16 @@ def getUserModel(account):
     titles = formatTitles(getUserTitles(account))
 
     # get user-specific jobs
+    currentJobsAsApplicant = formatJobs(getPostedJobsAsApplicant(account),
+                                        jobType=POSTED_JOB_TYPE)
     currentJobsAsEmployee = formatJobs(getCurrentJobsAsEmployee(account),
                                        jobType=CURRENT_JOB_TYPE)
     completedJobsAsEmployee = formatJobs(getCompletedJobsAsEmployee(account),
                                          jobType=COMPLETED_JOB_TYPE)
 
+    applications = {
+        'jobsAsApplicant': currentJobsAsApplicant
+    }
     jobs = {
         'currentJobsAsEmployee': currentJobsAsEmployee,
         'completedJobsAsEmployee': completedJobsAsEmployee
@@ -187,6 +222,7 @@ def getUserModel(account):
         'aboutMe': aboutMe,
         'titles': titles,
         'skills': skills,
+        'applications': applications,
         'jobs': jobs,
         'nonprofits': formattedUserNonprofits
     }
@@ -247,11 +283,8 @@ def getNonprofitModel(nonprofit):
 
     # get the nonprofit affiliates
 
-    nonprofitAffiliates = map(lambda affiliateObject: {
-        'userId': str(affiliateObject.userId),
-        'name': str(affiliateObject.name),
-        'profielImageUrl': getUserProfileImageUrl(affiliateObject)
-    }, getNonprofitAffiliates(nonprofit))
+    nonprofitAffiliates = formatUsersForAfilliationOrApplications(
+        getNonprofitAffiliates(nonprofit))
 
     nonprofitModel = {
         'nonprofitId': nonprofitId,
@@ -266,6 +299,7 @@ def getNonprofitModel(nonprofit):
 
     return nonprofitModel
 
+
 def getJob(jobId, jobType):
     job = None
 
@@ -278,7 +312,7 @@ def getJob(jobId, jobType):
             pk=jobId).exists() else None
 
     elif jobType == COMPLETED_JOB_TYPE:
-        job = CompletedJob.objects.get(pk=jobId) if CompletedJob.objects\
+        job = CompletedJob.objects.get(pk=jobId) if CompletedJob.objects \
             .filter(pk=jobId).exists() else None
 
     return job
