@@ -27,6 +27,12 @@
       <li data-toggle="modal" data-target="#createNonprofitModal">
 	<a href="#">Create New Nonprofit</a>
       </li>
+      <li data-toggle="modal" data-target="#createNonprofitJob">
+	<a href="#">Create New Job</a>
+      </li>
+      <li>
+	<a href="/myApplicants">View Job Applicants</a>
+      </li>
     </ul>  
   </div>
 </nav>
@@ -125,5 +131,88 @@
     </div>
   </div>
 </div>
+
+<!-- Accepted Job Applicant !-->
+<div class="modal fade" id="acceptedJobApplicant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New Member on Board!</h4>
+      </div>
+      <div class="modal-body">
+	<p>
+	  Congratulations! You have successfully accepted the applicant.
+	</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Declined Job Applicant !-->
+<div class="modal fade" id="declinedJobApplicant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Applicant Rejected!</h4>
+      </div>
+      <div class="modal-body">
+	<p>
+	  You have successfully rejected the job applicant.
+	</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create New Job !-->
+<div class="modal fade" id="createNonprofitJob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Create a New Job</h4>
+      </div>
+      <div class="modal-body">
+	<div class="row">
+	  <label for="nonprofitName" class="col-sm-4">Non-profit:&nbsp;&nbsp;</label>
+	  <select class="col-sm-8">
+	    <option>Finding Refuge</option>
+	  </select>
+	</div>
+	<br>
+	<div class="row">
+	  <label for="nonprofitMission" class="col-sm-4">Job title:&nbsp;&nbsp;</label>
+	  <input id="nonprofitMission" class="col-sm-8" type="text"/>
+	</div>
+	<br>
+	<div class="row">
+	  <label for="nonprofitDescription" class="col-sm-4">Job description:&nbsp;&nbsp;</label>
+	  <textarea id="nonprofitDescription" class="col-sm-8" rows="4" cols="50"></textarea>
+	</div>
+	<br>
+	<div class="row">
+	  <label for="nonprofitWebsite" class="col-sm-4">Compensation:&nbsp;&nbsp;</label>
+	  <input id="nonprofitWebsite" class="col-sm-8" type="text"/>
+	</div>
+	<br>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Create Job</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
