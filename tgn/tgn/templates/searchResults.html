@@ -3,23 +3,20 @@
 {% verbatim %}
 <!--Test!-->
 <div class="container" data-ng-app="angularTGN">
-    <div class="row">
-    </div>
     <div class="row resultTitle">
         <h3>Jobs</h3>
         <hr>
     </div>
     <!---List of Jobs !-->
+    <div data-ng-controller="otherNonprofitsController">
     <table id="jobListTable" class="searchResultTable"
-           data-ng-controller="otherNonprofitsController">
+           data-ng-repeat="nonprofit in otherNonprofits">
 
-        <tr data-ng-repeat="nonprofit in otherNonprofits">
+        <tr >
             <td class="imageTd">
-	      <a href="/otherNonprofit">
                 <img class="imageInTable"
                      src="{{nonprofit.bannerLink}}"
                      height="160" width="160">
-	      </a>
             </td>
             <td class="contentTd">
                 <h3>{{nonprofit.job.title}}</h3>
@@ -29,67 +26,79 @@
                 <p>{{nonprofit.address}}</p>
 
                 <p>{{nonprofit.job.compensation}}</p>
-		<div>
-		  <form action="/otherNonprofit" style="display: inline-block;">
-                    <button type="submit" class="btn btn-default">
-                      View Job
+
+                <div>
+                    <form action="/otherNonprofit"
+                          style="display: inline-block;">
+                        <button type="submit" class="btn btn-default">
+                            View Job
+                        </button>
+                    </form>
+                    <button type="button" class="btn btn-default"
+                            data-toggle="modal"
+                            data-target="#appliedForJobModal">
+                        Apply to Job
                     </button>
-		  </form>
-                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#appliedForJobModal">
-                    Apply to Job
-                  </button>
                 </div>
             </td>
         </tr>
     </table>
+        </div>
     <div class="row resultTitle">
         <h3>People</h3>
         <hr>
     </div>
-    <table id="peopleListTable" class="searchResultTable"
-           data-ng-controller="otherProfilesController">
+    <div data-ng-controller="otherProfilesController">
+        <table id="peopleListTable" class="searchResultTable"
 
-        <tr data-ng-repeat="profile in otherProfiles">
-            <td class="imageTd">
-	      <a href="/otherProfile">
-                <img class="imageInTable"
-                     src="{{profile.profileLink}}"
-                     height="160" width="160">
-	      </a>
-            </td>
-            <td class="contentTd">
-                <h3>{{profile.name}}</h3>
+               data-ng-repeat="profile in otherProfiles">
 
-                <p>{{profile.skills}}</p>
+            <tr>
+                <td class="imageTd">
+                    <img class="imageInTable"
+                         src="{{profile.profileLink}}"
+                         height="160" width="160">
+                </td>
+                <td class="contentTd">
+                    <h3>{{profile.name}}</h3>
 
-                <p>{{profile.location}}</p>
+                    <p>{{profile.skills}}</p>
 
-                <div>
-		  <form action="/otherProfile" style="display: inline-block;">
-                    <button type="submit" class="btn btn-default">
-                        View Profile
-		  </form>
-                    </button>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#sendMessageModal">
-                        Contact
-                    </button>
-                </div>
-            </td>
-        </tr>
+                    <p>{{profile.location}}</p>
 
-    </table>
+                    <div>
+                        <form action="/otherProfile"
+                              style="display: inline-block;">
+                            <button type="submit" class="btn btn-default">
+                                View Profile
+
+                            </button>
+                        </form>
+                        <button type="button" class="btn btn-default"
+                                data-toggle="modal"
+                                data-target="#sendMessageModal">
+                            Contact
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
     <!-- List of People !-->
     <div class="row resultTitle">
         <h3>Nonprofits</h3>
         <hr>
     </div>
+    <div data-ng-controller="otherNonprofitsController">
     <table id="nonprofitsListTable" class="searchResultTable"
-           data-ng-controller="otherNonprofitsController">
+            data-ng-repeat="nonprofit in otherNonprofits">
 
-        <tr data-ng-repeat="nonprofit in otherNonprofits">
+        <tr>
             <td class="imageTd">
-                <a href="/otherNonprofit"><img class="imageInTable"
-                     src="{{ nonprofit.bannerLink }}"></a>
+                <img class="imageInTable"
+                     src="{{ nonprofit.bannerLink }}">
             </td>
             <td class="contentTd">
                 <h3>{{nonprofit.name}}</h3>
@@ -97,15 +106,21 @@
                 <p>{{nonprofit.mission}}</p>
 
                 <p>{{nonprofit.address}}</p>
+
                 <p><a href="{{nonprofit.website}}">{{nonprofit
                     .website}}</a></p>
+
                 <div>
-		  <form action="/otherNonprofit" style="display: inline-block;">
-                    <button type="submit" class="btn btn-default">
-                        View Nonprofit
-		  </form>
-                    </button>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#requestedAffiliationModal">
+                    <form action="/otherNonprofit"
+                          style="display: inline-block;">
+                        <button type="submit" class="btn btn-default">
+                            View Nonprofit
+
+                        </button>
+                    </form>
+                    <button type="button" class="btn btn-default"
+                            data-toggle="modal"
+                            data-target="#requestedAffiliationModal">
                         Request Affiliation
                     </button>
 
@@ -121,6 +136,7 @@
             !-->
         </tr>
     </table>
+        </div>
     <!-- List of nonprofits !-->
 </div>
 </body>

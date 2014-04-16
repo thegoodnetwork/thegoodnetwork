@@ -44,7 +44,11 @@ var SeansOutpost = {
         description: "Your job is to help manage the event staff to make sure everything runs smoothly.",
         status: "Incomplete",
         compensation: "$150"
-    }
+    },
+    applicants: [
+        Bob,
+        Bill
+    ]
 }
 
 var FindingRefuge = {
@@ -53,7 +57,11 @@ var FindingRefuge = {
     bannerLink: "http://www.findingrefuge.com/images/logo.png",
     description: "Create a global awareness of child slavery in Ghana by establishing university and regional organizations that educate the public on the existence of slavery. Empower the mothers within the targeted fishing villages by providing education and training for sustainable jobs.",
     address: "Boston, MA",
-    website: "http://findingrefuge.com/"
+    website: "http://findingrefuge.com/",
+    applicants: [
+        Chris,
+        Bill
+    ]
 }
 
 var MakeAWish = {
@@ -120,6 +128,9 @@ angularTGN.controller('myNonprofitController', function ($scope) {
     $scope.website = FindingRefuge.website;
 });
 
+angularTGN.controller('myNonprofitsController', function($scope) {
+    $scope.myNonprofits = [FindingRefuge]
+})
 
 angularTGN.controller('myJobController', function ($scope) {
     $scope.jobTitle = SeansOutpost.job.title;
