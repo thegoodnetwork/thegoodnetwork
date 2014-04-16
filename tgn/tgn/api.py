@@ -114,7 +114,7 @@ def updateProfile(request):
 
     # verify object nested in profile
     try:
-        requiredFields = ['aboutMe', 'titles', 'skills']
+        requiredFields = ['aboutMe', 'titles', 'skills', 'resume']
         verifiedRequestResponse = verifyRequest(json.loads(request.POST[
             'profile']), requiredFields)
         if verifiedRequestResponse['isMissingFields']:
@@ -129,6 +129,7 @@ def updateProfile(request):
     profile = json.loads(request['profile'])
 
     aboutMe = profile['aboutMe']
+    resume = profile['resume']
     titles = profile['titles']
     skills = profile['skills']
 
@@ -136,7 +137,7 @@ def updateProfile(request):
         account = Account.objects.get(userId=userId)
 
         account.aboutMe = aboutMe
-
+        account.resume = resume
         # remove current skills from the new skills list
         # if skill not in the new skills list, delete it
         currentSkills = getUserSkills(account)
@@ -171,10 +172,84 @@ def updateProfile(request):
     updatedProfileModel = {
         'titles': formatTitles(getUserTitles(account)),
         'skills': formatSkills(getUserSkills(account)),
-        'aboutMe': str(account.aboutMe)
+        'aboutMe': str(account.aboutMe),
+        'resume': str(account.resume)
     }
 
     return formattedResponse(data=updatedProfileModel)
+
+
+def updateNonprofit(request):
+    '''
+    Required fields:
+
+        userId
+        nonprofit
+
+    '''
+
+    # verify top-level objects
+    requiredFields = ['userId', 'nonprofit']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    # verify object nested in profile
+    try:
+        requiredFields = ['nonprofitId', 'description', 'mission', 'website',
+                          'address']
+        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+            'profile']), requiredFields)
+        if verifiedRequestResponse['isMissingFields']:
+            errorMessage = verifiedRequestResponse['errorMessage']
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    except:
+        errorMessage = 'nonprofit was not a valid JSON'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+    nonprofit = json.loads(request['nonpprofit'])
+
+    nonprofitId = nonprofit['id']
+    if Account.objects.filter(userId=userId).exists():
+        if Nonprofit.objects.filter(pk=nonprofitId).exists():
+            if NonprofitRelation.objects.filter(
+                    userId=userId,
+                    nonprofitId=nonprofitId
+            ).exists():
+                nonprofitToUpdate = Nonprofit.objects.get(pk=nonprofitId)
+
+                nonprofitToUpdate.description = nonprofit['description']
+                nonprofitToUpdate.mission = nonprofit['mission']
+                nonprofitToUpdate.website = nonprofit['website']
+                nonprofitToUpdate.address = nonprofit['address']
+
+                nonprofitToUpdate.save()
+
+            else:
+                errorMessage = 'User is not affiliated with that nonprofit'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+        else:
+            errorMessage = 'Unknown nonprofit'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    nonprofitProfileInformationData = {
+        'nonprofitProfile': {
+            'description': str(nonprofitToUpdate.description),
+            'mission': str(nonprofitToUpdate.mission),
+            'website': str(nonprofitToUpdate.website),
+            'address': str(nonprofitToUpdate.address)
+        }
+    }
+
+    return formattedResponse(data=nonprofitProfileInformationData)
 
 
 def createNonprofit(request):
@@ -341,6 +416,167 @@ def postJobAsNonprofit(request):
     }
 
     return formattedResponse(data=updatedNonprofitPostedJobModel)
+
+
+def applyToJob(request):
+    '''
+    Required fields:
+        userId
+        jobId
+    '''
+
+    requiredFields = ['userId', 'jobId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+    jobId = request['jobId']
+
+    if Account.objects.filter(userId=userId).exists():
+        if PostedJob.objects.filter(pk=jobId).exists():
+            applicant = Account.objects.get(userId=userId)
+            job = PostedJob.objects.get(pk=jobId)
+
+            newJobApplication, isNewApplication = PostedJobApplication \
+                .objects.get_or_create(
+                applicant=applicant,
+                job=job
+            )
+
+            if isNewApplication:
+                allJobsAsApplicant = getPostedJobsAsApplicant(applicant)
+                formattedJobsAsApplicant = formatJobs(allJobsAsApplicant,
+                                                      jobType=POSTED_JOB_TYPE)
+
+                newJobAsApplicant = formatJob(newJobApplication.job,
+                                              jobType=POSTED_JOB_TYPE)
+
+            else:
+                errorMessage = 'User has already applied to that job'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+
+        else:
+            errorMessage = 'Unknown job'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    jobsAsApplicantData = {
+        'jobsAsApplicant': formattedJobsAsApplicant,
+        'newJobAsApplicant': newJobAsApplicant
+    }
+
+    return formattedResponse(data=jobsAsApplicantData)
+
+
+def acceptApplicant(request):
+    '''
+    Required fields:
+        applicantId
+        affiliateId
+        nonprofitId
+        jobId
+    '''
+
+    requiredFields = ['affiliateId', 'applicantId', 'jobId', 'nonprofitId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    applicantId = request['applicantId']
+    affiliateId = request['affiliateId']
+    nonprofitId = request['nonprofitId']
+    jobId = request['jobId']
+
+    if Account.objects.fillter(userId=applicantId).exists():
+        if Account.objects.filter(userId=affiliateId).exists():
+            if NonprofitRelation.objects.filter(
+                    userId=affiliateId,
+                    nonprofitId=nonprofitId
+            ).exists():
+                if PostedJob.objects.filter(pk=jobId).exists():
+                    jobToTake = PostedJob.objects.get(pk=jobId)
+
+                    if str(jobToTake.nonprofit.pk) == nonprofitId:
+                        nonprofitEmployer = jobToTake.nonprofit
+                        userEmployee = Account.objects.get(userId=applicantId)
+
+                        jobName = str(jobToTake.name)
+                        jobDescription = str(jobToTake.description)
+                        jobCompensation = str(jobToTake.compensation)
+                        jobCity = str(jobToTake.city)
+                        jobState = str(jobToTake.state)
+                        jobTimeCreated = jobToTake.timeCreated
+
+                        newCurrentJob, isNewCurrentJobCreated = CurrentJob \
+                            .objects.get_or_create(
+                            employee=userEmployee,
+                            nonprofit=nonprofitEmployer,
+                            name=jobName,
+                            description=jobDescription,
+                            compensation=jobCompensation,
+                            state=jobState,
+                            city=jobCity,
+                            timeCreated=jobTimeCreated
+                        )
+
+                        if isNewCurrentJobCreated:
+                            jobToTake.delete()
+
+                            postedJobsModel = formatJobs(
+                                getNonprofitPostedJobs(nonprofitEmployer),
+                                POSTED_JOB_TYPE
+                            )
+                            currentJobsModel = formatJobs(
+                                getNonprofitCurrentJobs(nonprofitEmployer),
+                                CURRENT_JOB_TYPE
+                            )
+                            newCurrentJobModel = formatJob(
+                                newCurrentJob,
+                                CURRENT_JOB_TYPE
+                            )
+
+                        else:
+                            errorMessage = 'Failed to accept applicant'
+                            return formattedResponse(isError=True,
+                                                     errorMessage=errorMessage)
+                    else:
+                        errorMessage = 'Job is not associated with the ' \
+                                       'provided nonprofit'
+                        return formattedResponse(isError=True,
+                                                 errorMessage=errorMessage)
+                else:
+                    errorMessage = 'Unknown job'
+                    return formattedResponse(isError=True,
+                                             errorMessage=errorMessage)
+            else:
+                errorMessage = 'The suggested affiliate is not an affiliate of ' \
+                               'the nonprofit'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+        else:
+            errorMessage = 'Unknown user: affiliate'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user: applicant'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    updatedNonprofitJobModels = {
+        'postedJobs': postedJobsModel,
+        'currentJobs': currentJobsModel,
+        'newCurrentJob': newCurrentJobModel
+    }
+
+    return formattedResponse(data=updatedNonprofitJobModels)
 
 
 def viewOtherProfile(request):
@@ -512,8 +748,7 @@ def getOtherUsers(request):
     otherUsers = filter(lambda accountObject: str(accountObject.userId) !=
                                               userId, allUsers)
 
-    formattedOtherUsers = map(lambda accountObject: getUserModel(
-        accountObject), otherUsers)
+    formattedOtherUsers = formatUsersForAfilliationOrApplications(otherUsers)
 
     otherUsersData = {
         'otherUsers': formattedOtherUsers

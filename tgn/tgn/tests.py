@@ -5,7 +5,7 @@ from django.test.client import RequestFactory
 import json
 
 TEST_USER_ID = '524156482'
-TEST_ACCESS_TOKEN = 'CAAUOQD9mzrYBALWUTzPY0uaPy1SQtdwM5AAHeDXkD151WF6Mp4BNkD9HZAadTZB1RotYKUUWLEDr8rVNWBZC6efMtRHLcLw7JFUMbvq06PHtQvbr0ml5MnUuO8RtLIEQtPThiO0cdC00ua67N2p2EkMLDqjBolaYE6ZCRZCFGcVuLc55CODcGg0vPZCZAWZAhc3wEvGHRiqLpQZDZD'
+TEST_ACCESS_TOKEN = 'CAAUOQD9mzrYBAEnrqmyDdHrV5yncFjofE6cZCPqEbuCDI9t5madrOW2gUyidaStk4apM80JMqhczvlLzH7mAfEWcVOLk2tNyf8AezhJgVFLqb2NgFZBihlSYAwDrW4JnfE4Gvf7LaBLDscpZCH088NOn1ecH0ZAY8cGgeQg7JZC61kyKmMiUZALRXkLNcATv4l84Q4VYNpmwZDZD'
 
 TEST_USER_ID_2 = '570053410'
 TEST_ACCESS_TOKEN_2 = ''
@@ -13,14 +13,14 @@ TEST_ACCESS_TOKEN_2 = ''
 TEST_ABOUT_ME = 'Hello Im demitri and this is my about me'
 TEST_USER_TITLES = ['Software Engineer', 'Student', 'Designer']
 TEST_USER_SKILLS = ['Python', 'JavaScript', 'HTML/CSS']
-
+TEST_RESUME = 'www.resume.com'
 TEST_NONPROFIT = {
     'name': 'CStuy',
     'mission': 'Help underprivelaged students get CS opportunities',
     'description': ' Having dealt with the frustrations of working within the system to try to bring more opportunities to more youngsters and inspired by their alumni community, Mike, Sam, and JonAlf, have joined with Jennifer Hsu and Artie Jordan along with other members of the Stuy CS Community to form CSTUY, Computer Science and Technology for Urban Youth. An organization dedicated to bringing computer science and '
                    'technology related educational opportunities to high school and middle school students.',
     'address': 'Manhattan, New York',
-    'website': 'https://cstuy.org'
+    'website': 'https://cstuy.org',
 }
 
 TEST_JOB = {
@@ -97,7 +97,8 @@ class testAllRequests(TestCase):
                 'profile': json.dumps({
                     'aboutMe': TEST_ABOUT_ME,
                     'titles': TEST_USER_TITLES,
-                    'skills': TEST_USER_SKILLS
+                    'skills': TEST_USER_SKILLS,
+                    'resume': TEST_RESUME
                 })
             }
         )
