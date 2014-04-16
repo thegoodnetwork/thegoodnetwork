@@ -28,7 +28,7 @@ var Bob = {
     aboutMe: "I'm Bob. I like to cook, jam out on my guitar, and tell people what to do. Here's a little text to make the right side of the screen look like it has as much detail as the left side of the screen. I'm going to keep writing stuff here so that there's still content to read. One of my favorite things to cook is apple pie. Apple pie is absolutely delicious when done right.",
     resumeLink: "http://jobsearch.about.com/od/sampleresumes/l/blresume3.htm",
     skills: "chef, guitar, management",
-    affiliations: "CStuy",
+    affiliations: "Finding Refuge",
     location: 'San Francisco, CA'
 }
 
