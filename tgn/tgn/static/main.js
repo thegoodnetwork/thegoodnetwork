@@ -41,7 +41,7 @@ var SeansOutpost = {
     website: "http://seansoutpost.com/",
     job: {
         title: "Manage Sean's Outpost Event",
-        description: "Sean's Outpost will be having a fundraising event on May 1, 2014. Your job is to help manage the event staff to make sure everything runs smoothly.",
+        description: "Your job is to help manage the event staff to make sure everything runs smoothly.",
         status: "Incomplete",
         compensation: "$150"
     }
@@ -62,7 +62,7 @@ var MakeAWish = {
     bannerLink: 'http://officialrobby.files.wordpress.com/2013/11/makeawish.jpg',
     description: 'Make-A-Wish grants the wish of a child diagnosed with a life-threatening medical condition in the United States and its territories, on average, every 38 minutes. We believe that a wish experience can be a game-changer. This one belief guides us. It inspires us to grant wishes that change the lives of the kids we serve.',
     address: 'Boston, Ma',
-    website: 'wish.org',
+    website: 'http://wish.org',
     job: {
         title: 'Play A Concert at a Make-A-Wish Foundation Event!',
         description: 'Come jam out at the Mount Sinai hospital. Play whatever you like as long as it\'s loud and awesome!',

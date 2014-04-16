@@ -18,7 +18,7 @@
                      src="{{nonprofit.bannerLink}}"
                      height="160" width="160">
             </td>
-            <td>
+            <td class="contentTd">
                 <h3>{{nonprofit.job.title}}</h3>
 
                 <p>{{nonprofit.job.description}}</p>
@@ -51,7 +51,7 @@
                      src="{{profile.profileLink}}"
                      height="160" width="160">
             </td>
-            <td>
+            <td class="contentTd">
                 <h3>{{profile.name}}</h3>
 
                 <p>{{profile.skills}}</p>
@@ -78,18 +78,19 @@
     <table id="nonprofitsListTable" class="searchResultTable"
            data-ng-controller="otherNonprofitsController">
 
-        <tr ng-repeat="nonprofit in otherNonprofits">
+        <tr data-ng-repeat="nonprofit in otherNonprofits">
             <td class="imageTd">
                 <img class="imageInTable"
                      src="{{ nonprofit.bannerLink }}">
             </td>
-            <td>
+            <td class="contentTd">
                 <h3>{{nonprofit.name}}</h3>
 
                 <p>{{nonprofit.mission}}</p>
 
                 <p>{{nonprofit.address}}</p>
-
+                <p><a href="{{nonprofit.website}}">{{nonprofit
+                    .website}}</a></p>
                 <div>
                     <button type="button" class="btn btn-default">
                         View Nonprofit
