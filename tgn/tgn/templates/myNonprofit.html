@@ -1,91 +1,100 @@
 {% extends "loggedIn.html" %}
 {% block content %}
-{% verbatim %} 
-<div class="container" data-ng-app="angularTGN" data-ng-controller="myNonprofitController">
-  <div class="row center">
-    <h2>
-      {{name}}
-    </h2>
-  </div>
-  <hr>
-  <div class="row center">
-    <img src="{{bannerLink}}"/>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-sm-3">
-      <h3>Mission
-      </h3>
+{% verbatim %}
+<div class="container" data-ng-app="angularTGN"
+     data-ng-controller="myNonprofitController">
+    <div class="row center">
+        <h2>
+            {{name}}
+        </h2>
     </div>
-    <div class="col-sm-9 textMiddle">
+    <hr>
+    <div class="row center">
+        <img src="{{bannerLink}}"/>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Mission
+            </h3>
+        </div>
+        <div class="col-sm-9 textMiddle">
       <span class="nonprofitDescript">
 	{{mission}}
       </span>
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <h3>About
-      </h3>
-    </div>
-    <div class="col-sm-9 textMiddle">
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>About
+            </h3>
+        </div>
+        <div class="col-sm-9 textMiddle">
       <span class="nonprofitDescript">
 	{{description}}
       </span>
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <h3>Address
-      </h3>
-    </div>
-    <div class="col-sm-9 textMiddle">
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Address
+            </h3>
+        </div>
+        <div class="col-sm-9 textMiddle">
       <span class="nonprofitDescript">
 	{{address}}
       </span>
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <h3>Website
-      </h3>
-    </div>
-    <div class="col-sm-9">
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Website
+            </h3>
+        </div>
+        <div class="col-sm-9">
       <span class="nonprofitDescript">
 	{{website}}
       </span>
+        </div>
     </div>
-  </div>
-  <hr>
-  <div class="row center">    
-    <h1><u>Job Postings</u></h1>
+    <hr>
+    <div class="row center">
+        <h1>Job Postings</h1>
+    </div>
     <div class="row">
-<div class="well col-sm-6 myJobPost">
-      <div class="row center">
-        <h1> Manage Benefit Dinner </h1>
-      </div>
-      <div class="row">
-        <div class="col-sm-3">
-          Description
+        <div class="well col-sm-6 myJobPost">
+            <div class="row center">
+                <h2> Manage Benefit Dinner </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Description</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-11">
+                    Run the benefit dinner that will help raise money for
+                    our nonprofit.
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Compensation</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-11">
+                    $200 + Cost of all supplies.
+                </div>
+            </div>
+            <br>
+
+            <div class="col-sm-3"></div>
         </div>
-        <div class="col-sm-9">
-	  Run the benefit dinner that will help raise money for our nonprofit.
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-sm-3">
-          Compensation
-          </div>
-        <div class="col-sm-9">
-          $200 + Cost of all supplies.
-          </div>
-      </div>
-      <br>
-    <div class="col-sm-3"></div>
     </div>
-    </div>
-  </div>
+
 </div>
 </body>
 </html>
