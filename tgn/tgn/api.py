@@ -675,8 +675,7 @@ def getOtherUsers(request):
     otherUsers = filter(lambda accountObject: str(accountObject.userId) !=
                                               userId, allUsers)
 
-    formattedOtherUsers = map(lambda accountObject: getUserModel(
-        accountObject), otherUsers)
+    formattedOtherUsers = formatUsersForAfilliationOrApplications(otherUsers)
 
     otherUsersData = {
         'otherUsers': formattedOtherUsers

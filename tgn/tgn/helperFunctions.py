@@ -67,9 +67,10 @@ def formatJobs(jobs, jobType):
     formattedJobs = []
 
     if jobs is not None:
-        for job in jobs:
-            formattedJob = formatJob(job, jobType=jobType)
-            formattedJobs.append(formattedJob)
+        formattedJobs = map(lambda jobObject: formatJob(jobObject,
+                                                        jobType=jobType),
+                            jobs
+        )
 
     return formattedJobs
 
