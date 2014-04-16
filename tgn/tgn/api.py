@@ -324,11 +324,75 @@ def createNonprofit(request):
     return formattedResponse(data=userNonprofitModels)
 
 
+def requestAffiliation(request):
+    '''
+    Required Fields:
+        userId
+        nonprofitId
+    '''
+    # verify top-level objects
+    requiredFields = ['userId', 'nonprofitId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+    userId = request['userId']
+    nonprofitId = request['nonprofitId']
+
+    if Account.objects.filter(userId=userId).exists():
+        if Nonprofit.objects.filter(pk=nonprofitId).exists():
+            if not NonprofitRelation.objects.filter(
+                    userId=userId,
+                    nonprofitId=nonprofitId
+            ).exists():
+                account = Account.objects.get(userId=userId)
+                nonprofit = Nonprofit.objects.get(pk=nonprofitId)
+
+                newAffiliateRequest, isRequestCreated = \
+                    NonprofitAffiliateRequest.objects.get_or_create(
+                        potentialAffiliate=account,
+                        nonprofit=nonprofit
+                    )
+
+                if isRequestCreated:
+                    userAffiliationRequests = formatAffiliationRequests(
+                        getUserAffiliationRequests(account)
+                    )
+                    userNewAffiliationRequest = formatAffiliationRequest(
+                        newAffiliateRequest
+                    )
+
+                else:
+                    errorMessage = 'User has already requested affiliation ' \
+                                   'for this nonprofit'
+                    return formattedResponse(isError=True,
+                                             errorMessage=errorMessage)
+            else:
+                errorMessage = 'User is already an affiliate of the nonprofit'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+        else:
+            errorMessage = 'Unknown nonprofit'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    userAffiliationRequestModel = {
+        'affiliationRequests': userAffiliationRequests,
+        'newAffiliationRequest': userNewAffiliationRequest
+    }
+
+    return formattedResponse(data=userAffiliationRequestModel)
+
+
 def postJobAsNonprofit(request):
     '''
     Required fields:
         userId
-        nonproftId
+        nonprofitId
         jobToPost
     '''
 
@@ -698,6 +762,7 @@ def getPostedJobs(request):
     postedJobsData = {
         'postedJobs': formattedPostedJobs
     }
+
     return formattedResponse(data=postedJobsData)
 
 
@@ -748,7 +813,7 @@ def getOtherUsers(request):
     otherUsers = filter(lambda accountObject: str(accountObject.userId) !=
                                               userId, allUsers)
 
-    formattedOtherUsers = formatUsersForAfilliationOrApplications(otherUsers)
+    formattedOtherUsers = formatUsersForAffiliationOrApplications(otherUsers)
 
     otherUsersData = {
         'otherUsers': formattedOtherUsers
