@@ -267,7 +267,7 @@ table tr:last-child td:last-child   {
     margin: 0px;
     max-height: 172px;
 }
-.searchResultTable {
+.searchResultTable, .jobApplicantTable{
     width:100%;
 }
 .searchResultTable tr{
