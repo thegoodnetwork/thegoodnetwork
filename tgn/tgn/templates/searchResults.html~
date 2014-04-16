@@ -1,0 +1,50 @@
+{% extends "loggedIn.html" %}
+{% block content %}
+{% verbatim %} 
+<div class="container" data-ng-app="angularTGN">
+  <div class="row" data-ng-controller="myJobController">
+    <div class="col-sm-3"></div>
+    <div class="well col-sm-6">
+      <div class="row center">
+	<h1> {{jobTitle}} </h1>
+      </div>
+      <hr>
+      <div class="row">
+	<div class="col-sm-3">
+	  Description
+	</div>
+	<div class="col-sm-9">
+	  {{description}}
+	</div>
+      </div>
+      <br>
+      <div class="row">
+	<div class="col-sm-3">
+	  Status
+	</div>
+	<div class="col-sm-9">
+	  {{status}}
+	</div>
+      </div>
+      <br>
+      <div class="row">
+	<div class="col-sm-3">
+	  Compensatoin
+	</div>
+	<div class="col-sm-9">
+	  {{compensation}}
+	</div>
+      </div>
+      <br>
+      <div class="row center">
+	  <button class="btn btn-lg btn-primary"> Completed </button>
+	  <button class="btn btn-lg btn-danger"> Cancel </button>
+      </div>
+    <div class="col-sm-3"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+{% endverbatim %}
+{% endblock %}
