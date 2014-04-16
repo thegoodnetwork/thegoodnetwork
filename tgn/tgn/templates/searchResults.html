@@ -18,7 +18,7 @@
                      src="{{nonprofit.bannerLink}}"
                      height="160" width="160">
             </td>
-            <td>
+            <td class="contentTd">
                 <h3>{{nonprofit.job.title}}</h3>
 
                 <p>{{nonprofit.job.description}}</p>
@@ -26,14 +26,15 @@
                 <p>{{nonprofit.address}}</p>
 
                 <p>{{nonprofit.job.compensation}}</p>
-
-                <div>
-                    <button type="button" class="btn btn-default">
-                        View Job
+		<div>
+		  <form action="/otherNonprofit" style="display: inline-block;">
+                    <button type="submit" class="btn btn-default">
+                      View Job
                     </button>
-                    <button type="button" class="btn btn-default">
-                        Apply to Job
-                    </button>
+		  </form>
+                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#appliedForJobModal">
+                    Apply to Job
+                  </button>
                 </div>
             </td>
         </tr>
@@ -51,7 +52,7 @@
                      src="{{profile.profileLink}}"
                      height="160" width="160">
             </td>
-            <td>
+            <td class="contentTd">
                 <h3>{{profile.name}}</h3>
 
                 <p>{{profile.skills}}</p>
@@ -59,10 +60,12 @@
                 <p>{{profile.location}}</p>
 
                 <div>
-                    <button type="button" class="btn btn-default">
+		  <form action="/otherProfile" style="display: inline-block;">
+                    <button type="submit" class="btn btn-default">
                         View Profile
+		  </form>
                     </button>
-                    <button type="button" class="btn btn-default">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#sendMessageModal">
                         Contact
                     </button>
                 </div>
@@ -78,23 +81,26 @@
     <table id="nonprofitsListTable" class="searchResultTable"
            data-ng-controller="otherNonprofitsController">
 
-        <tr ng-repeat="nonprofit in otherNonprofits">
+        <tr data-ng-repeat="nonprofit in otherNonprofits">
             <td class="imageTd">
                 <img class="imageInTable"
                      src="{{ nonprofit.bannerLink }}">
             </td>
-            <td>
+            <td class="contentTd">
                 <h3>{{nonprofit.name}}</h3>
 
                 <p>{{nonprofit.mission}}</p>
 
                 <p>{{nonprofit.address}}</p>
-
+                <p><a href="{{nonprofit.website}}">{{nonprofit
+                    .website}}</a></p>
                 <div>
-                    <button type="button" class="btn btn-default">
+		  <form action="/otherNonprofit" style="display: inline-block;">
+                    <button type="submit" class="btn btn-default">
                         View Nonprofit
+		  </form>
                     </button>
-                    <button type="button" class="btn btn-default">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#requestedAffiliationModal">
                         Request Affiliation
                     </button>
 

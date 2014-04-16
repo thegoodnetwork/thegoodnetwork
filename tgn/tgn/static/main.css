@@ -149,8 +149,8 @@
 }
 
 .imageInTable {
-    height: 160px;
-    width: 160px;
+    height: 172px;
+    width: 172px;
     padding: 0px;
 }
 
@@ -260,13 +260,16 @@ table tr:last-child td:last-child   {
     padding: 0;
     margin: 0;
     border: 0;
-    height: 160px;
-    width: 160px;
+    height: 172px;
+    width: 172px;
+}
+.contentTd {
+    margin: 0px;
+    max-height: 172px;
 }
 .searchResultTable {
     width:100%;
 }
-
-.searchResultTable td {
-
+.searchResultTable tr{
+    max-height: 172px;
 }
