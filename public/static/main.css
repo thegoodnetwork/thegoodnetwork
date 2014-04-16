@@ -1,0 +1,272 @@
+#logoText {
+    text-align: center;
+    font-size: 50px;
+    font-family: sans-serif;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+.homePageList {
+    list-style-type: none;
+    list-style-position: outside;
+    list-style-image: none;
+}
+
+.homePageListElement {
+    font-size: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.form-control {
+    margin-top: 10px; 
+    padding-right: 30px;
+    
+}
+
+.form-control + .glyphicon {
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    padding: 8px 27px;
+}
+
+#mainSearchBar {
+    width: 280px;
+}
+
+.rightNavItem {
+    float: right;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.mainNavItem {
+    float: left;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.navbarText {
+    color: white;
+    margin-top: 15px;
+}
+
+.container {
+    max-width: 800px;
+}
+
+.custom-bottom-navbar {
+    background-color: #2C6F7F;
+    text-align: center;
+}
+
+.custom-top-navbar {
+    background-color: #136A7F;
+}
+
+#main-top-navbar {
+    background-color: #136A7F;
+    height: 60px;
+    padding-right: 100px;
+}
+
+#asSeenIn {
+    color: white;
+    font-size: 26px;
+    padding-top: 15px;
+    padding-bottom: 0px;
+}
+
+#profileName {
+
+}
+
+#aboutMe {
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.topNonprofitButton {
+    margin-top: 22px;
+}
+
+.nonprofitDescript {
+    display: inline-block;
+    margin-top: 23px;
+}
+
+.dropdown-toggle:hover {
+    cursor: pointer;
+}
+
+#meLink:hover {
+    color: white;
+}
+
+.resultTitle {
+    margin-left: 20px;
+}
+
+#jobListTable {
+    margin-left: 30px;
+}
+
+.jobPost {
+    height: 300px;
+    width: 400px;
+    margin-left: 20px;
+}
+
+.myJobPost {
+    height: 200px;
+    width: 400px;
+    margin-left: 20px;
+}
+
+.jobApply {
+    position: absolute;
+    top: 245px;
+    left: 155px;
+}
+
+#peopleListTable {
+    margin-left: 30px;
+}
+
+#nonprofitsListTable {
+    margin-left: 30px;
+}
+
+.imageInTable {
+    height: 160px;
+    width: 160px;
+    padding: 0px;
+}
+
+.nameInTable {
+    font-size: 20px;
+}
+
+table a:link {
+    color: #666;
+    font-weight: bold;
+    text-decoration:none;
+}
+table a:visited {
+    color: #999999;
+    font-weight:bold;
+    text-decoration:none;
+}
+/*table a:active,
+table a:hover {
+    color: #bd5a35;
+    text-decoration:underline;
+}*/
+table {
+    font-family:Arial, Helvetica, sans-serif;
+    color:#666;
+    font-size:12px;
+    text-shadow: 1px 1px 0px #fff;
+    background:#eaebec;
+    margin:20px;
+    border:#ccc 1px solid;
+
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+    border-radius:0px;
+
+    -moz-box-shadow: 0 1px 2px #d1d1d1;
+    -webkit-box-shadow: 0 1px 2px #d1d1d1;
+    box-shadow: 0 1px 2px #d1d1d1;
+}
+table th {
+    padding:21px 25px 22px 25px;
+    border-top:1px solid #fafafa;
+    border-bottom:1px solid #e0e0e0;
+
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+    background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+}
+table th:first-child {
+    text-align: left;
+    padding-left:20px;
+}
+table tr:first-child th:first-child {
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
+}
+table tr:first-child th:last-child {
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
+}
+table tr {
+    text-align: center;
+    padding-left:0px;
+}
+table td:first-child {
+    text-align: left;
+    padding-left:0px;
+    border-left: 0;
+}
+table td {
+    padding:0px;
+    border-top: 1px solid #ffffff;
+    border-bottom:1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+
+    background: #fafafa;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+    background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+}
+table tr.even td {
+    background: #f6f6f6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+    background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+}
+table tr:last-child td {
+    border-bottom:0;
+}
+table tr:last-child td:first-child {
+    -moz-border-radius-bottomleft:0px;
+    -webkit-border-bottom-left-radius:0px;
+    border-bottom-left-radius:0px;
+}
+table tr:last-child td:last-child   {
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-bottom-right-radius:0px;
+}
+/*table tr:hover td {
+    background: #f2f2f2;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+    background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
+}*/
+
+.imageTd {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height: 160px;
+    width: 160px;
+}
+.searchResultTable {
+    width:100%;
+}
+
+.searchResultTable td {
+
+}
