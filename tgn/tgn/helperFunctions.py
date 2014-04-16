@@ -6,7 +6,8 @@ to views functions used for the server-to-client interaction
 from models import Account, PostedJob, CurrentJob, CompletedJob, UserSkill, \
     PostedJobSkill, CurrentJobSkill, CompletedJobSkill, UserProfileImage, \
     NonprofitProfileImage, NonprofitRelation, Nonprofit, UserTitle, \
-    PostedJobTitle, CurrentJobTitle, CompletedJobTitle, PostedJobApplication
+    PostedJobTitle, CurrentJobTitle, CompletedJobTitle, PostedJobApplication, \
+    NonprofitAffiliateRequest
 
 POSTED_JOB_TYPE = 'postedJob'
 CURRENT_JOB_TYPE = 'currentJob'
@@ -48,7 +49,7 @@ def formatJob(job, jobType):
     }
 
     if jobType == POSTED_JOB_TYPE:
-        formattedJob['applicants'] = formatUsersForAfilliationOrApplications(
+        formattedJob['applicants'] = formatUsersForAffiliationOrApplications(
             getJobApplicants(job))
     else:
         formattedJob['employeeId'] = str(job.employee.userId)
@@ -84,26 +85,70 @@ def formatTitles(titles):
     return map(lambda titleObject: str(titleObject.title), titles)
 
 
+def formatNonprofitForUserModel(nonprofit):
+    formattedNonprofit = {
+        'nonprofitId': str(nonprofit.pk),
+        'name': str(nonprofit.name),
+        'mission': str(nonprofit.mission)
+    }
+
+    return formattedNonprofit
+
+
 def formatNonprofitsForUserModel(nonprofits):
-    return map(lambda nonprofitObject: {
-        'nonprofitId': str(nonprofitObject.pk),
-        'name': str(nonprofitObject.name),
-        'mission': str(nonprofitObject.mission)}, nonprofits)
+    formattedNonprofits = map(lambda nonprofit: formatNonprofitForUserModel(
+        nonprofit), nonprofits)
+
+    return formattedNonprofits
 
 
-def formatUsersForAfilliationOrApplications(accounts):
-    formattedUsers = map(lambda accountObject: {
-        'userId': str(accountObject.userId),
-        'name': str(accountObject.name),
-        'profielImageUrl': getUserProfileImageUrl(accountObject)
-    }, accounts)
+def formatUserForAffiliationOrApplication(account):
+    formattedUser = {
+        'userId': str(account.userId),
+        'name': str(account.name),
+        'profielImageUrl': getUserProfileImageUrl(account)
+    }
+
+    return formattedUser
+
+
+def formatUsersForAffiliationOrApplications(accounts):
+    formattedUsers = map(lambda account:
+                         formatUserForAffiliationOrApplication(account),
+                         accounts)
 
     return formattedUsers
+
+
+def formatAffiliationRequest(affiliationRequest):
+    formattedRequest = {
+        'nonprofit': formatNonprofitForUserModel(affiliationRequest.nonprofit),
+        'potentialAffiliate': formatUserForAffiliationOrApplication(
+            affiliationRequest.potentialAffiliate)
+    }
+
+    return formattedRequest
+
+
+def formatAffiliationRequests(affiliationRequests):
+    formattedRequests = map(
+        lambda request: formatAffiliationRequest(request),
+        affiliationRequests
+    )
+
+    return formattedRequests
 
 
 def getUserProfileImageUrl(account):
     return None if not UserProfileImage.objects.filter(account=account) \
         .exists() else str(UserProfileImage.objects.get(account=account).url)
+
+
+def getUserAffiliationRequests(account):
+    affiliationRequests = NonprofitAffiliateRequest.objects.filter(
+        potentialApplicant=account)
+
+    return affiliationRequests
 
 
 def getJobSkills(job, jobType):
@@ -260,6 +305,13 @@ def getNonprofitAffiliates(nonprofit):
         nonprofitAffiliates.append(nonprofitAffiliate)
 
     return nonprofitAffiliates
+
+
+def getNonprofitAffiliateRequests(nonprofit):
+    affiliateRequestsByNonprofit = NonprofitAffiliateRequest.objects.filter(
+        nonprofit=nonprofit)
+
+    return affiliateRequestsByNonprofit
 
 
 def getNonprofitModel(nonprofit):

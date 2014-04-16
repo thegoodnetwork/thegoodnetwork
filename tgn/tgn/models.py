@@ -31,6 +31,10 @@ class NonprofitProfileImage(models.Model):
 
 #    image = models.ImageField(height_field=200, width_field=200)
 
+class NonprofitAffiliateRequest(models.Model):
+    potentialAffiliate = models.ForeignKey(Account)
+    nonprofit = models.ForeignKey(Nonprofit)
+
 class NonprofitRelation(models.Model):
     userId = models.CharField(max_length=200)
     nonprofitId = models.CharField(max_length=200)
