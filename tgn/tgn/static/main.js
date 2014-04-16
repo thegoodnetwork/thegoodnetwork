@@ -2,12 +2,12 @@ var angularTGN = angular.module('angularTGN', []);
 angularTGN.controller('myProfileController', function($scope) {
   
     $scope.profileLink =
-	"https://scontent-a.xx.fbcdn.net/hphotos-frc3/t1.0-9/1455960_10151916421433411_267410600_n.jpg";
-    $scope.name = "Will Haack";
-    $scope.aboutMe = "I am a super bad programmer as evident by the quality of the site you are currently looking at. This is some text that lets the page look a little more even. Without this text, the left side of the page would look like it had a lot more content than this side of the page. Some say it still looks like that even with all this text. ";
-    $scope.resumeLink = "www.google.com";
-    $scope.skills = "programmer, dancer, runner"
-    $scope.affiliations = "The Good Network, CSTUY"
+"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/t1.0-1/c78.22.280.280/s160x160/230474_5520562657_7481_n.jpg";
+    $scope.name = "Bob Shuman";
+    $scope.aboutMe = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash2/t1.0-1/c78.22.280.280/s160x160/230474_5520562657_74";
+    $scope.resumeLink = "http://jobsearch.about.com/od/sampleresumes/l/blresume3.htm";
+    $scope.skills = "chef, guitar, management";
+    $scope.affiliations = "CStuy"
 });
 
 angularTGN.controller('otherProfileController', function($scope) {
@@ -29,11 +29,11 @@ angularTGN.controller('otherNonprofitController', function($scope) {
 });
 
 angularTGN.controller('myNonprofitController', function($scope) {
-    $scope.name = "CStuy";
-    $scope.bannerLink = "https://cstuy.org/sites/c.drupal.cstuy.org/files/styles/hp_slideshow/public/field/image/slideshow/cstuy-hero2.jpg";
-    $scope.description = "Having dealt with the frustrations of working within the system to try to bring more opportunities to more youngsters and inspired by their alumni community, Mike, Sam, and JonAlf, have joined with Jennifer Hsu and Artie Jordan along with other members of the Stuy CS Community to form CSTUY, Computer Science and Technology for Urban Youth. An organization dedicated to bringing computer science and technology related educational opportunities to high school and middle school students."
-    $scope.address = "Manhattan, New York";
-    $scope.website = "https://cstuy.org";
+    $scope.name = "Cash Music";
+    $scope.bannerLink = "http://www.donewaiting.com/wp-content/uploads/2012/03/CashMusic-Logo.png";
+    $scope.description = "We make free, open-source tools that connect musicians to their audience. We work with musicians on outreach and learning efforts for musicians. It's our nonprofit mission to build a sustainable future for music.";
+    $scope.address = "Nashville, Tennessee";
+    $scope.website = "http://cashmusic.org/";
 });
 
 
