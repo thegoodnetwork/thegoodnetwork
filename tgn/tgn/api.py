@@ -458,3 +458,66 @@ def getPostedJobs(request):
 
     postedJobs = PostedJob.objects.all()
     formattedPostedJobs = formatJobs(postedJobs, jobType=POSTED_JOB_TYPE)
+
+    postedJobsData = {
+        'postedJobs': formattedPostedJobs
+    }
+    return formattedResponse(data=postedJobsData)
+
+
+def getNonprofits(request):
+    '''
+    Required fields:
+        query
+    '''
+
+    requiredFields = ['query']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    # currently ignoring query
+
+    nonprofits = Nonprofit.objects.all()
+    formattedNonprofits = formatNonprofitsForUserModel(nonprofits)
+
+    nonprofitsData = {
+        'nonprofits': formattedNonprofits
+    }
+
+    return formattedResponse(data=nonprofitsData)
+
+
+def getOtherUsers(request):
+    '''
+    Required fields:
+        query
+        userId
+    '''
+
+    requiredFields = ['query', 'userId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+    # currently ignoring query
+    allUsers = Account.objects.all()
+    otherUsers = filter(lambda accountObject: str(accountObject.userId) !=
+                                              userId, allUsers)
+
+    formattedOtherUsers = map(lambda accountObject: getUserModel(
+        accountObject), otherUsers)
+
+    otherUsersData = {
+        'otherUsers': formattedOtherUsers
+    }
+
+    return formattedResponse(data=otherUsersData)
+
