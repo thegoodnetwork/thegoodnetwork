@@ -235,7 +235,8 @@ class testAllRequests(TestCase):
         requiredFields = ['nonprofitPostedJobs', 'newPostedJob']
         requiredFieldsInNewPostedJob = [
             'jobId', 'name', 'description', 'compensation', 'city', 'state',
-            'titles', 'skills', 'nonprofitId', 'nonprofitName', 'timeCreated'
+            'titles', 'skills', 'nonprofitId', 'nonprofitName', 'timeCreated',
+            'applicants', 'jobType'
         ]
 
         response = self.postJob()
@@ -286,7 +287,8 @@ class testAllRequests(TestCase):
         requiredFields = ['jobToView']
         requiredFieldsInJobToView = ['jobId', 'nonprofitName', 'nonprofitId',
                                      'name', 'description', 'compensation',
-                                     'city', 'state', 'titles', 'skills']
+                                     'city', 'state', 'titles', 'skills',
+                                     'jobType']
 
         response = self.viewJob()
         self.assertTrue(responseIsSuccess(response))

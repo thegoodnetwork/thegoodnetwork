@@ -44,6 +44,7 @@ def formatJob(job, jobType):
         'jobId': str(job.pk),
         'timeCreated': str(job.timeCreated),
         'skills': formatSkills(getJobSkills(job, jobType=jobType)),
+        'jobType': jobType
     }
 
     if jobType == POSTED_JOB_TYPE:
