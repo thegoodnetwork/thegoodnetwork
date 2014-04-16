@@ -402,6 +402,107 @@ def applyToJob(request):
     return formattedResponse(data=jobsAsApplicantData)
 
 
+def acceptApplicant(request):
+    '''
+    Required fields:
+        applicantId
+        affiliateId
+        nonprofitId
+        jobId
+    '''
+
+    requiredFields = ['affiliateId', 'applicantId', 'jobId', 'nonprofitId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    applicantId = request['applicantId']
+    affiliateId = request['affiliateId']
+    nonprofitId = request['nonprofitId']
+    jobId = request['jobId']
+
+    if Account.objects.fillter(userId=applicantId).exists():
+        if Account.objects.filter(userId=affiliateId).exists():
+            if NonprofitRelation.objects.filter(userId=affiliateId,
+                                                nonprofitId=nonprofitId) \
+                    .exists():
+                if PostedJob.objects.filter(pk=jobId).exists():
+                    jobToTake = PostedJob.objects.get(pk=jobId)
+
+                    if str(jobToTake.nonprofit.pk) == nonprofitId:
+                        nonprofitEmployer = jobToTake.nonprofit
+                        userEmployee = Account.objects.get(userId=applicantId)
+
+                        jobName = str(jobToTake.name)
+                        jobDescription = str(jobToTake.description)
+                        jobCompensation = str(jobToTake.compensation)
+                        jobCity = str(jobToTake.city)
+                        jobState = str(jobToTake.state)
+                        jobTimeCreated = jobToTake.timeCreated
+
+                        newCurrentJob, isNewCurrentJobCreated = CurrentJob \
+                            .objects.get_or_create(
+                            employee=userEmployee,
+                            nonprofit=nonprofitEmployer,
+                            name=jobName,
+                            description=jobDescription,
+                            compensation=jobCompensation,
+                            state=jobState,
+                            city=jobCity,
+                            timeCreated=jobTimeCreated
+                        )
+
+                        if isNewCurrentJobCreated:
+                            jobToTake.delete()
+
+                            postedJobsModel = formatJobs(
+                                getNonprofitPostedJobs(nonprofitEmployer),
+                                POSTED_JOB_TYPE
+                            )
+                            currentJobsModel = formatJobs(
+                                getNonprofitCurrentJobs(nonprofitEmployer),
+                                CURRENT_JOB_TYPE
+                            )
+                            newCurrentJobModel = formatJob(
+                                newCurrentJob,
+                                CURRENT_JOB_TYPE
+                            )
+                        else:
+                            errorMessage = 'Failed to accept applicant'
+                            return formattedResponse(isError=True,
+                                                     errorMessage=errorMessage)
+                    else:
+                        errorMessage = 'Job is not associated with the ' \
+                                       'provided nonprofit'
+                        return formattedResponse(isError=True,
+                                                 errorMessage=errorMessage)
+                else:
+                    errorMessage = 'Unknown job'
+                    return formattedResponse(isError=True,
+                                             errorMessage=errorMessage)
+            else:
+                errorMessage = 'The suggested affiliate is not an affiliate of ' \
+                               'the nonprofit'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+        else:
+            errorMessage = 'Unknown user: affiliate'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user: applicant'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    updatedNonprofitJobModels = {
+        'postedJobs' : postedJobsModel,
+        'currentJobs' : currentJobsModel,
+        'newCurrentJob': newCurrentJobModel
+    }
+
+    return formattedResponse(data=updatedNonprofitJobModels)
+
 def viewOtherProfile(request):
     '''
     Required fields:
