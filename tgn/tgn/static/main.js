@@ -91,7 +91,7 @@ angularTGN.controller('otherProfileController', function ($scope) {
 
 angularTGN.controller('otherProfilesController', function ($scope) {
     $scope.otherProfiles = [
-        Bob,
+        Chris,
         Bill
     ]
 })
