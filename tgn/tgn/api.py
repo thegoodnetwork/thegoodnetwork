@@ -179,6 +179,79 @@ def updateProfile(request):
     return formattedResponse(data=updatedProfileModel)
 
 
+def updateNonprofit(request):
+    '''
+    Required fields:
+
+        userId
+        nonprofit
+
+    '''
+
+    # verify top-level objects
+    requiredFields = ['userId', 'nonprofit']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    # verify object nested in profile
+    try:
+        requiredFields = ['nonprofitId', 'description', 'mission', 'website',
+                          'address']
+        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+            'profile']), requiredFields)
+        if verifiedRequestResponse['isMissingFields']:
+            errorMessage = verifiedRequestResponse['errorMessage']
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    except:
+        errorMessage = 'nonprofit was not a valid JSON'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+
+    userId = request['userId']
+    nonprofit = json.loads(request['nonpprofit'])
+
+    nonprofitId = nonprofit['id']
+    if Account.objects.filter(userId=userId).exists():
+        if Nonprofit.objects.filter(pk=nonprofitId).exists():
+            if NonprofitRelation.objects.filter(
+                    userId=userId,
+                    nonprofitId=nonprofitId
+            ).exists():
+                nonprofitToUpdate = Nonprofit.objects.get(pk=nonprofitId)
+
+                nonprofitToUpdate.description = nonprofit['description']
+                nonprofitToUpdate.mission = nonprofit['mission']
+                nonprofitToUpdate.website = nonprofit['website']
+                nonprofitToUpdate.address = nonprofit['address']
+
+                nonprofitToUpdate.save()
+
+            else:
+                errorMessage = 'User is not affiliated with that nonprofit'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+        else:
+            errorMessage = 'Unknown nonprofit'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown user'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    nonprofitProfileInformationData = {
+        'nonprofitProfile': {
+            'description': str(nonprofitToUpdate.description),
+            'mission': str(nonprofitToUpdate.mission),
+            'website': str(nonprofitToUpdate.website),
+            'address': str(nonprofitToUpdate.address)
+        }
+    }
+
+    return formattedResponse(data=nonprofitProfileInformationData)
+
+
 def createNonprofit(request):
     '''
     Required fields:
