@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^tgn/api/viewNonprofit', 'tgn.api.viewNonprofit'),
     url(r'^tgn/api/getPostedJobs', 'tgn.api.getPostedJobs'),
     url(r'^tgn/api/getNonprofits', 'tgn.api.getNonprofits'),
-    url(r'^tgn/api/getOtherUsers', 'tgn.api.getOtherUsers')
+    url(r'^tgn/api/getOtherUsers', 'tgn.api.getOtherUsers'),
+    url(r'^tgn/api/applyToJob/', 'tgn.api.applyToJob')
                        
 )
