@@ -31,3 +31,6 @@ def myJob(request):
 
 def searchResults(request):
     return render_to_response('searchResults.html')
+
+def myApplicants(request):
+    return render_to_response('jobApplicants.html')
