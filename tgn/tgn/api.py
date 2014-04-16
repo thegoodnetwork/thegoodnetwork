@@ -426,9 +426,10 @@ def acceptApplicant(request):
 
     if Account.objects.fillter(userId=applicantId).exists():
         if Account.objects.filter(userId=affiliateId).exists():
-            if NonprofitRelation.objects.filter(userId=affiliateId,
-                                                nonprofitId=nonprofitId) \
-                    .exists():
+            if NonprofitRelation.objects.filter(
+                    userId=affiliateId,
+                    nonprofitId=nonprofitId
+            ).exists():
                 if PostedJob.objects.filter(pk=jobId).exists():
                     jobToTake = PostedJob.objects.get(pk=jobId)
 
@@ -470,6 +471,7 @@ def acceptApplicant(request):
                                 newCurrentJob,
                                 CURRENT_JOB_TYPE
                             )
+
                         else:
                             errorMessage = 'Failed to accept applicant'
                             return formattedResponse(isError=True,
@@ -496,12 +498,13 @@ def acceptApplicant(request):
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
     updatedNonprofitJobModels = {
-        'postedJobs' : postedJobsModel,
-        'currentJobs' : currentJobsModel,
+        'postedJobs': postedJobsModel,
+        'currentJobs': currentJobsModel,
         'newCurrentJob': newCurrentJobModel
     }
 
     return formattedResponse(data=updatedNonprofitJobModels)
+
 
 def viewOtherProfile(request):
     '''
