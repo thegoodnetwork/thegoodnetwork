@@ -12,11 +12,11 @@ angularTGN.controller('myProfileController', function($scope) {
 
 angularTGN.controller('otherProfileController', function($scope) {
     $scope.profileLink =
-	"https://scontent-b.xx.fbcdn.net/hphotos-prn2/t1.0-9/1780688_10151958313376483_441748523_n.jpg";
-    $scope.name = "Demitri Nava";
-    $scope.aboutMe = "I am a half-decent programmer as evident by the quality of the site you are currently looking at. This is some text that lets the page look a little more even. Without this text, the left side of the page would look like it had a lot more content than this side of the page. Some say it still looks like that even with all this text. ";
-    $scope.resumeLink = "www.yahoo.com";
-    $scope.skills = "surfer, singer, writer";
+	"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c41.41.515.515/s160x160/525082_894169819427_1029426032_n.jpg";
+    $scope.name = "Chris Cristoplas";
+    $scope.aboutMe = "I'm an admissions officer at MIT who is super friendly and likes to hang out on the Facebook group where admitted MIT students chill. I am always looking to do great work and help out whenever possible, so if you have a job you think I might like then please let me know. Let's make a good connection!";
+    $scope.resumeLink = "www.facebook.com";
+    $scope.skills = "admissions officer, social media manager";
     $scope.affiliations = "The Farm Co, Sean's Outpost";   
 });
 
