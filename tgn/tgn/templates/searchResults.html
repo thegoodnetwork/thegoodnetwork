@@ -2,49 +2,39 @@
 {% block content %}
 {% verbatim %}
 <div class="container" data-ng-app="angularTGN">
-    <div class="row" data-ng-controller="mySearchResults">
+    <div class="row">
     </div>
     <div class="row resultTitle">
         <h3>Jobs</h3>
         <hr>
     </div>
     <!---List of Jobs !-->
-    <table id="jobListTable" class="searchResultTable">
+    <table id="jobListTable" class="searchResultTable"
+           data-ng-controller="otherNonprofitsController">
 
-        <tr>
-            <td>Musician</td>
-            <td>Make a Wish</td>
-            <td>None</td>
-            <td>Come jam out at the Mount Sinai hospital. Play whatever you like
-                as long as it's loud and awesome!
+        <tr data-ng-repeat="nonprofit in otherNonprofits">
+            <td class="imageTd">
+                <img class="imageInTable"
+                     src="{{nonprofit.bannerLink}}"
+                     height="160" width="160">
             </td>
-            <td style="width: 200px;">
-                <button class="btn btn-primary" data-toggle="modal"
-                        data-target="#appliedForJobModal">Apply
-                </button>
-                <form style="display: inline-block;" action="/otherNonprofit">
-                    <button class="btn btn-primary">View</button>
-                    <input type="submit" class="hidden">
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>Chef</td>
-            <td>Sean's Outpost</td>
-            <td>$250 + Ingredients</td>
-            <td>Come cook a delicious meal on May 5th for everyone at Sean's
-                outpost. We'll reimburse you for any food you buy and compensate
-                you for your time. Everyone here is friendly and a blast to work
-                with.
-            </td>
-            <td style="width: 200px;">
-                <button class="btn btn-primary" data-toggle="modal"
-                        data-target="#appliedForJobModal">Apply
-                </button>
-                <form style="display: inline-block;" action="/otherNonprofit">
-                    <button class="btn btn-primary">View</button>
-                    <input type="submit" class="hidden">
-                </form>
+            <td>
+                <h3>{{nonprofit.job.title}}</h3>
+
+                <p>{{nonprofit.job.description}}</p>
+
+                <p>{{nonprofit.address}}</p>
+
+                <p>{{nonprofit.job.compensation}}</p>
+
+                <div>
+                    <button type="button" class="btn btn-default">
+                        View Job
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        Apply to Job
+                    </button>
+                </div>
             </td>
         </tr>
     </table>
@@ -52,91 +42,72 @@
         <h3>People</h3>
         <hr>
     </div>
-    <table id="peopleListTable" class="searchResultTable">
+    <table id="peopleListTable" class="searchResultTable"
+           data-ng-controller="otherProfilesController">
 
-        <tr>
+        <tr data-ng-repeat="profile in otherProfiles">
             <td class="imageTd">
                 <img class="imageInTable"
-                        src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c41.41.515.515/s160x160/525082_894169819427_1029426032_n.jpg"
-                        height="160" width="160">
+                     src="{{profile.profileLink}}"
+                     height="160" width="160">
             </td>
             <td>
-                Blogger, Facebook Manager, Admissions
-            </td>
-            <td>
-                Unavailable
-            </td>
-            <td>
-                <form action="/otherProfile">
-                    <button class="btn btn-primary">View Profile</button>
-                    <input type="submit" class="hidden">
-                </form>
+                <h3>{{profile.name}}</h3>
+
+                <p>{{profile.skills}}</p>
+
+                <p>{{profile.location}}</p>
+
+                <div>
+                    <button type="button" class="btn btn-default">
+                        View Profile
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        Contact
+                    </button>
+                </div>
             </td>
         </tr>
-        <tr>
-            <td class="imageTd">
-                <img class="imageInTable"
-                        src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c50.50.621.621/s160x160/1017022_10151920195433185_1534454200_n.jpg">
-            </td>
-            <td>
-                Product Manager, Writer, Trumpet Player
-            </td>
-            <td>
-                Unavailable
-            </td>
-            <td>
-                <form action="/otherProfile">
-                    <button class="btn btn-primary">View Profile</button>
-                    <input type="submit" class="hidden">
-                </form>
-            </td>
-        </tr>
+
     </table>
     <!-- List of People !-->
     <div class="row resultTitle">
         <h3>Nonprofits</h3>
         <hr>
     </div>
-    <table id="nonprofitsListTable" class="searchResultTable">
+    <table id="nonprofitsListTable" class="searchResultTable"
+           data-ng-controller="otherNonprofitsController">
 
-        <tr>
+        <tr ng-repeat="nonprofit in otherNonprofits">
             <td class="imageTd">
                 <img class="imageInTable"
-                     src="http://officialrobby.files.wordpress.com/2013/11/makeawish.jpg">
+                     src="{{ nonprofit.bannerLink }}">
             </td>
             <td>
-                Make-A-Wish grants the wish of a child diagnosed with a
-                life-threatening medical condition in the United States and its
-                territories, on average, every 38 minutes. We believe that a
-                wish experience can be a game-changer. This one belief guides
-                us. It inspires us to grant wishes that change the lives of the
-                kids we serve.
+                <h3>{{nonprofit.name}}</h3>
+
+                <p>{{nonprofit.mission}}</p>
+
+                <p>{{nonprofit.address}}</p>
+
+                <div>
+                    <button type="button" class="btn btn-default">
+                        View Nonprofit
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        Request Affiliation
+                    </button>
+
+                </div>
             </td>
-            <td>
-                <form action="/otherNonprofit">
-                    <button class="btn btn-primary">View Page</button>
-                    <input type="submit" class="hidden">
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td class="ImageTd">
-                <img class="imageInTable"
-                     src="http://bitcoinacrossamerica.com/wp-content/uploads/2014/01/LogoOutpost-300x300.jpg">
-            </td>
-            <td>
-                If you’re interested in helping the less fortunate among us, you
-                are in the right place. If you love Bitcoin, so much the better.
-                There’s no watchers here though. Everybody works. If you really
-                want to start a revolution, don’t pick up a gun. Pick up a soup
-                ladle.
-            </td>
+            <!--
             <td>
                 <form action="/otherNonprofit">
                     <button class="btn btn-primary">View Page</button>
                     <input type="submit" class="hidden">
                 </form>
             </td>
+            !-->
         </tr>
     </table>
     <!-- List of nonprofits !-->

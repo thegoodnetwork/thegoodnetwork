@@ -2,20 +2,24 @@ var angularTGN = angular.module('angularTGN', []);
 
 var Chris = {
     name: 'Chris Christoplas',
+    titles: 'Admissions Officer',
     profileLink: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c41.41.515.515/s160x160/525082_894169819427_1029426032_n.jpg",
     aboutMe: "I'm an admissions officer at MIT who is super friendly and likes to hang out on the Facebook group where admitted MIT students chill. I am always looking to do great work and help out whenever possible, so if you have a job you think I might like then please let me know. Let's make a good connection!",
     resumeLink: "www.facebook.com",
     skills: "admissions officer, social media manager",
-    affiliations: "The Farm Co, Sean's Outpost"
+    affiliations: "The Farm Co, Sean's Outpost",
+    location: 'Boston, MA'
 }
 
 var Bill = {
     name: 'Bill Billerson',
+    titles: 'Musician, Trumpeteer',
     profileLink: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c50.50.621.621/s160x160/1017022_10151920195433185_1534454200_n.jpg',
     aboutMe: '',
     resumeLink: 'www.nvbots.com',
     skills: 'Product Manager, Writer, Trumpet Player',
-    affiliations: 'None'
+    affiliations: 'None',
+    location: 'Boston, MA'
 }
 
 var Bob = {
@@ -24,7 +28,8 @@ var Bob = {
     aboutMe: "I'm Bob. I like to cook, jam out on my guitar, and tell people what to do. Here's a little text to make the right side of the screen look like it has as much detail as the left side of the screen. I'm going to keep writing stuff here so that there's still content to read. One of my favorite things to cook is apple pie. Apple pie is absolutely delicious when done right.",
     resumeLink: "http://jobsearch.about.com/od/sampleresumes/l/blresume3.htm",
     skills: "chef, guitar, management",
-    affiliations: "CStuy"
+    affiliations: "CStuy",
+    location: 'San Francisco, CA'
 }
 
 var SeansOutpost = {
@@ -90,6 +95,13 @@ angularTGN.controller('otherProfilesController', function ($scope) {
         Bill
     ]
 })
+
+angularTGN.controller('otherNonprofitsController', function ($scope) {
+    $scope.otherNonprofits = [
+        MakeAWish,
+        SeansOutpost
+    ]
+})
 angularTGN.controller('otherNonprofitController', function ($scope) {
     $scope.name = SeansOutpost.name;
     $scope.mission = SeansOutpost.mission;
@@ -116,8 +128,4 @@ angularTGN.controller('myJobController', function ($scope) {
     $scope.compensation = SeansOutpost.job.compensation;
 });
 
-angularTGN.controller('mySearchResults', function ($scope) {
-
-
-});
 
