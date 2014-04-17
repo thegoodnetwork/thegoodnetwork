@@ -132,14 +132,10 @@
 }
 
 .jobPost {
-    height: 300px;
-    width: 400px;
-    margin-left: 20px;
 }
 
+
 .myJobPost {
-    height: 200px;
-    width: 400px;
     margin-left: 20px;
 }
 
@@ -276,7 +272,7 @@ table tr:last-child td:last-child   {
     margin: 0px;
     max-height: 172px;
 }
-.searchResultTable {
+.searchResultTable, .jobApplicantTable{
     width:100%;
 }
 .searchResultTable tr{
