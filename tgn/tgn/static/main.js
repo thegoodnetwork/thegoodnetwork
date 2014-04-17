@@ -6,7 +6,7 @@ var Chris = {
     profileLink: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-frc3/t1.0-1/c41.41.515.515/s160x160/525082_894169819427_1029426032_n.jpg",
     aboutMe: "I'm an admissions officer at MIT who is super friendly and likes to hang out on the Facebook group where admitted MIT students chill. I am always looking to do great work and help out whenever possible, so if you have a job you think I might like then please let me know. Let's make a good connection!",
     resumeLink: "www.facebook.com",
-    skills: "admissions officer, social media manager",
+    skills: "Chef, Event Planner",
     affiliations: "The Farm Co, Sean's Outpost",
     location: 'Boston, MA'
 }
