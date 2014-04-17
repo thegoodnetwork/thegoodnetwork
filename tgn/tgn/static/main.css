@@ -45,6 +45,10 @@
     padding: 8px 27px;
 }
 
+#mainLogo {
+    font-family: 'Lato', sans-serif;
+}
+
 #mainSearchBar {
     width: 280px;
 }
