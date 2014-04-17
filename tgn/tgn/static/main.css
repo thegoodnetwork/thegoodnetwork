@@ -1,11 +1,19 @@
 #logoText {
     text-align: center;
     font-size: 50px;
-    font-family: sans-serif;
+    font-family: 'Lato', sans-serif;
     color: white;
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 
 .center {
     text-align: center;
@@ -18,9 +26,10 @@
 }
 
 .homePageListElement {
-    font-size: 30px;
+    font-size: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    font-family: 'Lato', sans-serif;
 }
 
 .form-control {
@@ -66,16 +75,16 @@
 }
 
 .custom-bottom-navbar {
-    background-color: #2C6F7F;
+    background-color: #5986E4;
     text-align: center;
 }
 
 .custom-top-navbar {
-    background-color: #136A7F;
+    background-color: #5986E4;
 }
 
 #main-top-navbar {
-    background-color: #136A7F;
+    background-color: #5986E4;
     height: 60px;
     padding-right: 100px;
 }
@@ -272,4 +281,12 @@ table tr:last-child td:last-child   {
 }
 .searchResultTable tr{
     max-height: 172px;
+}
+.sickProng {
+    font-size: 100px;
+}
+
+.uselessImage {
+    width: 150px;
+    height: 150px;
 }
