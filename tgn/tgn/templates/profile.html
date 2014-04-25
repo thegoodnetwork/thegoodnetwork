@@ -3,37 +3,61 @@
 {% verbatim %} 
 <div class="container" data-ng-app="angularTGN">
   <div class="row" data-ng-controller="myProfileController">
-    <div class="col-sm-6">
+
+      <div class = "row">
+      <div class="col-sm-4">
     <h1 id="profileName">{{name}}
     </h1>
       <img id="profileImage" src="{{profileLink}}" width="180px"
            height="180px"/>
       <br>
-      <h3>Resume
-      </h3>
-      <a>{{resumeLink}}</a>
-      <h3>
-	Skills
-      </h3>
-    <p>
-      {{skills}}
-    </p>
-    <h3>
-	Affiliations
-    </h3>
-    <p>
-      {{affiliations}}
-    </p>
-    </div>
-    <div class="col-sm-6">
-      <h1> Quick Biography </h1>
-      <p id="aboutMe">
-	{{aboutMe}}
-      </p>
+        
       <br>
-      <button class="btn btn-warning btn-lg" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
+      <button class="btn btn-warning btn-lg" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>  
     </div>
+      
+    <div class="col-sm-8">
+      <h1> Biography </h1>
+      <p id="aboutMe"> {{aboutMe}} </p>
+    </div>   
+    </div>    
+<!--    Profile Details    -->
+
+<br>
+<br>
+  <div class = "row"> 
+      <div class = "col-sm-3">
+        <h3 class = "details"> Resume </h3>
+      </div>
+      <div class = "col-sm-1"></div>
+      <div class = "col-sm-8">
+        <p class = "subtext"> {{resumeLink}} </p>
+      </div>
+  </div>
     
+  <div class = "row"> 
+      <div class = "col-sm-3">
+        <h3 class = "details"> Skills </h3>
+      </div>
+      <div class = "col-sm-1"></div>
+      <div class = "col-sm-8">
+        <p class = "subtext"> {{skills}} </p>
+      </div>
+  </div>
+    
+  <div class = "row"> 
+      <div class = "col-sm-3">
+        <h3 class = "details"> Affiliations </h3>
+      </div>
+      <div class = "col-sm-1"></div>
+      <div class = "col-sm-8">
+        <p class = "subtext"> {{affiliations}} </p>
+      </div>
+  </div>
+    
+  
+      
+      
     <!-- Edit Profile Modal !-->
     <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">

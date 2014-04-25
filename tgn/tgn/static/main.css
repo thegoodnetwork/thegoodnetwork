@@ -1,3 +1,33 @@
+body {
+    font-family: 'Lato', 'Helvetica', sans-serif;
+}
+
+/*
+.navbar .nav-pills >li >a {
+    color: #5986E4;
+}
+*/
+
+.nav > li > a:hover {
+/*      border: 1px solid #5986E4; */
+/*      background-color: grey;*/
+}
+
+.nav .nav-pills .nav-stacked > li .active {
+    background-color:#5986E4;
+}
+
+.nav-pills>li.active>a {
+    background-color: #5986E4;
+}
+
+affix {
+    width: 5px;
+    height: 100px;
+    background-color: green;
+    border: 5px black solid;
+}
+
 #logoText {
     text-align: center;
     font-size: 50px;
@@ -14,6 +44,23 @@
     text-align: center;
 }
 
+.details-block {
+    display: block;
+    clear: both;
+}
+
+.details {
+    align-items: center;
+    position: relative;
+/*    border-right: 3px #5986E4 solid;*/
+}
+    
+
+.subtext {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    vertical-align: text-bottom;
+}
 
 .center {
     text-align: center;
@@ -72,6 +119,8 @@
 .navbarText {
     color: white;
     margin-top: 15px;
+    font-family: 'Lato', sans-serif;
+
 }
 
 .container {
@@ -89,8 +138,10 @@
 
 #main-top-navbar {
     background-color: #5986E4;
-    height: 60px;
+    height: 53px;
     padding-right: 100px;
+    font-family: 'Lato', sans-serif;
+
 }
 
 #asSeenIn {
@@ -183,7 +234,7 @@ table a:hover {
     text-decoration:underline;
 }*/
 table {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Lato', 'Helvetica', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
