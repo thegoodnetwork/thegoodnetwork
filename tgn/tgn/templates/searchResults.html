@@ -4,16 +4,13 @@
 <!--Test!-->
 <div class="container" data-ng-app="angularTGN">
     
-    
-    
-    
     <div class="col-sm-2">
         <br>
         <div class='span3 sidebar'>
             <ul class="nav nav-pills nav-stacked affix">
-                <li class="active"><a href='#'>Jobs</a></li>
-                <li><a href='#'>People</a></li>
-                <li><a href='#'>Nonprofits</a></li>
+                <li class="active"><a href='#jobsAnchor'>Jobs</a></li>
+                <li><a href='#peopleAnchor'>People</a></li>
+                <li><a href='#nonprofitsAnchor'>Nonprofits</a></li>
             </ul>
         </div>
     
@@ -24,9 +21,12 @@
     <div class="col-sm-9">
         
         <div class="row resultTitle">
+            
+        <a name="jobsAnchor"></a>
         <h3>Jobs</h3>
         <hr>
-    </div>
+        </div>
+        
         <!---List of Jobs !-->
         <div data-ng-controller="otherNonprofitsController">
         <table id="jobListTable" class="searchResultTable"
@@ -67,6 +67,8 @@
         </table>
             </div>
         <div class="row resultTitle">
+            
+            <a name="peopleAnchor"></a>
             <h3>People</h3>
             <hr>
         </div>
@@ -112,6 +114,7 @@
 
         <!-- List of People !-->
         <div class="row resultTitle">
+            <a name="nonprofitsAnchor"></a>
             <h3>Nonprofits</h3>
             <hr>
         </div>
