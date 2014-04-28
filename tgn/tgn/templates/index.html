@@ -9,16 +9,15 @@
 {% endblock %}
 {% block content %}
 
-    <div id="homePageContent" class="">
+    <div id="homePageContent" class="">  
     
     
-        
-        
         
     <div>
 	<div class="row center">
         <div class="col-sm-12">
-            <a href="/profile"> <img src= "{% static "images/active_404@2x.png" %}"/></a>
+<!--            <a href="/profile"> <img src= "{% static "images/active_404@2x.png" %}"/> <fb:login-button> </fb:login-button></a>-->
+            <div class="fb-login-button" id = "loginBtn" data-max-rows="5" data-size="xlarge" data-show-faces="true" data-auto-logout-link="true"></div>
 	  </div>
     
 	</div>

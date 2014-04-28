@@ -2,11 +2,9 @@ body {
     font-family: 'Lato', 'Helvetica', sans-serif;
 }
 
-/*
-.navbar .nav-pills >li >a {
-    color: #5986E4;
+#loginBtn {
+    background-image: url("{% static "images/active_404@2x.png" %}");
 }
-*/
 
 .nav > li > a:hover {
 /*      border: 1px solid #5986E4; */
