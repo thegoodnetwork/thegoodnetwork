@@ -2,10 +2,6 @@ body {
     font-family: 'Lato', 'Helvetica', sans-serif;
 }
 
-#loginBtn {
-    background-image: url("{% static "images/active_404@2x.png" %}");
-}
-
 .nav > li > a:hover {
 /*      border: 1px solid #5986E4; */
 /*      background-color: grey;*/
@@ -14,6 +10,21 @@ body {
 .nav .nav-pills .nav-stacked > li .active {
     background-color:#5986E4;
 }
+
+/* CAROUSEL */
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+
+.carousel-inner > .item {
+    height: 300px;
+    margin: 10px;
+}
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+/* END CAROUSEL*/
 
 .nav-pills>li.active>a {
     background-color: #5986E4;
@@ -28,7 +39,7 @@ affix {
 
 #logoText {
     text-align: center;
-    font-size: 50px;
+    font-size: 75px;
     font-family: 'Lato', sans-serif;
     color: white;
     padding-top: 10px;
@@ -52,7 +63,6 @@ affix {
     position: relative;
 /*    border-right: 3px #5986E4 solid;*/
 }
-    
 
 .subtext {
     margin-top: 25px;
@@ -62,6 +72,11 @@ affix {
 
 .center {
     text-align: center;
+}
+
+#homePageContent{
+    font-size: 2em;
+    vertical-align: middle;
 }
 
 .homePageList {
@@ -126,7 +141,7 @@ affix {
 }
 
 .custom-bottom-navbar {
-    background-color: #5986E4;
+/*    background-color: #5986E4;*/
     text-align: center;
 }
 

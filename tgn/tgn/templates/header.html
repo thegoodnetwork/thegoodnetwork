@@ -66,11 +66,13 @@
               // dialog right after they log in to Facebook. 
               // The same caveats as above apply to the FB.login() call here.
               FB.login();
+                console.log('is this happening');
             }
           });
               
             FB.Event.subscribe('auth.login', function () {
-          window.location = "/profile";
+                console.log('event subscribe login');
+                window.location = "/profile";
             });      
               
               
@@ -95,9 +97,6 @@
           }
         </script>
 
-        <!--
-          Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-          present a graphical Login button that triggers the FB.login() function when clicked. -->
 
         
         

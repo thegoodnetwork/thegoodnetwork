@@ -9,20 +9,60 @@
 {% endblock %}
 {% block content %}
 
-    <div id="homePageContent" class="">  
-    
-    
-        
-    <div>
-	<div class="row center">
-        <div class="col-sm-12">
-<!--            <a href="/profile"> <img src= "{% static "images/active_404@2x.png" %}"/> <fb:login-button> </fb:login-button></a>-->
-            <div class="fb-login-button" id = "loginBtn" data-max-rows="5" data-size="xlarge" data-show-faces="true" data-auto-logout-link="true"></div>
-	  </div>
-    
-	</div>
+    <div id="homePageContent"> 
     <br>
-        <br>
+    <br>
+
+	<div class="row center">
+        <p class="desc"> connects friends with nonprofits </p>
+        <p class="desc"> to do short-term jobs. </p>
+    </div>
+    
+    <div class="row center">
+        <div id="loginText">       
+<!--        <a href="/profile"> <img id="loginBtn" src= "{% static "images/active_404@2x.png" %}"/> </a>-->
+        <div class="fb-login-button" data-max-rows="0" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div><span class="desc"> to join the network. </span>  
+        </div> 
+	</div>
+        
+<br>
+    
+                            
+<!--    CAROUSEL    
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <div class="carousel-inner">
+      <div class="item active" id = "slide1">
+          <div class="carousel-caption"> slide 1 </div>
+      </div>
+      <div class="item" id = "slide2">
+          <div class="carousel-caption"> slide 2 </div>
+      </div>
+      <div class="item" id = "slide3" >
+         <div class="carousel-caption"> slide 3 </div>
+      </div>
+  </div>
+
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>    
+-->        
+        
+    </div>
+    </div> <!-- END ROW !-->
+    <nav class="navbar navbar-default hidden-xs navbar-fixed-bottom custom-bottom-navbar" role="navigation">
+        
+        <div class="row">
+        </div>
         <br>
         <div class="row center">
             <div class="col-sm-4">
@@ -43,18 +83,16 @@
                 </p>
                 </div>
         </div>
-    
         
         
-    </div>
-    </div> <!-- END ROW !-->
-    <nav class="navbar navbar-default navbar-fixed-bottom hidden-xs custom-bottom-navbar" role="navigation">
       <!-- Fake Logos !-->
+<!--
       <img class="uselessImage" src="https://d2tqk49yez7kzo.cloudfront.net/press/logos/ENGADGET.png"></img>
       <img class="uselessImage" src="//d2tqk49yez7kzo.cloudfront.net/press/logos/FORBES.png"></img>
       <img class="uselessImage" src="//d2tqk49yez7kzo.cloudfront.net/press/logos/ALLTHINGSDIGITAL.png"></img>
       <img class="uselessImage" src="//d2tqk49yez7kzo.cloudfront.net/press/logos/GIZMODO.png"></img>
       <img class="uselessImage" src="//d2tqk49yez7kzo.cloudfront.net/press/logos/THEVERGE.png"></img>
+-->
       
     </nav>
   </body>
