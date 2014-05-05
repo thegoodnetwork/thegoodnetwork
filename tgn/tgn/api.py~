@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+
 from open_facebook.api import OpenFacebook
 from helperFunctions import *
 import json
@@ -23,7 +23,7 @@ def formattedResponse(isError=False, errorMessage=None, data=None):
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
-@csrf_exempt
+
 def loginWithFacebook(request):
     '''
     Required fields:
@@ -31,7 +31,6 @@ def loginWithFacebook(request):
         accessToken
 
     '''
-    print request.POST
     requiredFields = ['accessToken']
 
     verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
