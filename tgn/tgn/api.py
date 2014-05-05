@@ -23,6 +23,7 @@ def formattedResponse(isError=False, errorMessage=None, data=None):
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
+
 @csrf_exempt
 def loginWithFacebook(request):
     '''
@@ -174,11 +175,13 @@ def updateProfile(request):
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
     updatedProfileModel = {
-        'titles': formatTitles(getUserTitles(account)),
-        'skills': formatSkills(getUserSkills(account)),
-        'aboutMe': str(account.aboutMe),
-        'resume': str(account.resume)
-    }
+        'updatedProfile': {
+            'titles': formatTitles(getUserTitles(account)),
+            'skills': formatSkills(getUserSkills(account)),
+            'aboutMe': str(account.aboutMe),
+            'resume': str(account.resume)
+        }
+    };
 
     return formattedResponse(data=updatedProfileModel)
 
