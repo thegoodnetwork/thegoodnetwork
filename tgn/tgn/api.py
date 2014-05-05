@@ -75,6 +75,7 @@ def loginWithFacebook(request):
 
         titles = userModel['titles']
         aboutMe = userModel['aboutMe']
+        resume = userModel['resume']
         jobs = userModel['jobs']
         nonprofits = userModel['nonprofits']
         skills = userModel['skills']
@@ -82,10 +83,12 @@ def loginWithFacebook(request):
 
     loginWithFacebookReturn = {
         'me': {
+            'accessToken': accessToken,
             'userId': userId,
             'name': userName,
             'titles': titles,
             'aboutMe': aboutMe,
+            'resume': resume,
             'jobs': jobs,
             'nonprofits': nonprofits,
             'skills': skills,
@@ -246,7 +249,8 @@ def updateNonprofit(request):
             'mission': str(nonprofitToUpdate.mission),
             'website': str(nonprofitToUpdate.website),
             'address': str(nonprofitToUpdate.address)
-        }
+        },
+        'updatedNonprofitId': nonprofitId
     }
 
     return formattedResponse(data=nonprofitProfileInformationData)
