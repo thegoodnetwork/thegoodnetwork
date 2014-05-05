@@ -123,17 +123,16 @@ var MakeAWish = {
     }
 }
 angularTGN.controller('myProfileController', function($scope, updateProfileService){
-    updateProfileService.getMyProfileData().then(function(testData) {
-       $scope.testData = testData;
+    updateProfileService.getMyProfileData().then(function(serverResponse) {
+       console.log(serverResponse);
+       $scope.name = serverResponse.name;
+       $scope.profileLink = serverResponse.profileImageUrl;
+       $scope.aboutMe = serverResponse.aboutMe;
+       $scope.resumeLink = "";
+       $scope.affiliations = serverResponse.nonprofits;
+       $scope.skills = serverResponse.skills;
+       $scope.resume = serverResponse.resume;
     });
-    console.log("printing test data");
-    console.log($scope.testData);
-    $scope.profileLink = Bob.profileLink;
-    $scope.name = Bob.name;
-    $scope.aboutMe = Bob.aboutMe;
-    $scope.resumeLink = Bob.resumeLink;
-    $scope.skills = Bob.skills;
-    $scope.affiliations = Bob.affiliations
 });
 
 angularTGN.controller('otherProfileController', function ($scope) {
@@ -193,9 +192,8 @@ angularTGN.factory('updateProfileService', function($http) {
       getMyProfileData: function() {
         return $http.post("/tgn/api/loginWithFacebook",
         {"accessToken": "CAAUOQD9mzrYBAG4z6DGeY0ZARZBi16rT5XgS3uZCnLpdxqB11cPkEx1WqleguZCPv0vJoXoG9aHGnOFa3PZAF8nYFSdIpUD8hHXAnUHu17un1qjE1ZBonTd13iFAZCzAjV3lgBP9aZATVUw9ZBZC0BNHsGJGW6k52EUWaCB0KgKIBuSRpbdeE84hup2WovuKZCWOXUZD"}).then(function(result) {
-          console.log("printing test data from service");
-          console.log(result.data);
-          return result.data.data;
+          console.log(result.data.data.me);
+          return result.data.data.me;
         });
       }
   }
