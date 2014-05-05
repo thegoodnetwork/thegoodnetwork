@@ -181,7 +181,7 @@ def updateProfile(request):
             'aboutMe': str(account.aboutMe),
             'resume': str(account.resume)
         }
-    };
+    }
 
     return formattedResponse(data=updatedProfileModel)
 

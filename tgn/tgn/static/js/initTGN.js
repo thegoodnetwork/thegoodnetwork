@@ -259,26 +259,29 @@ tgn.factory('requestService', function ($http) {
 
         requestService.loginWithFacebook = function (myProfileService, requestArgs) {
             var requestUrl = requestPrefix + 'loginWithFacebook';
-            var responseData = makePostRequest(requestUrl, requestArgs);
-            var loginInfo = responseData.data.me;
+            makePostRequest(requestUrl, requestArgs).then(function (responseData) {
+                var loginInfo = responseData.data.me;
 
-            if (loginInfo) {
-                myProfileService.login(loginInfo);
-            } else {
-                console.log(responseData.errorMessage);
-            }
+                if (loginInfo) {
+                    myProfileService.login(loginInfo);
+                } else {
+                    console.log(responseData.errorMessage);
+                }
+            });
+
         };
 
         requestService.updateProfile = function (myProfileService, requestArgs) {
             var requestUrl = requestPrefix + 'updateProfile';
-            var responseData = makePostRequest(requestUrl, requestArgs);
-            var updatedProfile = responseData.data.updatedProfile;
+            makePostRequest(requestUrl, requestArgs).then(function (responseData) {
+                var updatedProfile = responseData.data.updatedProfile;
 
-            if (updatedProfile) {
-                myProfileService.updateModel(updatedProfile);
-            } else {
-                console.log(responseData.errorMessage);
-            }
+                if (updatedProfile) {
+                    myProfileService.updateModel(updatedProfile);
+                } else {
+                    console.log(responseData.errorMessage);
+                }
+            });
         };
         return requestService
     }
