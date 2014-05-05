@@ -246,10 +246,8 @@ def getUserModel(account):
     completedJobsAsEmployee = formatJobs(getCompletedJobsAsEmployee(account),
                                          jobType=COMPLETED_JOB_TYPE)
 
-    applications = {
-        'jobsAsApplicant': currentJobsAsApplicant
-    }
     jobs = {
+        'jobsAsApplicant': currentJobsAsApplicant,
         'currentJobsAsEmployee': currentJobsAsEmployee,
         'completedJobsAsEmployee': completedJobsAsEmployee
     }
@@ -270,7 +268,6 @@ def getUserModel(account):
         'aboutMe': aboutMe,
         'titles': titles,
         'skills': skills,
-        'applications': applications,
         'jobs': jobs,
         'nonprofits': formattedUserNonprofits
     }

@@ -76,6 +76,7 @@ def loginWithFacebook(request):
 
         titles = userModel['titles']
         aboutMe = userModel['aboutMe']
+        resume = userModel['resume']
         jobs = userModel['jobs']
         nonprofits = userModel['nonprofits']
         skills = userModel['skills']
@@ -83,10 +84,12 @@ def loginWithFacebook(request):
 
     loginWithFacebookReturn = {
         'me': {
+            'accessToken': accessToken,
             'userId': userId,
             'name': userName,
             'titles': titles,
             'aboutMe': aboutMe,
+            'resume': resume,
             'jobs': jobs,
             'nonprofits': nonprofits,
             'skills': skills,
@@ -247,7 +250,8 @@ def updateNonprofit(request):
             'mission': str(nonprofitToUpdate.mission),
             'website': str(nonprofitToUpdate.website),
             'address': str(nonprofitToUpdate.address)
-        }
+        },
+        'updatedNonprofitId': nonprofitId
     }
 
     return formattedResponse(data=nonprofitProfileInformationData)
@@ -389,6 +393,76 @@ def requestAffiliation(request):
     return formattedResponse(data=userAffiliationRequestModel)
 
 
+def acceptAffiliate(request):
+    '''
+    Required Fields:
+        affiliateId
+        potentialAffiliateId
+        nonprofitId
+    '''
+    # verify top-level objects
+    requiredFields = ['affiliateId', 'nonprofitId', 'newAffiliateId']
+    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    if verifiedRequestResponse['isMissingFields']:
+        errorMessage = verifiedRequestResponse['errorMessage']
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    request = request.POST
+    affiliateId = request['affiliateId']
+    potentialAffiliateId = request['potentialAffiliateId']
+    nonprofitId = request['nonprofitId']
+
+    if Account.objects.filter(userId=affiliateId).exists():
+        if NonprofitRelation.objects.filter(userId=affiliateId,
+                                            nonprofitId=nonprofitId).exists():
+            if Account.objects.filter(userId=potentialAffiliateId).exists():
+                potentialAffiliate = Account.objects.get(
+                    userId=potentialAffiliateId)
+                nonprofit = Nonprofit.objects.get(pk=nonprofitId)
+
+                if NonprofitAffiliateRequest.objects.filter(
+                        potentialAffiliate=potentialAffiliate,
+                        nonprofit=nonprofit).exists():
+
+                    # delete old affiliation request
+                    oldAffiliationRequest = NonprofitAffiliateRequest.objects \
+                        .get(potentialAffiliate=potentialAffiliate,
+                             nonprofit=nonprofit)
+                    oldAffiliationRequest.delete()
+
+                    # create new nonprofit relation
+                    NonprofitRelation.objects.create(
+                        userId=potentialAffiliateId,
+                        nonprofitId=nonprofitId)
+
+                    # get updated nonprofit affiliates
+                    updatedNonprofitAffiliates = getNonprofitAffiliates(
+                        nonprofit)
+
+                else:
+                    errorMessage = 'Potential affiliate provided is not ' \
+                                   'requesting affiliation to the provided ' \
+                                   'nonprofit'
+                    return formattedResponse(isError=True,
+                                             errorMessage=errorMessage)
+            else:
+                errorMessage = 'Unknown potential affiliate'
+                return formattedResponse(isError=True,
+                                         errorMessage=errorMessage)
+        else:
+            errorMessage = 'User is not an affiliate of the provided nonprofit'
+            return formattedResponse(isError=True, errorMessage=errorMessage)
+    else:
+        errorMessage = 'Unknown affiliate'
+        return formattedResponse(isError=True, errorMessage=errorMessage)
+
+    updatedAffiliatesModel = {
+        'nonprofitAffiliates': updatedNonprofitAffiliates
+    }
+
+    return formattedResponse(data=updatedAffiliatesModel)
+
+
 def postJobAsNonprofit(request):
     '''
     Required fields:
@@ -426,7 +500,8 @@ def postJobAsNonprofit(request):
     if Account.objects.filter(userId=userId).exists():
         if Nonprofit.objects.filter(pk=nonprofitId).exists():
             if NonprofitRelation.objects.filter(userId=userId,
-                                                nonprofitId=nonprofitId).exists():
+                                                nonprofitId=nonprofitId) \
+                    .exists():
                 nonprofit = Nonprofit.objects.get(pk=nonprofitId)
 
                 newPostedJob, isNewPostedJobCreated = PostedJob.objects \
@@ -624,7 +699,8 @@ def acceptApplicant(request):
                     return formattedResponse(isError=True,
                                              errorMessage=errorMessage)
             else:
-                errorMessage = 'The suggested affiliate is not an affiliate of ' \
+                errorMessage = 'The suggested affiliate is not an affiliate ' \
+                               'of ' \
                                'the nonprofit'
                 return formattedResponse(isError=True,
                                          errorMessage=errorMessage)
