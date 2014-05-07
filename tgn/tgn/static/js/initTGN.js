@@ -1,4 +1,4 @@
-var tgn = angular.module('angularTGN', [], function ($httpProvider) {
+var tgn = angular.module('app', ['ngRoute'], function ($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset\
 =utf-8';
@@ -45,9 +45,65 @@ var tgn = angular.module('angularTGN', [], function ($httpProvider) {
     }];
 });
 
+tgn.config(
+    function ($controllerProvider, $provide, $compileProvider, $routeProvider) {
+
+        console.log("Config method executed.");
+
+        tgn._controller = app.controller;
+        tgn._service = app.service;
+        tgn._factory = app.factory;
+        tgn._value = app.value;
+        tgn._directive = app.directive;
+
+        tgn.controller = function (name, constructor) {
+
+            $controllerProvider.register(name, constructor);
+            return( this );
+
+        };
+
+        tgn.service = function (name, constructor) {
+
+            $provide.service(name, constructor);
+            return( this );
+
+        };
+
+        tgn.factory = function (name, factory) {
+
+            $provide.factory(name, factory);
+            return( this );
+
+        };
+
+        tgn.value = function (name, value) {
+
+            $provide.value(name, value);
+            return( this );
+
+        };
+
+        tgn.directive = function (name, factory) {
+
+            $compileProvider.directive(name, factory);
+            return( this );
+
+        };
+
+        // Set our routes here
+        $routeProvider
+            .when('/', {
+                templateUrl: 'partials/login.html'
+            })
+            .when('/myProfile', {
+                templateUrl: 'templates/loggedIn.html'
+            })
+            .otherwise({redirectTo: '/'});
+    }
+);
 var initTGN = function (accessToken) {
     tgn.value('accessToken', accessToken);
-
     tgn.factory('myProfileService', function (accessToken) {
         var userModel = {
             accessToken: accessToken,
@@ -290,13 +346,17 @@ var initTGN = function (accessToken) {
         }
     );
 
-    tgn.controller('TGNController', function ($scope, myProfileService, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
-
+    tgn.controller('TGNController', function ($scope, $rootScope, myProfileService, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
         $scope.myProfile = myProfileService;
         $scope.myNonprofits = myNonprofitsService;
         $scope.myJobs = myJobsService;
         $scope.searchResults = searchResultsService;
         $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
+
+        $scope.requestService.loginWithFacebook($scope.myProfile,
+            {accessToken: $scope.myProfile.userModel().accessToken});
+
+        $rootScope.loggedIn = myProfileService.isLoggedIn()
     });
 };

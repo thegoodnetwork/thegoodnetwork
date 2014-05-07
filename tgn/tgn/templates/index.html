@@ -1,81 +1,100 @@
-{% extends "header.html" %}
 {% load staticfiles %}
-{% block topbar %}
-    <nav class="navbar navbar-default custom-top-navbar" role="navigation">
-      <div class="container-fluid">
-	<div id="logoText">THE GOOD NETWORK</div>
-      </div><!-- /.container-fluid -->
-    </nav>
-{% endblock %}
-{% block content %}
-    
-    <div id="homePageContent"> 
-    <br>
-    <br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Good Network</title>
+    <link rel="stylesheet" type="text/css"
+          href="http://fonts.googleapis.com/css?family=Lato:light">
 
-	<div class="row center">
-        <p class="desc"> connects friends with nonprofits </p>
-        <p class="desc"> to do short-term jobs. </p>
+    <link href='{% static "bootstrap-3.1.1/dist/css/bootstrap.min.css" %}'
+          rel="stylesheet">
+    <link href='{% static "main.css" %}' rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script
+            src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-route.min.js"></script>
+    <script type="text/javascript" src='{% static "js/initTGN.js" %}'></script>
+
+</head>
+<body data-ng-app="app">
+
+<!-- ng-switch for navbar -->
+<nav class="navbar navbar-default custom-top-navbar"
+     role="navigation"
+     data-ng-if="!(loggedIn)"
+        >
+    <div class="container-fluid">
+        <div id="logoText">THE GOOD NETWORK</div>
     </div>
-    
-    <div class="row center">
-        <div id="loginText">       
-        <div class="fb-login-button" scope="public_profile,email" data-max-rows="0" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div><span class="desc"> to join the network. </span>  
-        </div> 
-	</div>
-        
-<br>
-          
+</nav>
+
+
+<nav id="main-top-navbar"
+     class="navbar navbar-default"
+     role="navigation"
+     data-ng-if="loggedIn"
+        >
+    <a href="/profile">
+        <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
+            NETWORK</strong></div>
+    </a>
+
+    <form class="col-xs-4" action="/searchResults">
+        <input class="form-control input-sm"
+               placeholder="type any keyword for jobs, people, nonprofits"
+               type="text"/>
+        <span class="glyphicon glyphicon-search"></span>
+        <input type="submit" class="hidden"/>
+    </form>
+
+    <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
+       onclick="FB.logout();"> Log Out </a>
+
+    <a id="meLink" href="/profile" class="navbarText rightNavItem">Me
+    </a>
+
+    <div class="btn-group navbarText rightNavItem">
+    <span class="dropdown-toggle" data-toggle="dropdown">My Jobs <span
+            class="caret"></span>
+    </span>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="/myJob">Manage Sean's Outpost Event</a></li>
+            <li role="presentation" class="divider"></li>
+            <li><a href="/searchResults">Find a Job</a></li>
+        </ul>
     </div>
-    </div> <!-- END ROW !-->
-    <nav class="navbar navbar-default hidden-xs navbar-fixed-bottom custom-bottom-navbar" role="navigation">
-        
-        <div class="row">
-        </div>
-        <br>
-        <div class="row center">
-            <div class="col-sm-4">
-                <span class="glyphicon glyphicon-user sickProng text-muted"></span>
-                <p class="homePageListElement">
-                Find good people.</p>    
-            </div>
-            <div class="col-sm-4">
-                <span class="glyphicon glyphicon-wrench sickProng text-muted"></span>
-                <p class="homePageListElement">
-                    Find good work.
-                </p>
-            </div>
-            <div class="col-sm-4">
-                <span class="glyphicon glyphicon-globe sickProng text-muted"></span>
-                <p class="homePageListElement">
-                    Make the world a better place.
-                </p>
-                </div>
-        </div>
-        
-        
-      <!-- Fake Logos !-->
-<!--
-      <img class="uselessImage" src="https://d2tqk49yez7kzo.cloudfront.net/press/logos/ENGADGET.png"></img>
-      <img class="uselessImage" src="//d2tqk49yez7kzo.cloudfront.net/press/logos/FORBES.png"></img>
-      <img class="uselessImage" src="//d2tqk49yez7kzo.cloudfront.net/press/logos/ALLTHINGSDIGITAL.png"></img>
-      <img class="uselessImage" src="//d2tqk49yez7kzo.cloudfront.net/press/logos/GIZMODO.png"></img>
-      <img class="uselessImage" src="//d2tqk49yez7kzo.cloudfront.net/press/logos/THEVERGE.png"></img>
--->
-    
-<!--    IF ALREADY LOGGED IN, REDIRECT TO PROFILE    -->
-    <script>     
-        $(window).bind("load", function() {
-            FB.getLoginStatus(function(response){
-                if (response.status == "connected") {
-                    window.location = "/profile";
-                }
-              });
-        });    
-    </script>    
-        
-    </nav>
-  </body>
+    <div class="btn-group navbarText rightNavItem">
+    <span class="dropdown-toggle" data-toggle="dropdown">My Nonprofits <span
+            class="caret"></span>
+    </span>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="/myNonprofit">Finding Refuge</a></li>
+            <li role="presentation" class="divider"></li>
+            <li data-toggle="modal" data-target="#createNonprofitModal">
+                <a href="#">Create New Nonprofit</a>
+            </li>
+            <li data-toggle="modal" data-target="#createNonprofitJob">
+                <a href="#">Create New Job</a>
+            </li>
+            <li>
+                <a href="/myApplicants">View Job Applicants</a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
+
+<!-- ng-view for our ngRoute-->
+<div data-ng-view>
+
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+        src='{% static "bootstrap-3.1.1/dist/js/bootstrap.min.js" %}'></script>
+
+<script type="text/javascript"
+        src='{% static "js/initFacebook.js" %}'></script>
+
+</body>
 </html>
-{% endblock %}
-

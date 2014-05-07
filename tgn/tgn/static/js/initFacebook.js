@@ -29,8 +29,8 @@ window.fbAsyncInit = function () {
             // have logged in to the app.
 
             testAPI();
-            initTGN(FB.getAccessToken());
-
+            $(initTGN(FB.getAccessToken()));
+            window.location = '#/myProfile'
         } else if (response.status === 'not_authorized') {
             // In this case, the person is logged into Facebook, but not into the app, so we call
             // FB.login() to prompt them to do so.
