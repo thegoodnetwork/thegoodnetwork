@@ -30,7 +30,7 @@ window.fbAsyncInit = function () {
 
             testAPI();
             $(initTGN(FB.getAccessToken()));
-            window.location = '#/myProfile'
+            window.location = '/myProfile'
         } else if (response.status === 'not_authorized') {
             // In this case, the person is logged into Facebook, but not into the app, so we call
             // FB.login() to prompt them to do so.
@@ -49,11 +49,6 @@ window.fbAsyncInit = function () {
             FB.login();
             console.log('is this happening');
         }
-    });
-
-    FB.Event.subscribe('auth.login', function () {
-        console.log('event subscribe login');
-        window.location = "/profile";
     });
 
 };
