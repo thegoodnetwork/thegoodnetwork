@@ -358,6 +358,7 @@ var initTGN = function (accessToken) {
         $scope.requestService.loginWithFacebook($scope.myProfile,
             {accessToken: $scope.myProfile.userModel().accessToken});
 
-        $rootScope.loggedIn = myProfileService.isLoggedIn()
+        $rootScope.loggedIn = true;
+            //myProfileService.isLoggedIn();
     });
 };
