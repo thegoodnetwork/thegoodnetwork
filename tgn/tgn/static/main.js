@@ -186,6 +186,12 @@ angularTGN.controller('myJobController', function ($scope) {
     $scope.compensation = SeansOutpost.job.compensation;
 });
 
+angularTGN.factory('requestService', function($http) {
+  var reqeustService = {};
+  requestService.updateProfile = function(profileService) {
+
+  }
+});
 
 angularTGN.factory('updateProfileService', function($http) {
   return {
