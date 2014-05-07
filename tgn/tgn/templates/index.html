@@ -1,22 +1,17 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>The Good Network</title>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="http://fonts.googleapis.com/css?family=Lato:light">
 
     <link href='{% static "bootstrap-3.1.1/dist/css/bootstrap.min.css" %}'
           rel="stylesheet">
 
-    <script type="text/javascript"
-            src='{% static "bootstrap-3.1.1/dist/js/bootstrap.min.js" %}'></script>
 
-    <script type="text/javascript"
-            src='{% static "angular.min.js" %}'></script>
-    <script
-            src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-route.min.js"></script>
     <link href='{% static "main.css" %}' rel="stylesheet">
+
 </head>
 <body data-ng-app="angularTGN">
 
@@ -94,7 +89,14 @@
 
 </div>
 
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+        src='{% static "bootstrap-3.1.1/dist/js/bootstrap.min.js" %}'></script>
 
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+<script
+        src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-route.min.js"></script>
 <script type="text/javascript" src='{% static "js/initTGN.js" %}'></script>
+
 </body>
 </html>

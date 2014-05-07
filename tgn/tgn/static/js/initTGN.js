@@ -50,41 +50,41 @@ tgn.config(
 
         console.log("Config method executed.");
 
-        app._controller = app.controller;
-        app._service = app.service;
-        app._factory = app.factory;
-        app._value = app.value;
-        app._directive = app.directive;
+        tgn._controller = app.controller;
+        tgn._service = app.service;
+        tgn._factory = app.factory;
+        tgn._value = app.value;
+        tgn._directive = app.directive;
 
-        app.controller = function (name, constructor) {
+        tgn.controller = function (name, constructor) {
 
             $controllerProvider.register(name, constructor);
             return( this );
 
         };
 
-        app.service = function (name, constructor) {
+        tgn.service = function (name, constructor) {
 
             $provide.service(name, constructor);
             return( this );
 
         };
 
-        app.factory = function (name, factory) {
+        tgn.factory = function (name, factory) {
 
             $provide.factory(name, factory);
             return( this );
 
         };
 
-        app.value = function (name, value) {
+        tgn.value = function (name, value) {
 
             $provide.value(name, value);
             return( this );
 
         };
 
-        app.directive = function (name, factory) {
+        tgn.directive = function (name, factory) {
 
             $compileProvider.directive(name, factory);
             return( this );
