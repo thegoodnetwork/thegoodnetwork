@@ -322,6 +322,7 @@ var initTGN = function (accessToken) {
                     var loginInfo = responseData.data.me;
 
                     if (loginInfo) {
+                        console.log('logging in ' + json.stringify(loginInfo));
                         myProfileService.login(loginInfo);
                     } else {
                         console.log(responseData.errorMessage);
