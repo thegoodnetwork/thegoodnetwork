@@ -1,4 +1,4 @@
-var tgn = angular.module('app', ['ngRoute'], function ($httpProvider) {
+var tgn = angular.module('angularTGN', ['ngRoute'], function ($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset\
 =utf-8';
@@ -50,11 +50,11 @@ tgn.config(
 
         console.log("Config method executed.");
 
-        tgn._controller = app.controller;
-        tgn._service = app.service;
-        tgn._factory = app.factory;
-        tgn._value = app.value;
-        tgn._directive = app.directive;
+        tgn._controller = tgn.controller;
+        tgn._service = tgn.service;
+        tgn._factory = tgn.factory;
+        tgn._value = tgn.value;
+        tgn._directive = tgn.directive;
 
         tgn.controller = function (name, constructor) {
 
@@ -94,10 +94,10 @@ tgn.config(
         // Set our routes here
         $routeProvider
             .when('/', {
-                templateUrl: 'partials/login.html'
+                templateUrl: 'partials/login'
             })
             .when('/myProfile', {
-                templateUrl: 'templates/loggedIn.html'
+                templateUrl: 'partials/myProfile'
             })
             .otherwise({redirectTo: '/'});
     }
