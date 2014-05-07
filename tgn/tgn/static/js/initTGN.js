@@ -92,13 +92,12 @@ tgn.config(
         };
 
         // Set our routes here
-        var base_url = 'tgn/tgn/templates/';
         $routeProvider
             .when('/', {
-                templateUrl: base_url + 'partials/login'
+                templateUrl: 'partials/login'
             })
             .when('/myProfile', {
-                templateUrl: base_url + 'partials/myProfile'
+                templateUrl: 'partials/myProfile'
             })
             .otherwise({redirectTo: '/'});
     }
