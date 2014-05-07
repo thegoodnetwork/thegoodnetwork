@@ -45,254 +45,258 @@ var tgn = angular.module('angularTGN', [], function ($httpProvider) {
     }];
 });
 
-tgn.factory('myProfileService', function () {
-    var userModel = {
-        accessToken: '',
-        userId: '',
-        name: '',
-        aboutMe: '',
-        resume: '',
-        profileImageUrl: '',
-        titles: [],
-        skills: []
-    };
+var initTGN = function (accessToken) {
+    tgn.value('accessToken', accessToken);
 
-    var loggedIn = false;
+    tgn.factory('myProfileService', function (accessToken) {
+        var userModel = {
+            accessToken: accessToken,
+            userId: '',
+            name: '',
+            aboutMe: '',
+            resume: '',
+            profileImageUrl: '',
+            titles: [],
+            skills: []
+        };
 
-    var myProfileService = {}
+        var loggedIn = false;
 
-    myProfileService.login = function (user) {
-        for (attribute in user) {
-            userModel[attribute] = user[attribute]
-        }
+        var myProfileService = {}
 
-        loggedIn = true;
-    };
-
-    myProfileService.logout = function () {
-        userModel.accessToken = '';
-        userModel.userId = '';
-        userModel.name = '';
-        userModel.aboutMe = '';
-        userModel.resume = '';
-        userModel.profileImageUrl = '';
-        userModel.titles = [];
-        userModel.skills = [];
-
-        loggedIn = false;
-    };
-
-    myProfileService.updateModel = function (newModel) {
-        for (updatedAttribute in newModel) {
-            userModel[updatedAttribute] = newModel[updatedAttribute]
-        }
-    };
-
-    myProfileService.userModel = function () {
-        return userModel;
-    };
-
-    myProfileService.isLoggedIn = function () {
-        return loggedIn;
-    };
-
-    return myProfileService;
-});
-
-tgn.factory('myNonprofitsService', function () {
-    var myNonprofits = [];
-
-    var myNonprofitsService = {};
-
-    myNonprofitsService.setMyNonprofits = function (nonprofits) {
-        myNonprofits = nonprofits;
-    };
-
-    myNonprofitsService.updateNonprofit = function (nonprofitId, updatedNonprofitModel) {
-        for (var i = 0, j = myNonprofits.length; i < j; i++) {
-            if (myNonprofits[i].nonprofitId == nonprofitId) {
-                for (updatedAttribute in updatedNonprofitModel) {
-                    myNonprofits[i][updatedAttribute] = updatedNonprofitModel[updatedAttribute]
-                }
-                break;
+        myProfileService.login = function (user) {
+            for (attribute in user) {
+                userModel[attribute] = user[attribute]
             }
-        }
-    };
 
-    myNonprofitsService.myNonprofits = function () {
-        return myNonprofits;
-    };
+            loggedIn = true;
+        };
 
-    return myNonprofitsService;
-});
+        myProfileService.logout = function () {
+            userModel.accessToken = '';
+            userModel.userId = '';
+            userModel.name = '';
+            userModel.aboutMe = '';
+            userModel.resume = '';
+            userModel.profileImageUrl = '';
+            userModel.titles = [];
+            userModel.skills = [];
 
-tgn.factory('myJobsService', function () {
-    var myJobs = {
-        jobsAsApplicant: [],
-        currentJobsAsEmployee: [],
-        completedJobsAsEmployee: []
-    };
+            loggedIn = false;
+        };
 
-    var myJobsService = {};
+        myProfileService.updateModel = function (newModel) {
+            for (updatedAttribute in newModel) {
+                userModel[updatedAttribute] = newModel[updatedAttribute]
+            }
+        };
 
-    myJobsService.setMyJobs = function (jobs) {
-        myJobs = jobs;
-    };
+        myProfileService.userModel = function () {
+            return userModel;
+        };
 
-    myJobsService.setMyApplications = function (applications) {
-        myJobs['jobsAsApplicant'] = applications;
-    };
+        myProfileService.isLoggedIn = function () {
+            return loggedIn;
+        };
 
-    myJobsService.setMyCurrentJobs = function (currentJobs) {
-        myJobs['currentJobsAsEmployee'] = currentJobs;
-    };
+        return myProfileService;
+    });
 
-    myJobsService.setMyCompletedJobs = function (completedJobs) {
-        myJobs['completedJobsAsEmployee'] = completedJobs
-    };
+    tgn.factory('myNonprofitsService', function () {
+        var myNonprofits = [];
 
-    myJobsService.myJobs = function () {
-        return myJobs
-    };
+        var myNonprofitsService = {};
 
-    return myJobsService
-});
+        myNonprofitsService.setMyNonprofits = function (nonprofits) {
+            myNonprofits = nonprofits;
+        };
 
-tgn.factory('searchResultsService', function () {
-    var search = {
-        postedJobs: [],
-        nonprofits: [],
-        otherUsers: [],
-        query: ''
-    };
+        myNonprofitsService.updateNonprofit = function (nonprofitId, updatedNonprofitModel) {
+            for (var i = 0, j = myNonprofits.length; i < j; i++) {
+                if (myNonprofits[i].nonprofitId == nonprofitId) {
+                    for (updatedAttribute in updatedNonprofitModel) {
+                        myNonprofits[i][updatedAttribute] = updatedNonprofitModel[updatedAttribute]
+                    }
+                    break;
+                }
+            }
+        };
 
-    var searchService = {};
+        myNonprofitsService.myNonprofits = function () {
+            return myNonprofits;
+        };
 
-    searchService.setPostedJobs = function (postedJobs) {
-        search.postedJobs = postedJobs;
-    };
+        return myNonprofitsService;
+    });
 
-    searchService.setNonprofits = function (nonprofits) {
-        search.nonprofits = nonprofits;
-    };
-
-    searchService.setOtherUsers = function (otherUsers) {
-        search.otherUsers = otherUsers;
-    };
-
-    searchService.setQuery = function (query) {
-        search.query = query;
-    };
-
-    searchService.searchResults = function () {
-        return search;
-    };
-
-    return searchService
-});
-
-tgn.factory('viewContentService', function () {
-    var nonprofitToView = {
-        nonprofitId: '',
-        name: '',
-        mission: '',
-        description: '',
-        website: '',
-        address: '',
-        jobs: {
-            postedJobs: [],
-            currentJobs: [],
-            completedJobs: []
-        },
-        affiliates: []
-    };
-
-    var otherUserToView = {
-        userId: '',
-        name: '',
-        aboutMe: '',
-        profileImageUrl: '',
-        resume: '',
-        titles: [],
-        skills: [],
-        jobs: {
+    tgn.factory('myJobsService', function () {
+        var myJobs = {
             jobsAsApplicant: [],
             currentJobsAsEmployee: [],
             completedJobsAsEmployee: []
-        },
-        nonprofits: []
-    };
-
-    var viewContent = {
-        nonprofitToView: nonprofitToView,
-        otherUserToView: otherUserToView
-    };
-
-    var viewContentService = {};
-
-    viewContentService.setNonprofitToView = function (nonprofit) {
-        nonprofitToView = nonprofit;
-    };
-
-    viewContentService.setOtherUserToView = function (otherUser) {
-        otherUserToView = otherUser
-    };
-
-    viewContentService.viewContent = function () {
-        return viewContent
-    };
-
-    return viewContentService;
-});
-
-tgn.factory('requestService', function ($http) {
-        var requestService = {};
-        var getResponseData = function (response) {
-            return response.data;
-        };
-        var makePostRequest = function (url, parameters) {
-            $http.post(url, parameters).then(function (response) {
-                return getResponseData(response);
-            })
-        };
-        var requestPrefix = '/tgn/api/';
-
-        requestService.loginWithFacebook = function (myProfileService, requestArgs) {
-            var requestUrl = requestPrefix + 'loginWithFacebook';
-            makePostRequest(requestUrl, requestArgs).then(function (responseData) {
-                var loginInfo = responseData.data.me;
-
-                if (loginInfo) {
-                    myProfileService.login(loginInfo);
-                } else {
-                    console.log(responseData.errorMessage);
-                }
-            });
-
         };
 
-        requestService.updateProfile = function (myProfileService, requestArgs) {
-            var requestUrl = requestPrefix + 'updateProfile';
-            makePostRequest(requestUrl, requestArgs).then(function (responseData) {
-                var updatedProfile = responseData.data.updatedProfile;
+        var myJobsService = {};
 
-                if (updatedProfile) {
-                    myProfileService.updateModel(updatedProfile);
-                } else {
-                    console.log(responseData.errorMessage);
-                }
-            });
+        myJobsService.setMyJobs = function (jobs) {
+            myJobs = jobs;
         };
-        return requestService
-    }
-);
 
-tgn.controller('TGNController', function ($scope, myProfileService, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
+        myJobsService.setMyApplications = function (applications) {
+            myJobs['jobsAsApplicant'] = applications;
+        };
 
-    $scope.myProfile = myProfileService;
-    $scope.myNonprofits = myNonprofitsService;
-    $scope.myJobs = myJobsService;
-    $scope.searchResults = searchResultsService;
-    $scope.viewContent = viewContentService;
-    $scope.requestService = requestService;
-});
+        myJobsService.setMyCurrentJobs = function (currentJobs) {
+            myJobs['currentJobsAsEmployee'] = currentJobs;
+        };
+
+        myJobsService.setMyCompletedJobs = function (completedJobs) {
+            myJobs['completedJobsAsEmployee'] = completedJobs
+        };
+
+        myJobsService.myJobs = function () {
+            return myJobs
+        };
+
+        return myJobsService
+    });
+
+    tgn.factory('searchResultsService', function () {
+        var search = {
+            postedJobs: [],
+            nonprofits: [],
+            otherUsers: [],
+            query: ''
+        };
+
+        var searchService = {};
+
+        searchService.setPostedJobs = function (postedJobs) {
+            search.postedJobs = postedJobs;
+        };
+
+        searchService.setNonprofits = function (nonprofits) {
+            search.nonprofits = nonprofits;
+        };
+
+        searchService.setOtherUsers = function (otherUsers) {
+            search.otherUsers = otherUsers;
+        };
+
+        searchService.setQuery = function (query) {
+            search.query = query;
+        };
+
+        searchService.searchResults = function () {
+            return search;
+        };
+
+        return searchService
+    });
+
+    tgn.factory('viewContentService', function () {
+        var nonprofitToView = {
+            nonprofitId: '',
+            name: '',
+            mission: '',
+            description: '',
+            website: '',
+            address: '',
+            jobs: {
+                postedJobs: [],
+                currentJobs: [],
+                completedJobs: []
+            },
+            affiliates: []
+        };
+
+        var otherUserToView = {
+            userId: '',
+            name: '',
+            aboutMe: '',
+            profileImageUrl: '',
+            resume: '',
+            titles: [],
+            skills: [],
+            jobs: {
+                jobsAsApplicant: [],
+                currentJobsAsEmployee: [],
+                completedJobsAsEmployee: []
+            },
+            nonprofits: []
+        };
+
+        var viewContent = {
+            nonprofitToView: nonprofitToView,
+            otherUserToView: otherUserToView
+        };
+
+        var viewContentService = {};
+
+        viewContentService.setNonprofitToView = function (nonprofit) {
+            nonprofitToView = nonprofit;
+        };
+
+        viewContentService.setOtherUserToView = function (otherUser) {
+            otherUserToView = otherUser
+        };
+
+        viewContentService.viewContent = function () {
+            return viewContent
+        };
+
+        return viewContentService;
+    });
+
+    tgn.factory('requestService', function ($http) {
+            var requestService = {};
+            var getResponseData = function (response) {
+                return response.data;
+            };
+            var makePostRequest = function (url, parameters) {
+                $http.post(url, parameters).then(function (response) {
+                    return getResponseData(response);
+                })
+            };
+            var requestPrefix = '/tgn/api/';
+
+            requestService.loginWithFacebook = function (myProfileService, requestArgs) {
+                var requestUrl = requestPrefix + 'loginWithFacebook';
+                makePostRequest(requestUrl, requestArgs).then(function (responseData) {
+                    var loginInfo = responseData.data.me;
+
+                    if (loginInfo) {
+                        myProfileService.login(loginInfo);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+
+            };
+
+            requestService.updateProfile = function (myProfileService, requestArgs) {
+                var requestUrl = requestPrefix + 'updateProfile';
+                makePostRequest(requestUrl, requestArgs).then(function (responseData) {
+                    var updatedProfile = responseData.data.updatedProfile;
+
+                    if (updatedProfile) {
+                        myProfileService.updateModel(updatedProfile);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+            };
+            return requestService
+        }
+    );
+
+    tgn.controller('TGNController', function ($scope, myProfileService, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
+
+        $scope.myProfile = myProfileService;
+        $scope.myNonprofits = myNonprofitsService;
+        $scope.myJobs = myJobsService;
+        $scope.searchResults = searchResultsService;
+        $scope.viewContent = viewContentService;
+        $scope.requestService = requestService;
+    });
+};
