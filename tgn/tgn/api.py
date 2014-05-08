@@ -111,6 +111,7 @@ def updateProfile(request):
     '''
 
     # verify top-level objects
+    print str(request.POST)
     requiredFields = ['userId', 'profile']
     verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
