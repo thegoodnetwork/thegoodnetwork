@@ -348,6 +348,7 @@ var initTGN = function (accessToken) {
     );
 
     tgn.controller('TGNController', function ($scope, $rootScope, myProfileService, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
+	    console.log("in TGNController");    
         $scope.myProfile = myProfileService;
         $scope.myNonprofits = myNonprofitsService;
         $scope.myJobs = myJobsService;

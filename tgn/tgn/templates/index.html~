@@ -21,6 +21,7 @@
 <nav class="navbar navbar-default custom-top-navbar"
      role="navigation"
      data-ng-if="!(loggedIn)"
+     data-ng-controller="TGNController"
         >
     <div class="container-fluid">
         <div id="logoText">THE GOOD NETWORK</div>
