@@ -304,6 +304,7 @@ def createNonprofit(request):
 
     if Account.objects.filter(userId=userId).exists():
 
+        print 'got to creating nonprofit'
         newNonprofit, isNewNonprofitCreated = Nonprofit.objects.get_or_create(
             name=nonprofit['name'],
             description=nonprofit['description'],
@@ -316,8 +317,7 @@ def createNonprofit(request):
 
             # get user nonprofit models
             account = Account.objects.get(userId=userId)
-            userNonprofits = map(lambda nonprofit: getNonprofitModel(
-                nonprofit), (getUserNonprofits(account)))
+
             newNonprofitModel = getNonprofitModel(newNonprofit)
 
             # add nonprofit relation
@@ -325,6 +325,8 @@ def createNonprofit(request):
                 nonprofitId=str(newNonprofit.pk),
                 userId=userId
             )
+            userNonprofits = map(lambda nonprofit: getNonprofitModel(
+                nonprofit), (getUserNonprofits(account)))
 
         else:
             errorMessage = 'Failed to create nonprofit'
