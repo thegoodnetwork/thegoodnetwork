@@ -364,3 +364,7 @@ table tr:last-child td:last-child   {
 a:hover {
     cursor: pointer;
 }
+
+.skillsOrTitlesToAdd:hover {
+    cursor: pointer;
+}

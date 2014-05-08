@@ -120,9 +120,9 @@
                         </div>
                         <br>
                         <div class="row">
-                            <label for="added-skills" class="inline lower col-sm-3">Added Skills:</label>
+                            <label class="inline lower col-sm-3">Added Skills:</label>
                             <div class="col-sm-9">
-                            <div class="inline" data-ng-repeat="skill in newModel.skills"> <div ng-click="removeSkill(skill)" class="attrBlocks">{{ skill }}<span class="left-space">[X]</span></div>
+                            <div class="inline skillsOrTitlesToAdd" data-ng-repeat="skill in newModel.skills"> <div ng-click="removeSkill(skill)" class="attrBlocks">{{ skill }}<span class="left-space">[X]</span></div>
                             </div></div>
                     
                         </div>
