@@ -29,7 +29,6 @@
         <!--    Profile Details    -->
 
         <br>
-        <br>
 
         <div class="row">
             <div class="col-sm-3">
@@ -37,28 +36,28 @@
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-8">
-                <p class="subtext"><a
+                <div class="subtext"><a
                         href="{{myProfile.userModel().resume}}">{{myProfile.userModel().resume}}</a>
-                </p>
+                </div>
             </div>
         </div>
 
+        <br>
         <div class="row">
             <div class="col-sm-3">
                 <h3 class="details"> Skills </h3>
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-8">
-                <ul>
-                    <li
-                            data-ng-repeat="skill in myProfile.userModel().skills">
+                <div class="attrBlocks"
+                        data-ng-repeat="skill in myProfile.userModel().skills">
                         {{skill}}
-                    </li>
-                </ul>
+                </div>
             </div>
         </div>
 
-        <!--
+        <br>
+        
         <div class="row">
             <div class="col-sm-3">
                 <h3 class="details"> Affiliations </h3>
@@ -68,7 +67,7 @@
                 <p class="subtext"> {{affiliations}} </p>
             </div>
         </div>
-        -->
+        
 
         <!-- Edit Profile Modal !-->
         <div class="modal fade" id="editProfileModal" tabindex="-1"
@@ -82,45 +81,56 @@
                         <h4 class="modal-title" id="myModalLabel">Edit
                             Profile</h4>
                     </div>
+                    
                     <div class="modal-body">
+                        
                         <div class="row">
-                            <label for="editResumeLink" class="col-sm-4">Resume
-                                Link:&nbsp;&nbsp;</label>
-                            <input id="editResumeLink" class="col-sm-8"
+                            <div class="col-sm-2"><label for="editResumeLink" class="lower">Resume: </label></div>
+                            <div class="col-sm-10">
+                            <input id="editResumeLink" class="form-control"
                                    type="text"
                                    data-ng-value="myProfile.userModel().resume"
                                    data-ng-model="newModel.resume"
+                                   placeholder="place link here"
                                     />
+                           </div>
                         </div>
                         <br>
 
                         <div class="row">
-                            <label for="new-skill" class="co
-                            l-sm-4">Add new skills: &nbsp;&nbsp;</label>
-
-                            <form
-                                    data-ng-submit="addSkill(newSkill)">
-                                <input id="new-skill" class="col-sm-8"
+                            <form data-ng-submit="addSkill(newSkill)">
+                            <div class="col-sm-2"><label for="new-skill" class="lower">Skills: </label></div>
+                            
+                            <div class="col-sm-8">
+                                <input id="new-skill" class="form-control"
                                        type="text"
                                        data-ng-model="newSkill"
-                                        >
+                                       placeholder="add one at a time e.g. photography"
+                                />
+                            </div>
+                                
+                            <div class="col-sm-2">
                                 <button type="submit"
-                                        class="btn btn-default">Add
+                                        class="btn btn-default lower">Add
                                 </button>
+                            </div>
                             </form>
-                            <h5>Current Skills</h5>
-                            <ul>
-                                <li
-                                        data-ng-repeat="skill in newModel.skills">
-                                    {{ skill }}
-                                </li>
-                            </ul>
+                                                            
                         </div>
                         <br>
-
                         <div class="row">
-                            <label for="new-title" class="co
-                            l-sm-4">Add new titles: &nbsp;&nbsp;</label>
+                            <label for="added-skills" class="inline lower col-sm-3">Added Skills:</label>
+                            <div class="col-sm-9">
+                            <div class="inline" data-ng-repeat="skill in newModel.skills"> <div ng-click="removeSkill(skill)" class="attrBlocks">{{ skill }}<span class="left-space">[X]</span></div>
+                            </div></div>
+                    
+                        </div>
+                        
+                        <br>
+
+<!--
+                        <div class="row">
+                            <label for="new-title" class="col-sm-2"> Professions: </label>
 
                             <form
                                     data-ng-submit="addTitle(newTitle)">
@@ -132,22 +142,30 @@
                                         class="btn btn-default">Add
                                 </button>
                             </form>
-                            <h5>Current Skills</h5>
-                            <ul>
-                                <li
+                            
+                            <h5 class="inline">Added professions</h5>
+                            <div class="attrBlocks"
                                         data-ng-repeat="title in newModel.titles">
                                     {{ title }}
-                                </li>
-                            </ul>
+                            </div>
                         </div>
+-->
+                        
                         <div class="row">
-                            <label for="editBio" class="col-sm-4">Quick
-                                Biography:&nbsp;&nbsp;</label>
-                            <textarea id="editBio" class="col-sm-8" rows="4"
-                                      cols="50"
-                                      data-ng-model="newModel.aboutMe"></textarea>
+                            <label for="editBio" class="col-sm-2 lower">Short
+                                Biography:</label>
+                            <div class="col-sm-10">
+                                <textarea id="editBio" 
+                                          class="col-sm-10 form-control" 
+                                          maxlength="500"
+                                          data-ng-model="newModel.aboutMe"
+                                          placeholder="300 char limit"
+                                          style="resize: none;"
+                                          rows="6"> </textarea>
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">Close
