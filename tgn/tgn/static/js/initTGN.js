@@ -504,7 +504,7 @@ var initTGN = function (accessToken) {
             if (title.length > 0 &&
                 $scope.newJob.titles.indexOf(title) == -1) {
                 $scope.newTitle = "";
-                $scope.newJob.titles.push(skill);
+                $scope.newJob.titles.push(title);
                 console.log($scope.newJob.titles);
             }
         };
