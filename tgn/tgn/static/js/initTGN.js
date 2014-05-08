@@ -297,7 +297,7 @@ var initTGN = function (accessToken) {
                 console.log("making post request with: " + JSON.stringify(parameters));
 
 
-                return $http.post(url, $.param(parameters), {
+                return $http.post(url, JSON.stringify(parameters), {
                     headers: {
                         'Content-Type': 'application/json; charset=UTF-8'
                     }
