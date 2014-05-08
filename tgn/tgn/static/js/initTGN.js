@@ -359,13 +359,13 @@ var initTGN = function (accessToken) {
         }
     );
 
-    tgn.controller('TGNController', function ($scope, $rootScope, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
+    tgn.controller('TGNController', function ($scope, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
         $scope.myNonprofits = myNonprofitsService;
         $scope.myJobs = myJobsService;
         $scope.searchResults = searchResultsService;
         $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
-
+        console.log('made the controller');
         $scope.requestService.loginWithFacebook($scope.myProfile);
 
     });
