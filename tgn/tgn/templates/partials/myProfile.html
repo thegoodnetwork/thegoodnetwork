@@ -47,7 +47,12 @@
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-8">
-                <p class="subtext"> {{myProfile.userModel().skills}} </p>
+                <ul>
+                    <li
+                            data-ng-repeat="skill in myProfile.userModel().skills">
+                        {{skill}}
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -66,7 +71,7 @@
         <!-- Edit Profile Modal !-->
         <div class="modal fade" id="editProfileModal" tabindex="-1"
              role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-                data-ng-controller="editProfileController">
+             data-ng-controller="editProfileController">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
