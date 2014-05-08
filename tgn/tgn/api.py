@@ -314,6 +314,7 @@ def createNonprofit(request):
             address=nonprofit['address'],
             imageUrl=nonprofit['imageUrl']
         )
+        print 'created nonprofit'
         if isNewNonprofitCreated:
 
             # get user nonprofit models
