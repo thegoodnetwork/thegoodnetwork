@@ -58,7 +58,12 @@
             class="caret"></span>
     </span>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="#/myJob">Manage Sean's Outpost Event</a></li>
+            <li
+                    data-ng-repeat="job in myJobsService.myJobs().currentJobsAsEmployee">
+                <a data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">
+                    {{job.name}}
+                </a>
+            </li>
             <li role="presentation" class="divider"></li>
             <li><a href="#/searchResults">Find a Job</a></li>
         </ul>
@@ -68,7 +73,12 @@
             class="caret"></span>
     </span>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="#/myNonprofit">Finding Refuge</a></li>
+            <li
+                    data-ng-repeat="nonprofit in myNonprofitService.myNonprofits()">
+                <a href="#/myNonprofit/{{nonprofit.nonprofitId}}">
+                    {{nonprofit.name}}
+                </a>
+            </li>
             <li role="presentation" class="divider"></li>
             <li data-toggle="modal" data-target="#createNonprofitModal">
                 <a href="#">Create New Nonprofit</a>

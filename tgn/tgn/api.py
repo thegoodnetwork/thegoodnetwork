@@ -35,7 +35,8 @@ def loginWithFacebook(request):
     print request.body
     requiredFields = ['accessToken']
 
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -63,6 +64,7 @@ def loginWithFacebook(request):
         titles = []
         aboutMe = ''
         jobs = {
+            'jobsAsApplicant': [],
             'currentJobsAsEmployee': [],
             'completedJobsAsEmployee': []
         }
@@ -114,7 +116,8 @@ def updateProfile(request):
     # verify top-level objects
     print str(request.body)
     requiredFields = ['userId', 'profile']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -123,7 +126,7 @@ def updateProfile(request):
     try:
         requiredFields = ['aboutMe', 'titles', 'skills', 'resume']
         verifiedRequestResponse = verifyRequest(json.loads(request.body)[
-            'profile'], requiredFields)
+                                                    'profile'], requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
             return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -199,7 +202,8 @@ def updateNonprofit(request):
 
     # verify top-level objects
     requiredFields = ['userId', 'nonprofit']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -273,7 +277,8 @@ def createNonprofit(request):
 
     # verify top-level objects
     requiredFields = ['userId', 'nonprofit']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -281,7 +286,7 @@ def createNonprofit(request):
     # verify nonprofit object
     try:
         requiredFields = ['name', 'mission', 'description', 'website',
-                          'address']
+                          'address', 'imageUrl']
         verifiedRequestResponse = verifyRequest(json.loads(request.body[
             'nonprofit']), requiredFields)
         if verifiedRequestResponse['isMissingFields']:
@@ -303,7 +308,8 @@ def createNonprofit(request):
             description=nonprofit['description'],
             mission=nonprofit['mission'],
             website=nonprofit['website'],
-            address=nonprofit['address']
+            address=nonprofit['address'],
+            imageUrl=nonprofit['imageUrl']
         )
         if isNewNonprofitCreated:
 
@@ -342,7 +348,8 @@ def requestAffiliation(request):
     '''
     # verify top-level objects
     requiredFields = ['userId', 'nonprofitId']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -407,7 +414,8 @@ def acceptAffiliate(request):
     '''
     # verify top-level objects
     requiredFields = ['affiliateId', 'nonprofitId', 'newAffiliateId']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -478,7 +486,8 @@ def postJobAsNonprofit(request):
 
     # verify top-level objects
     requiredFields = ['userId', 'nonprofitId', 'jobToPost']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -571,7 +580,8 @@ def applyToJob(request):
     '''
 
     requiredFields = ['userId', 'jobId']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -630,7 +640,8 @@ def acceptApplicant(request):
     '''
 
     requiredFields = ['affiliateId', 'applicantId', 'jobId', 'nonprofitId']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -732,7 +743,8 @@ def viewOtherProfile(request):
     '''
 
     requiredFields = ['userId']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -763,7 +775,8 @@ def viewJob(request):
     '''
 
     requiredFields = ['jobId', 'jobType']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -798,7 +811,8 @@ def viewNonprofit(request):
     '''
 
     requiredFields = ['nonprofitId']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -829,7 +843,8 @@ def getPostedJobs(request):
     '''
 
     requiredFields = ['query']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -855,7 +870,8 @@ def getNonprofits(request):
     '''
 
     requiredFields = ['query']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -882,7 +898,8 @@ def getOtherUsers(request):
     '''
 
     requiredFields = ['query', 'userId']
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
