@@ -102,62 +102,67 @@ tgn.config(
             .otherwise({redirectTo: '/'});
     }
 );
+
+tgn.factory('myProfileService', function () {
+    var userModel = {
+        accessToken: '',
+        userId: '',
+        name: '',
+        aboutMe: '',
+        resume: '',
+        profileImageUrl: '',
+        titles: [],
+        skills: []
+    };
+
+    var loggedIn = false;
+
+    var myProfileService = {}
+
+    myProfileService.login = function (user) {
+        for (attribute in user) {
+            userModel[attribute] = user[attribute]
+        }
+
+        loggedIn = true;
+    };
+
+    myProfileService.logout = function () {
+        userModel.accessToken = '';
+        userModel.userId = '';
+        userModel.name = '';
+        userModel.aboutMe = '';
+        userModel.resume = '';
+        userModel.profileImageUrl = '';
+        userModel.titles = [];
+        userModel.skills = [];
+
+        loggedIn = false;
+    };
+
+    myProfileService.updateModel = function (newModel) {
+        for (updatedAttribute in newModel) {
+            userModel[updatedAttribute] = newModel[updatedAttribute]
+        }
+    };
+
+    myProfileService.userModel = function () {
+        return userModel;
+    };
+
+    myProfileService.isLoggedIn = function () {
+        return loggedIn;
+    };
+
+    return myProfileService;
+});
+
+tgn.controller('userController', function ($scope, myProfileService) {
+    $scope.myProfile = myProfileService;
+});
+
 var initTGN = function (accessToken) {
     tgn.value('accessToken', accessToken);
-    tgn.factory('myProfileService', function (accessToken) {
-        var userModel = {
-            accessToken: accessToken,
-            userId: '',
-            name: '',
-            aboutMe: '',
-            resume: '',
-            profileImageUrl: '',
-            titles: [],
-            skills: []
-        };
-
-        var loggedIn = false;
-
-        var myProfileService = {}
-
-        myProfileService.login = function (user) {
-            for (attribute in user) {
-                userModel[attribute] = user[attribute]
-            }
-
-            loggedIn = true;
-        };
-
-        myProfileService.logout = function () {
-            userModel.accessToken = '';
-            userModel.userId = '';
-            userModel.name = '';
-            userModel.aboutMe = '';
-            userModel.resume = '';
-            userModel.profileImageUrl = '';
-            userModel.titles = [];
-            userModel.skills = [];
-
-            loggedIn = false;
-        };
-
-        myProfileService.updateModel = function (newModel) {
-            for (updatedAttribute in newModel) {
-                userModel[updatedAttribute] = newModel[updatedAttribute]
-            }
-        };
-
-        myProfileService.userModel = function () {
-            return userModel;
-        };
-
-        myProfileService.isLoggedIn = function () {
-            return loggedIn;
-        };
-
-        return myProfileService;
-    });
-
     tgn.factory('myNonprofitsService', function () {
         var myNonprofits = [];
 
@@ -304,9 +309,11 @@ var initTGN = function (accessToken) {
         return viewContentService;
     });
 
-    tgn.factory('requestService', function ($http) {
+    tgn.factory('requestService', function ($http, accessToken) {
             var requestService = {};
+            var accessToken = accessToken;
             var getResponseData = function (response) {
+                console.log('got response:  ' + JSON.stringify(response))
                 return response.data;
             };
             var makePostRequest = function (url, parameters) {
@@ -316,13 +323,17 @@ var initTGN = function (accessToken) {
             };
             var requestPrefix = '/tgn/api/';
 
-            requestService.loginWithFacebook = function (myProfileService, requestArgs) {
+            requestService.loginWithFacebook = function (myProfileService) {
                 var requestUrl = requestPrefix + 'loginWithFacebook';
+                var requestArgs = {
+                    accessToken: accessToken
+                };
+
                 makePostRequest(requestUrl, requestArgs).then(function (responseData) {
                     var loginInfo = responseData.data.me;
 
                     if (loginInfo) {
-                        console.log('logging in ' + json.stringify(loginInfo));
+                        console.log('logging in ' + JSON.stringify(loginInfo));
                         myProfileService.login(loginInfo);
                     } else {
                         console.log(responseData.errorMessage);
