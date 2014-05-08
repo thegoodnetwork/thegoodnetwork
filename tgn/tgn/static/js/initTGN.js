@@ -58,18 +58,20 @@ tgn.config(
                 templateUrl: 'partials/otherProfile'
             })
             .when('/myNonprofit/:myNonprofit', {
-                templateUrl: 'partials/myNonprofit'
+                templateUrl: 'partials/myNonprofit',
+                controller: 'viewMyNonprofitController'
             })
             .when('/otherNonprofit/:otherNonprofit', {
                 templateUrl: 'partials/otherNonprofit'
             })
-            .when('/myJob/:job', {
-                templateUrl: 'partials/myJob'
+            .when('/myJob/:jobId/:jobType', {
+                templateUrl: 'partials/myJob',
+                controller: 'viewMyJobController'
             })
             .when('/jobApplicants', {
                 templateUrl: 'partials/jobApplicants'
             })
-            .when('/searchResults/:search',{
+            .when('/searchResults/:search', {
                 templateUrl: 'partials/searchResults'
             })
 
@@ -151,6 +153,14 @@ tgn.factory('myNonprofitsService', function () {
         }
     };
 
+    myNonprofitsService.getNonprofit = function (nonprofitId) {
+        for (var i = 0, j = myNonprofits.length; i < j; i++) {
+            if (myNonprofits[i]['nonprofitId'] == nonprofitId) {
+                return myNonprofits[i];
+            }
+        }
+    };
+
     myNonprofitsService.myNonprofits = function () {
         return myNonprofits;
     };
@@ -181,6 +191,14 @@ tgn.factory('myJobsService', function () {
 
     myJobsService.setMyCompletedJobs = function (completedJobs) {
         myJobs['completedJobsAsEmployee'] = completedJobs
+    };
+
+    myJobsService.getJob = function (jobId, jobType) {
+        for (var i = 0, j = myJobs[jobType].length; i < j; i++) {
+            if (myJobs[jobType][i]['jobId'] == jobId) {
+                return myJobs[jobType][i];
+            }
+        }
     };
 
     myJobsService.myJobs = function () {
@@ -284,9 +302,25 @@ var initTGN = function (accessToken) {
             nonprofits: []
         };
 
+        var jobToView = {
+            jobId: '',
+            name: '',
+            nonprofitId: '',
+            nonprofitName: '',
+            titles: [],
+            description: '',
+            compensation: '',
+            city: '',
+            state: '',
+            jobType: '',
+            timeCreated: '',
+            skills: []
+        };
+
         var viewContent = {
             nonprofitToView: nonprofitToView,
-            otherUserToView: otherUserToView
+            otherUserToView: otherUserToView,
+            jobToView: jobToView
         };
 
         var viewContentService = {};
@@ -297,6 +331,10 @@ var initTGN = function (accessToken) {
 
         viewContentService.setOtherUserToView = function (otherUser) {
             otherUserToView = otherUser
+        };
+
+        viewContentService.setJobToView = function (job) {
+            jobToView = job;
         };
 
         viewContentService.viewContent = function () {
@@ -388,5 +426,13 @@ var initTGN = function (accessToken) {
         $scope.requestService = requestService;
         console.log('made the controller');
         $scope.requestService.loginWithFacebook($scope.myProfile, $scope.myNonprofits, $scope.myJobs);
+    });
+
+    tgn.controller('viewMyJobController', function ($scope, myJobsService, $routeParams) {
+        $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
+    });
+
+    tgn.controller('viewMyNonprofitController', function ($scope, myNonprofitsService, $routeParams) {
+        $scope.myNonprofit = myNonprofitsService.getNonprofit($routeParams.nonprofitId)
     });
 };
