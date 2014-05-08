@@ -46,7 +46,7 @@ def loginWithFacebook(request):
     graph = FBOpen(access_token=accessToken)
 
     try:
-        userInfo = graph.get('me', fields='name, picture, id')
+        userInfo = graph.get('me', fields='name, id')
     except:
         errorMessage = 'Bad access token'
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -68,7 +68,8 @@ def loginWithFacebook(request):
         }
         nonprofits = []
         skills = []
-        profileImageUrl = userInfo['picture']['data']['url']
+        profileImageUrl = 'http://graph.facebook.com/' + userId + \
+                          '/picture?height=961'
 
         UserProfileImage.objects.create(account=account, url=profileImageUrl)
 
