@@ -544,6 +544,7 @@ var initTGN = function (accessToken) {
     tgn.controller('viewMyNonprofitController', function ($scope, $routeParams, $anchorScroll) {
         
         $scope.goToJobs = function() {
+            alert('this happened');
             $location.hash('jobAnchor');
             $anchorScroll();
         }
