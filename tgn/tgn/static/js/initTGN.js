@@ -540,7 +540,13 @@ var initTGN = function (accessToken) {
         $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
     });
 
-    tgn.controller('viewMyNonprofitController', function ($scope, $routeParams) {
+    tgn.controller('viewMyNonprofitController', function ($scope, $routeParams, $anchorScroll) {
+        
+        $scope.goToJob = function() {
+            $location.hash('jobAnchor');
+            $anchorScroll();
+        }
+        
         console.log('got routeParams ' + JSON.stringify($routeParams));
         $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.myNonprofit)
         console.log('my nonprofit: ' + JSON.stringify($scope.myNonprofit));
