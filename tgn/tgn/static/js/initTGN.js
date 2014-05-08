@@ -58,7 +58,8 @@ tgn.config(
                 templateUrl: 'partials/otherProfile'
             })
             .when('/myNonprofit/:myNonprofit', {
-                templateUrl: 'partials/myNonprofit'
+                templateUrl: 'partials/myNonprofit',
+                controller: 'viewMyNonprofitController'
             })
             .when('/otherNonprofit/:otherNonprofit', {
                 templateUrl: 'partials/otherNonprofit'
