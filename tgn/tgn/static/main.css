@@ -21,6 +21,11 @@ affix {
     border: 5px black solid;
 }
 
+#jobPostAnchor {
+    vertical-align: middle;
+    text-align: center;
+}
+
 /*MODALS */
 .attrBlocks {
     border-radius: 3px;
