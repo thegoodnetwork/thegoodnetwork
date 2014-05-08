@@ -65,7 +65,7 @@ tgn.config(
             })
             .when('/myJob/:job', {
                 templateUrl: 'partials/myJob'
-            })
+            });
         }
 
 
