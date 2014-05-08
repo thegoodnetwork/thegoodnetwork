@@ -219,6 +219,12 @@ tgn.controller('userController', function ($scope, myProfileService, myNonprofit
     $scope.myJobs = myJobsService;
 });
 
+tgn.controller('createNonprofitController', function ($scope, myProfileService, myNonprofitsService) {
+    $scope.myProfile = myProfileService;
+    $scope.myNonprofits = myNonprofitsService;
+    $scope.newNonprofit = {};
+});
+
 tgn.controller('editProfileController', function ($scope, myProfileService) {
     $scope.newModel = {}
     $scope.newModel.skills = myProfileService.userModel().skills.slice(0);
@@ -422,6 +428,7 @@ var initTGN = function (accessToken) {
             };
 
             requestService.createNonprofit = function (myProfileService, myNonprofitsService, newNonprofit) {
+                console.log('called create nonprofit for: ' + JSON.stringify(newNonprofit));
                 var requestUrl = requestPrefix + 'createNonprofit';
 
                 var createNonprofitRequestObject = {
