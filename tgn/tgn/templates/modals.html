@@ -220,7 +220,7 @@
                 <div class="row">
                     <label for="nonprofitName" class="col-sm-4">Non-profit:&nbsp;&nbsp;</label>
                     <select class="col-sm-8">
-                        <option>Finding Refuge</option>
+                        <option data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">{{nonprofit.name}}</option>
                     </select>
                 </div>
                 <br>
