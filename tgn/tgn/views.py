@@ -9,3 +9,9 @@ def login(request):
 
 def myProfile(request):
     return render_to_response('partials/myProfile.html')
+
+def otherNonprofit(request):
+    return render_to_response('partials/otherNonprofit.html')
+
+def otherProfile(request):
+    return render_to_response('partials/otherProfile.html')

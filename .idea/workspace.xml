@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97aa79bd-1610-42ec-9686-9eac22eee15b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js" afterPath="$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tgn/tgn/templatesOld/otherNonprofit.html" afterPath="$PROJECT_DIR$/tgn/tgn/templates/partials/otherNonprofit.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tgn/tgn/templatesOld/otherProfile.html" afterPath="$PROJECT_DIR$/tgn/tgn/templates/partials/otherProfile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tgn/tgn/urls.py" afterPath="$PROJECT_DIR$/tgn/tgn/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tgn/tgn/views.py" afterPath="$PROJECT_DIR$/tgn/tgn/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="thegoodnetwork.iws" />
@@ -38,16 +41,54 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tgn/tgn/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="56" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+            <state line="17" column="0" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="initTGN.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="otherProfile.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/partials/otherProfile.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="43" column="6" selection-start="1096" selection-end="1096" vertical-scroll-proportion="-20.958334" vertical-offset="142" max-vertical-offset="765">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tgn/tgn/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="65" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="initTGN.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="320" column="23" selection-start="8902" selection-end="8902" vertical-scroll-proportion="0.044871796" vertical-offset="4772" max-vertical-offset="5670">
+            <state line="126" column="48" selection-start="3147" selection-end="3147" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="5685">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="myProfile.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/partials/myProfile.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="167" column="17" selection-start="6748" selection-end="6748" vertical-scroll-proportion="-22.208334" vertical-offset="1972" max-vertical-offset="2595">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="otherNonprofit.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/partials/otherNonprofit.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="153" column="6" selection-start="4392" selection-end="4392" vertical-scroll-proportion="0.83146065" vertical-offset="1777" max-vertical-offset="2400">
               <folding />
             </state>
           </provider>
@@ -65,7 +106,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="0" selection-start="1121" selection-end="1121" vertical-scroll-proportion="-4.322034" vertical-offset="270" max-vertical-offset="1590">
+            <state line="36" column="0" selection-start="1131" selection-end="1131" vertical-scroll-proportion="-8.898305" vertical-offset="15" max-vertical-offset="1605">
               <folding />
             </state>
           </provider>
@@ -84,9 +125,13 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/tgn/tgn/views.py" />
+        <option value="$PROJECT_DIR$/tgn/tgn/templates/partials/myProfile.html" />
         <option value="$PROJECT_DIR$/tgn/tgn/templates/index.html" />
         <option value="$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js" />
+        <option value="$PROJECT_DIR$/tgn/tgn/views.py" />
+        <option value="$PROJECT_DIR$/tgn/tgn/urls.py" />
+        <option value="$PROJECT_DIR$/tgn/tgn/templates/partials/otherProfile.html" />
+        <option value="$PROJECT_DIR$/tgn/tgn/templates/partials/otherNonprofit.html" />
       </list>
     </option>
   </component>
@@ -191,7 +236,55 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="templatesOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thegoodnetwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thegoodnetwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tgn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tgn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thegoodnetwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thegoodnetwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tgn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tgn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="partials" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -264,6 +357,11 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tgn/tgn/templates/partials" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -469,23 +567,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tgn/tgn/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="56" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="648">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="1121" selection-end="1121" vertical-scroll-proportion="-4.322034" vertical-offset="270" max-vertical-offset="1590">
           <folding />
         </state>
       </provider>
@@ -499,7 +583,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="320" column="23" selection-start="8902" selection-end="8902" vertical-scroll-proportion="0.044871796" vertical-offset="4772" max-vertical-offset="5670">
+        <state line="126" column="48" selection-start="3147" selection-end="3147" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="5685">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="0" selection-start="1131" selection-end="1131" vertical-scroll-proportion="-8.898305" vertical-offset="15" max-vertical-offset="1605">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tgn/tgn/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="65" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tgn/tgn/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/partials/otherProfile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="6" selection-start="1096" selection-end="1096" vertical-scroll-proportion="-20.958334" vertical-offset="142" max-vertical-offset="765">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/partials/myProfile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="167" column="17" selection-start="6748" selection-end="6748" vertical-scroll-proportion="-22.208334" vertical-offset="1972" max-vertical-offset="2595">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tgn/tgn/templates/partials/otherNonprofit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="153" column="6" selection-start="4392" selection-end="4392" vertical-scroll-proportion="0.83146065" vertical-offset="1777" max-vertical-offset="2400">
           <folding />
         </state>
       </provider>
