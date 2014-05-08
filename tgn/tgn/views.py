@@ -19,3 +19,6 @@ def myNonprofit(request):
 def otherNonprofit(request):
     return render_to_response('partials/otherNonprofit.html')
 
+def myJob(request):
+    return render_to_response('partials/myJob.html')
+

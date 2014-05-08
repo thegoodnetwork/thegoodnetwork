@@ -63,6 +63,10 @@ tgn.config(
             .when('/otherNonprofit/:otherNonprofit', {
                 templateUrl: 'partials/otherNonprofit'
             })
+            .when('/myJob/:job', {
+                templateUrl: 'partials/myJob'
+            })
+        }
 
 
             .otherwise({redirectTo: '/'});
