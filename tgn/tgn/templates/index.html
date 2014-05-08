@@ -73,11 +73,13 @@
             class="caret"></span>
     </span>
         <ul class="dropdown-menu" role="menu">
+            <li>
+                <a>{{myNonprofits.myNonprofits()}}</a>
+            </li>
             <li data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
                 <a data-ng-href="#/myNonprofit/{{nonprofit.nonprofitId}}">
                     Hi this is an entry
-                    {{ nonprofit.blah }}
-                    {{ nonprofit.website }}
+                    {{ nonprofit }}
                 </a>
             </li>
             <li role="presentation" class="divider" data-ng-if="myNonprofits.myNonprofits()"></li>
