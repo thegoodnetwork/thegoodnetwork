@@ -157,7 +157,7 @@ tgn.factory('myNonprofitsService', function () {
 
     myNonprofitsService.addNonprofit = function (newNonprofit) {
        myNonprofits = myNonprofits.concat(newNonprofit);
-    }
+    };
 
     return myNonprofitsService;
 });
