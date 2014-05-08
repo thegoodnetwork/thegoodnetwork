@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% verbatim %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,9 +74,6 @@
             class="caret"></span>
     </span>
         <ul class="dropdown-menu" role="menu">
-            <li>
-                <a>{{myNonprofits.myNonprofits()}}</a>
-            </li>
             <li data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
                 <a data-ng-href="#/myNonprofit/{{nonprofit.nonprofitId}}">
                     Hi this is an entry
@@ -112,3 +110,4 @@
 
 </body>
 </html>
+{% endverbatim %}
