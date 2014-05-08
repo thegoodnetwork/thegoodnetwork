@@ -18,7 +18,6 @@ body {
 affix {
     width: 5px;
     height: 100px;
-    background-color: green;
     border: 5px black solid;
 }
 
