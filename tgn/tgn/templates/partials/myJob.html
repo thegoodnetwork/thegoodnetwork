@@ -1,46 +1,60 @@
 {% verbatim %}
-<div class="container" data-ng-app="angularTGN">
-  <div class="row" data-ng-controller="myJobController">
-    <div class="col-sm-3"></div>
-    <div class="well col-sm-6">
-      <div class="row center">
-	<h1> {{jobTitle}} </h1>
-      </div>
-      <hr>
-      <div class="row">
-	<div class="col-sm-3">
-	  Description
-	</div>
-	<div class="col-sm-9">
-	  {{description}}
-	</div>
-      </div>
-      <br>
-      <div class="row">
-	<div class="col-sm-3">
-	  Status
-	</div>
-	<div class="col-sm-9">
-	  {{status}}
-	</div>
-      </div>
-      <br>
-      <div class="row">
-	<div class="col-sm-3">
-	  Compensation
-	</div>
-	<div class="col-sm-9">
-	  {{compensation}}
-	</div>
-      </div>
-      <br>
-      <div class="row center">
-	  <button class="btn btn-lg btn-primary"> Completed </button>
-	  <button class="btn btn-lg btn-danger"> Cancel </button>
-      </div>
-    <div class="col-sm-3"></div>
+<div class="container" data-ng-controller="viewMyJobController">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="well col-sm-6">
+            <div class="row center">
+                <h1> {{myJob.name}} </h1>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    Description
+                </div>
+                <div class="col-sm-9">
+                    {{myJob.description}}
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    Status
+                </div>
+                <div class="col-sm-9"
+                        data-ng-switch>
+                    <span data-ng-switch-when="myJob.jobType=postedJob">
+                        Awaiting applicants
+                    </span>
+
+                    <span data-ng-switch-when="myJob.jobType=currentJob">
+                        In progress
+                    </span>
+
+                    <span data-ng-switch-when="myJob.jobType=completedJob">
+                        Completed
+                    </span>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    Compensation
+                </div>
+                <div class="col-sm-9">
+                    {{myJob.compensation}}
+                </div>
+            </div>
+            <br>
+
+            <div class="row center">
+                <button class="btn btn-lg btn-primary"> Completed</button>
+                <button class="btn btn-lg btn-danger"> Cancel</button>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
     </div>
-  </div>
 </div>
 </body>
 </html>

@@ -23,15 +23,17 @@ window.fbAsyncInit = function () {
     // will be handled.
     FB.Event.subscribe('auth.authResponseChange', function (response) {
         // Here we specify what we do with the response anytime this event occurs.
+	console.log(response);
         if (response.status === 'connected') {
             // The response object is returned with a status field that lets the app know the current
             // login status of the person. In this case, we're handling the situation where they
             // have logged in to the app.
-
+	    console.log("auth token : " + FB.getAccessToken());
             testAPI();
             initTGN(FB.getAccessToken())
             window.location = '/#/myProfile'
         } else if (response.status === 'not_authorized') {
+	    console.log("not authorized");
             // In this case, the person is logged into Facebook, but not into the app, so we call
             // FB.login() to prompt them to do so.
             // In real-life usage, you wouldn't want to immediately prompt someone to login
