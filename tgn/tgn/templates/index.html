@@ -76,7 +76,8 @@
             <li data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
                 <a data-ng-href="#/myNonprofit/{{nonprofit.nonprofitId}}">
                     Hi this is an entry
-                    {{nonprofit.website}}
+                    {{ nonprofit.blah }}
+                    {{ nonprofit.website }}
                 </a>
             </li>
             <li role="presentation" class="divider" data-ng-if="myNonprofits.myNonprofits()"></li>
