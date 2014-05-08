@@ -375,5 +375,8 @@ a:hover {
 }
 
 .footer {
-    height: 100px;   
+    height: 200px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
