@@ -18,8 +18,14 @@ body {
 affix {
     width: 5px;
     height: 100px;
-    background-color: green;
     border: 5px black solid;
+}
+
+#jobPostAnchor {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 18px;
+    top: 25px;
 }
 
 /*MODALS */

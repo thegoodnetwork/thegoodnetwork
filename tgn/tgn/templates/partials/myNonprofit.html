@@ -3,12 +3,19 @@
 {% verbatim %}
 <div class="container"
      data-ng-controller="viewMyNonprofitController">
+    
     <div class="row center">
         
-        <h2 class="col-sm-4">
-            {{myNonprofit.name}}
-        </h2>
-        <a class="col-sm-8" href="jobAnchor"> Job Posts <img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/512/Arrows-Down-icon.png" alt="downArrow" height="8" width="8"></a> 
+        <div class="col-sm-8">
+            <h2>
+                {{myNonprofit.name}}
+            </h2>
+        </div>
+        
+        <div class="col-sm-4" id="jobPostAnchor">
+        <a href="#/myNonprofit/4/#jobAnchor"> Job Posts <img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/512/Arrows-Down-icon.png" alt="downArrow" height="14" width="14"></a> 
+        </div>
+        
     </div>
     
     <hr>
