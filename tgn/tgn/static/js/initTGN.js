@@ -66,10 +66,9 @@ tgn.config(
             .when('/myJob/:job', {
                 templateUrl: 'partials/myJob'
             })
-            .when('/jobApplicants',{
+            .when('/jobApplicants', {
                 templateUrl: 'partials/jobApplicants'
-            }
-            )
+            })
 
 
             .otherwise({redirectTo: '/'});
