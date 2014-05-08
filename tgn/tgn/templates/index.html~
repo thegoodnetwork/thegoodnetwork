@@ -17,11 +17,11 @@
 </head>
 <body data-ng-app="angularTGN">
 
+<div data-ng-controller="userController">
 <!-- ng-switch for navbar -->
 <nav class="navbar navbar-default custom-top-navbar"
      role="navigation"
-     data-ng-if="!(loggedIn)"
-     data-ng-controller="TGNController"
+     data-ng-if="!(myProfile.isLoggedIn())"
         >
     <div class="container-fluid">
         <div id="logoText">THE GOOD NETWORK</div>
@@ -32,14 +32,14 @@
 <nav id="main-top-navbar"
      class="navbar navbar-default"
      role="navigation"
-     data-ng-if="loggedIn"
+     data-ng-if="myProfile.isLoggedIn()"
         >
-    <a href="/profile">
+    <a href="#/otherProfile">
         <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
             NETWORK</strong></div>
     </a>
 
-    <form class="col-xs-4" action="/searchResults">
+    <form class="col-xs-4" action="#/searchResults">
         <input class="form-control input-sm"
                placeholder="type any keyword for jobs, people, nonprofits"
                type="text"/>
@@ -50,7 +50,7 @@
     <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
        onclick="FB.logout();"> Log Out </a>
 
-    <a id="meLink" href="/profile" class="navbarText rightNavItem">Me
+    <a id="meLink" href="#/otherProfile" class="navbarText rightNavItem">Me
     </a>
 
     <div class="btn-group navbarText rightNavItem">
@@ -58,9 +58,9 @@
             class="caret"></span>
     </span>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="/myJob">Manage Sean's Outpost Event</a></li>
+            <li><a href="#/myJob">Manage Sean's Outpost Event</a></li>
             <li role="presentation" class="divider"></li>
-            <li><a href="/searchResults">Find a Job</a></li>
+            <li><a href="#/searchResults">Find a Job</a></li>
         </ul>
     </div>
     <div class="btn-group navbarText rightNavItem">
@@ -68,7 +68,7 @@
             class="caret"></span>
     </span>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="/myNonprofit">Finding Refuge</a></li>
+            <li><a href="#/myNonprofit">Finding Refuge</a></li>
             <li role="presentation" class="divider"></li>
             <li data-toggle="modal" data-target="#createNonprofitModal">
                 <a href="#">Create New Nonprofit</a>
@@ -77,7 +77,7 @@
                 <a href="#">Create New Job</a>
             </li>
             <li>
-                <a href="/myApplicants">View Job Applicants</a>
+                <a href="#/myApplicants">View Job Applicants</a>
             </li>
         </ul>
     </div>
@@ -89,7 +89,7 @@
 <div data-ng-view>
 
 </div>
-
+</div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript"
         src='{% static "bootstrap-3.1.1/dist/js/bootstrap.min.js" %}'></script>
