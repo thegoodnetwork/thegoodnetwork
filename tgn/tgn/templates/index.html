@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>The Good Network</title>
     <link rel="stylesheet" type="text/css"
           href="http://fonts.googleapis.com/css?family=Lato:light">
@@ -15,316 +16,95 @@
     <script type="text/javascript" src='{% static "js/initTGN.js" %}'></script>
 
 </head>
+
+{% verbatim %}
 <body data-ng-app="angularTGN">
 
 <div data-ng-controller="userController">
-<!-- ng-switch for navbar -->
-<nav class="navbar navbar-default custom-top-navbar"
-     role="navigation"
-     data-ng-if="!(myProfile.isLoggedIn())"
-        >
-    <div class="container-fluid">
-        <div id="logoText">THE GOOD NETWORK</div>
-    </div>
-</nav>
+    <!-- ng-switch for navbar -->
+    <nav class="navbar navbar-default custom-top-navbar"
+         role="navigation"
+         data-ng-if="!(myProfile.isLoggedIn())"
+            >
+        <div class="container-fluid">
+            <div id="logoText">THE GOOD NETWORK</div>
+        </div>
+    </nav>
 
 
-<nav id="main-top-navbar"
-     class="navbar navbar-default"
-     role="navigation"
-     data-ng-if="myProfile.isLoggedIn()"
-        >
-    <a href="#/otherProfile">
-        <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
-            NETWORK</strong></div>
-    </a>
+    <nav id="main-top-navbar"
+         class="navbar navbar-default"
+         role="navigation"
+         data-ng-if="myProfile.isLoggedIn()"
+            >
+        <a href="#/myProfile">
+            <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
+                NETWORK</strong></div>
+        </a>
 
-    <form class="col-xs-4" action="#/searchResults">
-        <input class="form-control input-sm"
-               placeholder="type any keyword for jobs, people, nonprofits"
-               type="text"/>
-        <span class="glyphicon glyphicon-search"></span>
-        <input type="submit" class="hidden"/>
-    </form>
+        <form class="col-xs-4" action="#/searchResults">
+            <input class="form-control input-sm"
+                   placeholder="type any keyword for jobs, people, nonprofits"
+                   type="text"/>
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="submit" class="hidden"/>
+        </form>
 
-    <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
-       onclick="FB.logout();"> Log Out </a>
+        <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
+           onclick="FB.logout();"> Log Out </a>
 
-    <a id="meLink" href="#/myProfile" class="navbarText rightNavItem">Me
-    </a>
+        <a id="meLink" href="#/myProfile" class="navbarText rightNavItem">Me
+        </a>
 
-    <div class="btn-group navbarText rightNavItem">
+        <div class="btn-group navbarText rightNavItem">
     <span class="dropdown-toggle" data-toggle="dropdown">My Jobs <span
             class="caret"></span>
     </span>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#/myJob">Manage Sean's Outpost Event</a></li>
-            <li role="presentation" class="divider"></li>
-            <li><a href="#/searchResults">Find a Job</a></li>
-        </ul>
-    </div>
-    <div class="btn-group navbarText rightNavItem">
+            <ul class="dropdown-menu" role="menu">
+                <li data-ng-repeat="job in myJobs.myJobs().currentJobsAsEmployee">
+                    <a data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">
+                        {{job.name}}
+                    </a>
+                </li>
+                <li role="presentation" class="divider"
+                    data-ng-if="myJobs.myJobs().currentJobsAsEmployee"></li>
+                <li><a href="#/searchResults">Find a Job</a></li>
+            </ul>
+        </div>
+        <div class="btn-group navbarText rightNavItem">
     <span class="dropdown-toggle" data-toggle="dropdown">My Nonprofits <span
             class="caret"></span>
     </span>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#/myNonprofit">Finding Refuge</a></li>
-            <li role="presentation" class="divider"></li>
-            <li data-toggle="modal" data-target="#createNonprofitModal">
-                <a href="#">Create New Nonprofit</a>
-            </li>
-            <li data-toggle="modal" data-target="#createNonprofitJob">
-                <a href="#">Create New Job</a>
-            </li>
-            <li>
-                <a href="#/myApplicants">View Job Applicants</a>
-            </li>
-        </ul>
-    </div>
-
-</nav>
-
-<!-- Modals !-->
-<!-- Create New Non-profit Modal !-->
-<div class="modal fade" id="createNonprofitModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Create a New
-                    Non-profit</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <label for="nonprofitName" class="col-sm-4"> Name of
-                        Organization:&nbsp;&nbsp;</label>
-                    <input id="nonprofitName" class="col-sm-8" type="text"/>
-                </div>
-                <br>
-                <!--
-
-                    <div class="row">
-                      <label for="nonprofitMission" class="col-sm-4">Mission:&nbsp;&nbsp;</label>
-                      <input id="nonprofitMission" class="col-sm-8" type="text"/>
-                    </div>
-                    <br>
-
-                -->
-
-                <div class="row">
-                    <label for="nonprofitDescription" class="col-sm-4">
-                        Description:&nbsp;&nbsp;</label>
-                    <textarea id="nonprofitDescription" class="col-sm-8"
-                              rows="4" cols="50"></textarea>
-                </div>
-                <br>
-
-                <div class="row">
-                    <label for="nonprofitWebsite" class="col-sm-4">Website:&nbsp;&nbsp;</label>
-                    <input id="nonprofitWebsite" class="col-sm-8" type="text"/>
-                </div>
-                <br>
-
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">Cancel
-                </button>
-                <button type="button" class="btn btn-primary"
-                        data-dismiss="modal">Create Nonprofit
-                </button>
-            </div>
+            <ul class="dropdown-menu" role="menu">
+                <li data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
+                    <a data-ng-href="#/myNonprofit/{{nonprofit.nonprofitId}}">
+                        {{ nonprofit.name }}
+                    </a>
+                </li>
+                <li role="presentation" class="divider"
+                    data-ng-if="myNonprofits.myNonprofits()"></li>
+                <li data-toggle="modal" data-target="#createNonprofitModal">
+                    <a>Create New Nonprofit</a>
+                </li>
+                <li data-toggle="modal" data-target="#createNonprofitJob"
+                    data-ng-if="myNonprofits.myNonprofits()">
+                    <a>Create New Job</a>
+                </li>
+                <li data-ng-if="myNonprofits.myNonprofits()">
+                    <a href="#/myApplicants">View Job Applicants</a>
+                </li>
+            </ul>
         </div>
+
+    </nav>
+
+    <!-- ng-view for our ngRoute-->
+    {% endverbatim %}
+    <div data-ng-view>
+
     </div>
-</div>
 
 
-<!--Contact Modal !-->
-<div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Send Message</h4>
-            </div>
-            <div class="modal-body">
-                <textarea id="nonprofitDescription" rows="4"
-                          cols="50"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">Close
-                </button>
-                <button type="button" class="btn btn-primary"
-                        data-dismiss="modal">Send
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Request Affiliation Modal !-->
-<div class="modal fade" id="requestedAffiliationModal" tabindex="-1"
-     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Affiliation
-                    Requested</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    You have successfully requested your affiliation!
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary"
-                        data-dismiss="modal">Ok
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Successfully applied for job modal !-->
-<div class="modal fade" id="appliedForJobModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">You've Applied</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    You have successfully applied for the job!
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary"
-                        data-dismiss="modal">Ok
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Accepted Job Applicant !-->
-<div class="modal fade" id="acceptedJobApplicant" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">New Member on
-                    Board!</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Congratulations! You have successfully accepted the
-                    applicant.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary"
-                        data-dismiss="modal">Ok
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Declined Job Applicant !-->
-<div class="modal fade" id="declinedJobApplicant" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Applicant
-                    Rejected!</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    You have successfully rejected the job applicant.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary"
-                        data-dismiss="modal">Ok
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Create New Job !-->
-<div class="modal fade" id="createNonprofitJob" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Create a New Job</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <label for="nonprofitName" class="col-sm-4">Non-profit:&nbsp;&nbsp;</label>
-                    <select class="col-sm-8">
-                        <option>Finding Refuge</option>
-                    </select>
-                </div>
-                <br>
-
-                <div class="row">
-                    <label for="nonprofitMission" class="col-sm-4">Job title:&nbsp;&nbsp;</label>
-                    <input id="nonprofitMission" class="col-sm-8" type="text"/>
-                </div>
-                <br>
-
-                <div class="row">
-                    <label for="nonprofitDescription" class="col-sm-4">Job
-                        description:&nbsp;&nbsp;</label>
-                    <textarea id="nonprofitDescription" class="col-sm-8"
-                              rows="4" cols="50"></textarea>
-                </div>
-                <br>
-
-                <div class="row">
-                    <label for="nonprofitWebsite" class="col-sm-4">Compensation:&nbsp;&nbsp;</label>
-                    <input id="nonprofitWebsite" class="col-sm-8" type="text"/>
-                </div>
-                <br>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">Close
-                </button>
-                <button type="button" class="btn btn-primary"
-                        data-dismiss="modal">Create Job
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ng-view for our ngRoute-->
-<div data-ng-view>
-
-</div>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript"

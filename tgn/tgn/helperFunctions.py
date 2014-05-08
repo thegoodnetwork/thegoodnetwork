@@ -256,9 +256,8 @@ def getUserModel(account):
     skills = formatSkills(getUserSkills(account))
 
     # get nonprofits
-    formattedUserNonprofits = formatNonprofitsForUserModel(
-        getUserNonprofits(account)
-    )
+    formattedUserNonprofits = map(lambda nonprofit: getNonprofitModel(
+        nonprofit), getUserNonprofits(account))
 
     userModel = {
         'userId': userId,
@@ -318,6 +317,7 @@ def getNonprofitModel(nonprofit):
     description = str(nonprofit.description)
     website = str(nonprofit.website)
     address = str(nonprofit.address)
+    imageUrl = str(nonprofit.imageUrl)
 
     # get the jobs associated with the nonprofit
     postedJobs = formatJobs(getNonprofitPostedJobs(nonprofit),
@@ -346,7 +346,8 @@ def getNonprofitModel(nonprofit):
         'website': website,
         'address': address,
         'jobs': jobs,
-        'affiliates': nonprofitAffiliates
+        'affiliates': nonprofitAffiliates,
+        'imageUrl': imageUrl
     }
 
     return nonprofitModel

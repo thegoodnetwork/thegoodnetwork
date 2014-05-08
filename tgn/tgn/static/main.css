@@ -11,21 +11,6 @@ body {
     background-color:#5986E4;
 }
 
-/* CAROUSEL */
-.carousel-inner > .item > img {
-    margin: 0 auto;
-}
-
-.carousel-inner > .item {
-    height: 300px;
-    margin: 10px;
-}
-
-.carousel-control.left, .carousel-control.right {
-    background-image: none
-}
-/* END CAROUSEL*/
-
 .nav-pills>li.active>a {
     background-color: #5986E4;
 }
@@ -36,6 +21,39 @@ affix {
     background-color: green;
     border: 5px black solid;
 }
+
+/*MODALS */
+.attrBlocks {
+    border-radius: 3px;
+    padding: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #5986E4;
+    display: inline-block;
+    color: white;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.inline { 
+    display: inline-block;
+}
+
+.lower {
+    position: relative;
+    top: 10px;
+}   
+
+.left-space {
+    padding-left: 5px;
+}
+
+/*END MODALS*/
 
 #logoText {
     text-align: center;
@@ -53,21 +71,9 @@ affix {
     text-align: center;
 }
 
-.details-block {
-    display: block;
-    clear: both;
-}
-
-.details {
-    align-items: center;
-    position: relative;
-/*    border-right: 3px #5986E4 solid;*/
-}
-
 .subtext {
-    margin-top: 25px;
-    margin-bottom: 20px;
-    vertical-align: text-bottom;
+    position: relative;
+    top: 25px;
 }
 
 .center {
@@ -353,4 +359,8 @@ table tr:last-child td:last-child   {
 .uselessImage {
     width: 150px;
     height: 150px;
+}
+
+a:hover {
+    cursor: pointer;
 }
