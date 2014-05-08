@@ -57,7 +57,7 @@ tgn.config(
             .when('/otherProfile/:otherProfile', {
                 templateUrl: 'partials/otherProfile'
             })
-            .when('/myNonprofit:', {
+            .when('/myNonprofit/:myNonprofit', {
                 templateUrl: 'partials/myNonprofit'
             })
             .when('/otherNonprofit/:otherNonprofit', {
