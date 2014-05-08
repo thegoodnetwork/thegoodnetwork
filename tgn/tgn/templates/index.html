@@ -64,7 +64,8 @@
                     {{job.name}}
                 </a>
             </li>
-            <li role="presentation" class="divider"></li>
+            <li role="presentation" class="divider"
+                data-ng-if="myJobsService.myJobs.currentJobsAsEmployee"></li>
             <li><a href="#/searchResults">Find a Job</a></li>
         </ul>
     </div>
@@ -79,14 +80,16 @@
                     {{nonprofit.name}}
                 </a>
             </li>
-            <li role="presentation" class="divider"></li>
+            <li role="presentation" class="divider" data-ng-if="myNonprofitsService.myNonprofits()"></li>
             <li data-toggle="modal" data-target="#createNonprofitModal">
-                <a href="#">Create New Nonprofit</a>
+                <a>Create New Nonprofit</a>
             </li>
-            <li data-toggle="modal" data-target="#createNonprofitJob">
-                <a href="#">Create New Job</a>
+            <li data-toggle="modal" data-target="#createNonprofitJob"
+                    data-ng-if="myNonprofitsService.myNonprofits()">
+                <a>Create New Job</a>
             </li>
-            <li>
+            <li
+                    data-ng-if="myNonprofitsService.myNonprofits()">
                 <a href="#/myApplicants">View Job Applicants</a>
             </li>
         </ul>
