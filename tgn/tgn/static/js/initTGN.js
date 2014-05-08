@@ -340,13 +340,8 @@ var initTGN = function (accessToken) {
             var makePostRequest = function (url, parameters) {
                 console.log("making post request with: " + JSON.stringify(parameters));
 
-                var requestObj = {
-                    url: url,
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    data: parameters
-                };
-                return $http(requestObj).then(function (response) {
+
+                return $http.post(url, parameters).then(function (response) {
                     return getResponseData(response);
                 })
             };
