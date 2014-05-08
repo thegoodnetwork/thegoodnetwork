@@ -410,6 +410,7 @@ var initTGN = function (accessToken) {
                         myJobsService.setMyJobs(newJobsModel);
 
                         var newNonprofitsModel = loginInfo['nonprofits']
+                        console.log(JSON.stringify(newNonprofitsModel));
                         myNonprofitsService.setMyNonprofits(newNonprofitsModel);
                     } else {
                         console.log(responseData.errorMessage);
@@ -468,9 +469,7 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('createNonprofitController', function ($scope, requestService, myProfileService, myNonprofitsService) {
-        $scope.myProfile = myProfileService;
-        $scope.myNonprofits = myNonprofitsService;
+    tgn.controller('createNonprofitController', function ($scope, requestService) {
         $scope.newNonprofit = {};
         $scope.requestService = requestService;
     });
