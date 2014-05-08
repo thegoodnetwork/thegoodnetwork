@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from open_facebook.api import OpenFacebook
 from helperFunctions import *
 import json
+import ast
 
 FBOpen = OpenFacebook
 
@@ -33,10 +34,11 @@ def loginWithFacebook(request):
 
     '''
     print request.body
+    
+        
     requiredFields = ['accessToken']
 
-    verifiedRequestResponse = verifyRequest(json.loads(request.body),
-                                            requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
