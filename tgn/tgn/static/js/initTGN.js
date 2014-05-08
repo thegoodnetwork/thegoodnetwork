@@ -511,7 +511,7 @@ var initTGN = function (accessToken) {
 
         $scope.removeTitle = function (title) {
             console.log($scope.newJob.titles);
-            var index = $scope.newJob.titles.indexOf(skill);
+            var index = $scope.newJob.titles.indexOf(title);
             $scope.newJob.titles.splice(index, 1);
             console.log($scope.newJob.titles);
         };
