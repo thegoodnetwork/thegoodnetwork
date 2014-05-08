@@ -224,7 +224,7 @@ def updateNonprofit(request):
     request = json.loads(request.body)
 
     userId = request['userId']
-    nonprofit = request['nonpprofit']
+    nonprofit = request['nonprofit']
 
     nonprofitId = nonprofit['id']
     if Account.objects.filter(userId=userId).exists():
@@ -288,7 +288,8 @@ def createNonprofit(request):
         requiredFields = ['name', 'mission', 'description', 'website',
                           'address', 'imageUrl']
         verifiedRequestResponse = verifyRequest(json.loads(request.body)[
-            'nonprofit'], requiredFields)
+                                                    'nonprofit'],
+                                                requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
             return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -316,7 +317,7 @@ def createNonprofit(request):
             # get user nonprofit models
             account = Account.objects.get(userId=userId)
             userNonprofits = map(lambda nonprofit: getNonprofitModel(
-                nonprofit),(getUserNonprofits(account)))
+                nonprofit), (getUserNonprofits(account)))
             newNonprofitModel = getNonprofitModel(newNonprofit)
 
             # add nonprofit relation
@@ -496,8 +497,9 @@ def postJobAsNonprofit(request):
     try:
         requiredFields = ['name', 'compensation', 'description', 'city',
                           'state', 'titles', 'skills']
-        verifiedRequestResponse = verifyRequest(json.loads(request.body[
-            'jobToPost']), requiredFields)
+        verifiedRequestResponse = verifyRequest(json.loads(request.body)[
+                                                    'nonprofit'],
+                                                requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
             return formattedResponse(isError=True, errorMessage=errorMessage)
