@@ -439,6 +439,22 @@ var initTGN = function (accessToken) {
                 });
             };
 
+            requestService.addNonprofitJob = function (userId, nonProfitId, newJob) {
+                var requestUrl = requestPrefix + 'postJobAsNonprofit';
+                var data = {
+                    'userId': userId,
+                    'nonProfitId': nonProfitId,
+                    'jobToPost': newJob
+                }
+                console.log('posting to addJobAsNonprofit with: ' + JSON.stringify(data));
+                makePostRequest(requestUrl, data).then(function (responseData)
+                    {
+                        console.log(responseData.data);
+                        console.log(responseData.errorMessage);
+                    }
+                )
+            };
+
             requestService.createNonprofit = function (myProfileService, myNonprofitsService, newNonprofit) {
                 console.log('called create nonprofit for: ' + JSON.stringify(newNonprofit));
                 var requestUrl = requestPrefix + 'createNonprofit';
