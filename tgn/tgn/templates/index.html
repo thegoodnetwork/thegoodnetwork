@@ -21,7 +21,7 @@
 <!-- ng-switch for navbar -->
 <nav class="navbar navbar-default custom-top-navbar"
      role="navigation"
-     data-ng-if="!(myProfile.loggedIn())"
+     data-ng-if="!(myProfile.isLoggedIn())"
         >
     <div class="container-fluid">
         <div id="logoText">THE GOOD NETWORK</div>
@@ -32,7 +32,7 @@
 <nav id="main-top-navbar"
      class="navbar navbar-default"
      role="navigation"
-     data-ng-if="myProfile.loggedIn()"
+     data-ng-if="myProfile.isLoggedIn()"
         >
     <a href="/profile">
         <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
