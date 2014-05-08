@@ -294,7 +294,7 @@ var initTGN = function (accessToken) {
                 return response.data;
             };
             var makePostRequest = function (url, parameters) {
-                console.log("making post request");
+                console.log("making post request with: " + JSON.stringify(parameters));
 
                 var requestObj = {
                     url: url,
