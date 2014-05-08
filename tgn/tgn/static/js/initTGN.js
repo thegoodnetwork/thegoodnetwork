@@ -139,7 +139,7 @@ tgn.factory('myNonprofitsService', function () {
     var myNonprofitsService = {};
 
     myNonprofitsService.setMyNonprofits = function (nonprofits) {
-        myNonprofits = nonprofits;
+        myNonprofits = nonprofits.splice(0);
     };
 
     myNonprofitsService.updateNonprofit = function (nonprofitId, updatedNonprofitModel) {
@@ -217,9 +217,6 @@ tgn.controller('userController', function ($scope, myProfileService, myNonprofit
     $scope.myProfile = myProfileService;
     $scope.myNonprofits = myNonprofitsService;
     $scope.myJobs = myJobsService;
-    setInterval(function () {
-        $scope.$apply()
-    }, 3000);
 });
 
 
