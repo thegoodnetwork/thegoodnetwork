@@ -373,3 +373,7 @@ a:hover {
 .skillsOrTitlesToAdd:hover {
     cursor: pointer;
 }
+
+.footer {
+    height: 100px;   
+}
