@@ -121,8 +121,8 @@ def updateProfile(request):
     # verify object nested in profile
     try:
         requiredFields = ['aboutMe', 'titles', 'skills', 'resume']
-        verifiedRequestResponse = verifyRequest(json.loads(request.body[
-            'profile']), requiredFields)
+        verifiedRequestResponse = verifyRequest(json.loads(request.body)[
+            'profile'], requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
             return formattedResponse(isError=True, errorMessage=errorMessage)
