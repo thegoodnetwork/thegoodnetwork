@@ -287,8 +287,8 @@ def createNonprofit(request):
     try:
         requiredFields = ['name', 'mission', 'description', 'website',
                           'address', 'imageUrl']
-        verifiedRequestResponse = verifyRequest(json.loads(request.body[
-            'nonprofit']), requiredFields)
+        verifiedRequestResponse = verifyRequest(json.loads(request.body)[
+            'nonprofit'], requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
             return formattedResponse(isError=True, errorMessage=errorMessage)
