@@ -477,7 +477,7 @@ var initTGN = function (accessToken) {
         $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
     });
 
-    tgn.controller('viewMyNonprofitController', function ($scope, myNonprofitsService, $routeParams) {
-        $scope.myNonprofit = myNonprofitsService.getNonprofit($routeParams.nonprofitId)
+    tgn.controller('viewMyNonprofitController', function ($scope, $routeParams) {
+        $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.nonprofitId)
     });
 };
