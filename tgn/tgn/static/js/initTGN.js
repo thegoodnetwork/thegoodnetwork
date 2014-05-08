@@ -478,10 +478,10 @@ var initTGN = function (accessToken) {
         $scope.requestService = requestService;
     });
 
-    tgn.controller('createNewJobController'), function ($scope, requestService) {
+    tgn.controller('createNewJobController', function ($scope, requestService) {
         $scope.newJob = {};
         $scope.requestService = requestService;
-    }
+    });
 
     tgn.controller('viewMyJobController', function ($scope, myJobsService, $routeParams) {
         $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
