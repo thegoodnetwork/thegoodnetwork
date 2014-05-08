@@ -18,6 +18,7 @@ class Nonprofit(models.Model):
     description = models.CharField(max_length=2000)
     website = models.CharField(max_length=200, default='')
     address = models.CharField(max_length=200, default='')
+    imageUrl = models.CharField(max_length=200, default='')
 
 
 class UserProfileImage(models.Model):
