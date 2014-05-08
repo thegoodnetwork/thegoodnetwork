@@ -318,7 +318,7 @@ var initTGN = function (accessToken) {
             };
             var makePostRequest = function (url, parameters) {
                 console.log("making post request");
-                $http.post(url, parameters).then(function (response) {
+                return $http.post(url, parameters).then(function (response) {
                     return getResponseData(response);
                 })
             };
