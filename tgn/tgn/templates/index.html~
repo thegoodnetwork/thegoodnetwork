@@ -50,7 +50,7 @@
     <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
        onclick="FB.logout();"> Log Out </a>
 
-    <a id="meLink" href="#/otherProfile" class="navbarText rightNavItem">Me
+    <a id="meLink" href="#/myProfile" class="navbarText rightNavItem">Me
     </a>
 
     <div class="btn-group navbarText rightNavItem">
