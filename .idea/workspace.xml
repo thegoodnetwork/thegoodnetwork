@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="97aa79bd-1610-42ec-9686-9eac22eee15b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js" afterPath="$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="thegoodnetwork.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,7 +47,16 @@
       <file leaf-file-name="initTGN.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="319" column="51" selection-start="8878" selection-end="8878" vertical-scroll-proportion="0.3573718" vertical-offset="4562" max-vertical-offset="5670">
+            <state line="320" column="23" selection-start="8902" selection-end="8902" vertical-scroll-proportion="0.044871796" vertical-offset="4772" max-vertical-offset="5670">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="initFacebook.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tgn/tgn/static/js/initFacebook.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="21" selection-start="1338" selection-end="1338" vertical-scroll-proportion="-5.7714286" vertical-offset="263" max-vertical-offset="1215">
               <folding />
             </state>
           </provider>
@@ -480,9 +490,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tgn/tgn/static/js/initFacebook.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="21" selection-start="1338" selection-end="1338" vertical-scroll-proportion="-5.7714286" vertical-offset="263" max-vertical-offset="1215">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tgn/tgn/static/js/initTGN.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="319" column="51" selection-start="8878" selection-end="8878" vertical-scroll-proportion="0.3573718" vertical-offset="4562" max-vertical-offset="5670">
+        <state line="320" column="23" selection-start="8902" selection-end="8902" vertical-scroll-proportion="0.044871796" vertical-offset="4772" max-vertical-offset="5670">
           <folding />
         </state>
       </provider>
