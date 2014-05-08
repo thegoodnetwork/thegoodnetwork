@@ -1,58 +1,3 @@
-{% extends "header.html" %}
-{% block topbar %}
-
-
-<nav id="main-top-navbar" class="navbar navbar-default" role="navigation">
-    <a href="/profile">
-        <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
-            NETWORK</strong></div>
-    </a>
-
-    <form class="col-xs-4" action="/searchResults">
-        <input class="form-control input-sm"
-               placeholder="type any keyword for jobs, people, nonprofits"
-               type="text"/>
-        <span class="glyphicon glyphicon-search"></span>
-        <input type="submit" class="hidden"/>
-    </form>
-
-    <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
-       onclick="FB.logout();"> Log Out </a>
-
-    <a id="meLink" href="/profile" class="navbarText rightNavItem">Me
-    </a>
-
-    <div class="btn-group navbarText rightNavItem">
-    <span class="dropdown-toggle" data-toggle="dropdown">My Jobs <span
-            class="caret"></span>
-    </span>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="/myJob">Manage Sean's Outpost Event</a></li>
-            <li role="presentation" class="divider"></li>
-            <li><a href="/searchResults">Find a Job</a></li>
-        </ul>
-    </div>
-    <div class="btn-group navbarText rightNavItem">
-    <span class="dropdown-toggle" data-toggle="dropdown">My Nonprofits <span
-            class="caret"></span>
-    </span>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="/myNonprofit">Finding Refuge</a></li>
-            <li role="presentation" class="divider"></li>
-            <li data-toggle="modal" data-target="#createNonprofitModal">
-                <a href="#">Create New Nonprofit</a>
-            </li>
-            <li data-toggle="modal" data-target="#createNonprofitJob">
-                <a href="#">Create New Job</a>
-            </li>
-            <li>
-                <a href="/myApplicants">View Job Applicants</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-
 <!-- Modals !-->
 <!-- Create New Non-profit Modal !-->
 <div class="modal fade" id="createNonprofitModal" tabindex="-1" role="dialog"
@@ -289,6 +234,3 @@
         </div>
     </div>
 </div>
-
-{% endblock %}
-

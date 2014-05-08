@@ -388,6 +388,5 @@ var initTGN = function (accessToken) {
         $scope.requestService = requestService;
         console.log('made the controller');
         $scope.requestService.loginWithFacebook($scope.myProfile, $scope.myNonprofits, $scope.myJobs);
-
     });
 };
