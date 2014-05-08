@@ -478,10 +478,47 @@ var initTGN = function (accessToken) {
         $scope.requestService = requestService;
     });
 
-    tgn.controller('createNewJobController'), function ($scope, requestService) {
+    tgn.controller('createNewJobController', function ($scope, requestService) {
         $scope.newJob = {};
         $scope.requestService = requestService;
-    }
+        $scope.newJob.skills = [];
+        $scope.newJob.titles = [];
+
+        $scope.addSkill = function (skill) {
+            if (skill.length > 0 &&
+                $scope.newJob.skills.indexOf(skill) == -1) {
+                $scope.newSkill = "";
+                $scope.newJob.skills.push(skill);
+                console.log($scope.newJob.skills);
+            }
+        };
+
+        $scope.removeSkill = function (skill) {
+            console.log($scope.newJob.skills);
+            var index = $scope.newJob.skills.indexOf(skill);
+            $scope.newJob.skills.splice(index, 1);
+            console.log($scope.newJob.skills);
+        };
+
+        $scope.addTitle = function (title) {
+            if (title.length > 0 &&
+                $scope.newJob.titles.indexOf(title) == -1) {
+                $scope.newTitle = "";
+                $scope.newJob.titles.push(title);
+                console.log($scope.newJob.titles);
+            }
+        };
+
+        $scope.removeTitle = function (title) {
+            console.log($scope.newJob.titles);
+            var index = $scope.newJob.titles.indexOf(title);
+            $scope.newJob.titles.splice(index, 1);
+            console.log($scope.newJob.titles);
+        };
+
+
+
+    });
 
     tgn.controller('viewMyJobController', function ($scope, myJobsService, $routeParams) {
         $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
