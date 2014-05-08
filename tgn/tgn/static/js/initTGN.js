@@ -358,18 +358,14 @@ var initTGN = function (accessToken) {
         }
     );
 
-    tgn.controller('TGNController', function ($scope, $rootScope, myProfileService, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
-        $scope.myProfile = myProfileService;
+    tgn.controller('TGNController', function ($scope, $rootScope, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
         $scope.myNonprofits = myNonprofitsService;
         $scope.myJobs = myJobsService;
         $scope.searchResults = searchResultsService;
         $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
 
-        $scope.requestService.loginWithFacebook($scope.myProfile,
-            {accessToken: $scope.myProfile.userModel().accessToken});
+        $scope.requestService.loginWithFacebook($scope.myProfile);
 
-        $rootScope.loggedIn = true;
-            //myProfileService.isLoggedIn();
     });
 };
