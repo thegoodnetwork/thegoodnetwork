@@ -69,6 +69,9 @@ tgn.config(
             .when('/jobApplicants', {
                 templateUrl: 'partials/jobApplicants'
             })
+            .when('/searchResults/:search',{
+                templateUrl: 'partials/searchResults'
+            })
 
 
             .otherwise({redirectTo: '/'});

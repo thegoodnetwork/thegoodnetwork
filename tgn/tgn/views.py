@@ -24,3 +24,6 @@ def myJob(request):
 
 def jobApplicants(request):
     return render_to_response('partials/jobApplicants.html')
+
+def searchResults(request):
+    return render_to_response('partials/searchResults.html')
