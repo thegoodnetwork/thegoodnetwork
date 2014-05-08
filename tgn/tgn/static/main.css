@@ -11,21 +11,6 @@ body {
     background-color:#5986E4;
 }
 
-/* CAROUSEL */
-.carousel-inner > .item > img {
-    margin: 0 auto;
-}
-
-.carousel-inner > .item {
-    height: 300px;
-    margin: 10px;
-}
-
-.carousel-control.left, .carousel-control.right {
-    background-image: none
-}
-/* END CAROUSEL*/
-
 .nav-pills>li.active>a {
     background-color: #5986E4;
 }
@@ -35,6 +20,29 @@ affix {
     height: 100px;
     background-color: green;
     border: 5px black solid;
+}
+
+/*MODALS */
+.attrBlocks {
+    border-radius: 3px;
+    padding: 10px;
+    margin: 5px;
+    background-color: #5986E4;
+    display: inline-block;
+    color: white;
+}
+
+.inline { 
+    display: inline-block;
+}
+
+.lower {
+    position: relative;
+    top: 10px;
+}   
+
+.left-space {
+    padding-left: 5px;
 }
 
 #logoText {
@@ -53,21 +61,9 @@ affix {
     text-align: center;
 }
 
-.details-block {
-    display: block;
-    clear: both;
-}
-
-.details {
-    align-items: center;
-    position: relative;
-/*    border-right: 3px #5986E4 solid;*/
-}
-
 .subtext {
-    margin-top: 25px;
-    margin-bottom: 20px;
-    vertical-align: text-bottom;
+    position: relative;
+    top: 25px;
 }
 
 .center {

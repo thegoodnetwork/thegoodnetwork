@@ -203,19 +203,31 @@ tgn.controller('editProfileController', function ($scope, myProfileService) {
     $scope.newModel.titles = myProfileService.userModel().titles.slice(0);
 
     $scope.addSkill = function (skill) {
-        $scope.newModel.skills.push(skill);
+        if (skill.length > 0 && 
+            $scope.newModel.skills.indexOf(skill) == -1) {
+            $scope.newSkill = "";
+            $scope.newModel.skills.push(skill);
+            console.log($scope.newModel.skills);
+        }
     };
+    
     $scope.addTitle = function (title) {
         $scope.newModel.titles.push(title);
     };
+    
     $scope.removeSkill = function (skill) {
-        $scope.newModel.skills.remove(skill);
+        console.log($scope.newModel.skills);
+        var index = $scope.newModel.skills.indexOf(skill);
+        $scope.newModel.skills.splice(index, 1);
+        console.log($scope.newModel.skills);
+
     };
+    
     $scope.removeTitle = function (title) {
         $scope.newModel.titles.remove(title);
     };
-
 });
+
 var initTGN = function (accessToken) {
     tgn.value('accessToken', accessToken);
 
