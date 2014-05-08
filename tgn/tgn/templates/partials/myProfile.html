@@ -79,22 +79,61 @@
                             <label for="editResumeLink" class="col-sm-4">Resume
                                 Link:&nbsp;&nbsp;</label>
                             <input id="editResumeLink" class="col-sm-8"
-                                   type="text" value="{{resumeLink}}"/>
+                                   type="text"
+                                   data-ng-value="myProfile.userModel().resume"/>
                         </div>
                         <br>
 
                         <div class="row">
-                            <label for="editSkills" class="col-sm-4">Skills:&nbsp;&nbsp;</label>
-                            <input id="editSkills" class="col-sm-8" type="text"
-                                   value="{{skills}}"/>
+                            <label for="new-skill" class="co
+                            l-sm-4">Add new skills: &nbsp;&nbsp;</label>
+
+                            <form
+                                    data-ng-submit="myProfile.addSkill(newSkill)">
+                                <input id="new-skill" class="col-sm-8"
+                                       type="text"
+                                       data-ng-model="newSkill"
+                                        >
+                                <button type="submit"
+                                        class="btn btn-default"></button>
+                            </form>
+                            <h5>Current Skills</h5>
+                            <ul>
+                                <li
+                                        data-ng-repeat="skill in myProfile.userModel().skills">
+                                    {{ skill }}
+                                </li>
+                            </ul>
                         </div>
                         <br>
 
+                        <div class="row">
+                            <label for="new-title" class="co
+                            l-sm-4">Add new titles: &nbsp;&nbsp;</label>
+
+                            <form
+                                    data-ng-submit="myProfile.addTitle(newTitle)">
+                                <input id="new-title" class="col-sm-8"
+                                       type="text"
+                                       data-ng-model="newTitle"
+                                        >
+                                <button type="submit"
+                                        class="btn btn-default"></button>
+                            </form>
+                            <h5>Current Skills</h5>
+                            <ul>
+                                <li
+                                        data-ng-repeat="title in myProfile.userModel().titles">
+                                    {{ title }}
+                                </li>
+                            </ul>
+                        </div>
                         <div class="row">
                             <label for="editBio" class="col-sm-4">Quick
                                 Biography:&nbsp;&nbsp;</label>
                             <textarea id="editBio" class="col-sm-8" rows="4"
-                                      cols="50">{{aboutMe}}</textarea>
+                                      cols="50">{{myProfile.userModel()
+                                .aboutMe}}</textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
