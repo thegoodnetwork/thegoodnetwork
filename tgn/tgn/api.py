@@ -286,7 +286,7 @@ def createNonprofit(request):
     # verify nonprofit object
     try:
         requiredFields = ['name', 'mission', 'description', 'website',
-                          'address']
+                          'address', 'imageUrl']
         verifiedRequestResponse = verifyRequest(json.loads(request.body[
             'nonprofit']), requiredFields)
         if verifiedRequestResponse['isMissingFields']:
@@ -308,7 +308,8 @@ def createNonprofit(request):
             description=nonprofit['description'],
             mission=nonprofit['mission'],
             website=nonprofit['website'],
-            address=nonprofit['address']
+            address=nonprofit['address'],
+            imageUrl=nonprofit['imageUrl']
         )
         if isNewNonprofitCreated:
 
