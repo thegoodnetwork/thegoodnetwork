@@ -315,8 +315,8 @@ def createNonprofit(request):
 
             # get user nonprofit models
             account = Account.objects.get(userId=userId)
-            userNonprofits = formatNonprofitsForUserModel(getUserNonprofits(
-                account))
+            userNonprofits = map(lambda nonprofit: getNonprofitModel(
+                nonprofit),(getUserNonprofits(account)))
             newNonprofitModel = getNonprofitModel(newNonprofit)
 
             # add nonprofit relation

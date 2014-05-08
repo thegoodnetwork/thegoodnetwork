@@ -166,7 +166,7 @@ tgn.factory('myNonprofitsService', function () {
     };
 
     myNonprofitsService.addNonprofit = function (newNonprofit) {
-       myNonprofits = myNonprofits.concat(newNonprofit);
+        myNonprofits = myNonprofits.concat(newNonprofit);
     };
 
     return myNonprofitsService;
@@ -418,6 +418,23 @@ var initTGN = function (accessToken) {
                     } else {
                         console.log(responseData.errorMessage);
                     }
+                });
+            };
+
+            requestService.createNonprofit = function (myProfileService, myNonprofitsService, newNonprofit) {
+                var requestUrl = requestPrefix + 'createNonprofit';
+
+                var createNonprofitRequestObject = {
+                    userId: myProfileService.userModel().userId,
+                    nonprofit: newNonprofit
+                };
+
+                makePostRequest(requestUrl, createNonprofitRequestObject).then(function (responseData) {
+                    var newNonprofit = responseData.data.newNonprofit;
+                    var myNonprofits = responseData.data.myNonprofits;
+
+                    myNonprofitsService.setMyNonprofits(myNonprofits);
+                    window.location = '#/myNonprofit/' + newNonprofit.nonprofitId
                 });
             };
             return requestService
