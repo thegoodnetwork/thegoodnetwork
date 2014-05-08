@@ -320,8 +320,22 @@
                         data-dismiss="modal">Close
                 </button>
                 <button type="button" class="btn btn-primary"
-                        data-dismiss="modal">Create Job
+                        data-dismiss="modal"
+                        data-ng-click="requestService.addJob(myProfileService.userModel().userId, newJob.nonprofit, newJob)"
+                        >Create Job
                 </button>
+                <!--EXAMPLE
+                                 <button type="button" class="btn btn-primary"
+                                data-dismiss="modal"
+                                data-ng-click="requestService.updateProfile(myProfile,
+                                { profile: newModel,
+                                  userId: myProfile.userModel().userId
+                                  }
+                                )"
+                                >Save changes
+                        </button>
+                !-->
+
             </div>
         </div>
     </div>
