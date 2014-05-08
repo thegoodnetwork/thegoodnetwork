@@ -219,12 +219,6 @@ tgn.controller('userController', function ($scope, myProfileService, myNonprofit
     $scope.myJobs = myJobsService;
 });
 
-tgn.controller('createNonprofitController', function ($scope, requestService, myProfileService, myNonprofitsService) {
-    $scope.myProfile = myProfileService;
-    $scope.myNonprofits = myNonprofitsService;
-    $scope.newNonprofit = {};
-    $scope.requestService = requestService;
-});
 
 tgn.controller('editProfileController', function ($scope, myProfileService) {
     $scope.newModel = {}
@@ -457,6 +451,13 @@ var initTGN = function (accessToken) {
         $scope.requestService.loginWithFacebook($scope.myProfile, $scope.myNonprofits, $scope.myJobs);
     });
 
+
+    tgn.controller('createNonprofitController', function ($scope, requestService, myProfileService, myNonprofitsService) {
+        $scope.myProfile = myProfileService;
+        $scope.myNonprofits = myNonprofitsService;
+        $scope.newNonprofit = {};
+        $scope.requestService = requestService;
+    });
     tgn.controller('viewMyJobController', function ($scope, myJobsService, $routeParams) {
         $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
     });
