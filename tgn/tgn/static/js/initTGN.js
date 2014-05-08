@@ -226,18 +226,18 @@ tgn.controller('editProfileController', function ($scope, myProfileService) {
     $scope.newModel.titles = myProfileService.userModel().titles.slice(0);
 
     $scope.addSkill = function (skill) {
-        if (skill.length > 0 && 
+        if (skill.length > 0 &&
             $scope.newModel.skills.indexOf(skill) == -1) {
             $scope.newSkill = "";
             $scope.newModel.skills.push(skill);
             console.log($scope.newModel.skills);
         }
     };
-    
+
     $scope.addTitle = function (title) {
         $scope.newModel.titles.push(title);
     };
-    
+
     $scope.removeSkill = function (skill) {
         console.log($scope.newModel.skills);
         var index = $scope.newModel.skills.indexOf(skill);
@@ -245,7 +245,7 @@ tgn.controller('editProfileController', function ($scope, myProfileService) {
         console.log($scope.newModel.skills);
 
     };
-    
+
     $scope.removeTitle = function (title) {
         $scope.newModel.titles.remove(title);
     };
@@ -447,11 +447,15 @@ var initTGN = function (accessToken) {
                     var newNonprofit = responseData.data.newNonprofit;
                     var myNonprofits = responseData.data.myNonprofits;
 
-                    myNonprofitsService.setMyNonprofits(myNonprofits);
-                    window.location = '#/myNonprofit/' + newNonprofit.nonprofitId
+                    if (myNonprofits) {
+                        myNonprofitsService.setMyNonprofits(myNonprofits);
+                        window.location = '#/myNonprofit/' + newNonprofit.nonprofitId
+                    } else {
+                        console.log(responseData.errorMessage)
+                    }
                 });
             };
-            return requestService
+            return requestService;
         }
     );
 

@@ -59,13 +59,13 @@
     </span>
         <ul class="dropdown-menu" role="menu">
             <li
-                    data-ng-repeat="job in myJobsService.myJobs().currentJobsAsEmployee">
+                    data-ng-repeat="job in myJobs.myJobs().currentJobsAsEmployee">
                 <a data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">
                     {{job.name}}
                 </a>
             </li>
             <li role="presentation" class="divider"
-                data-ng-if="myJobsService.myJobs.currentJobsAsEmployee"></li>
+                data-ng-if="myJobs.myJobs().currentJobsAsEmployee"></li>
             <li><a href="#/searchResults">Find a Job</a></li>
         </ul>
     </div>
@@ -75,7 +75,7 @@
     </span>
         <ul class="dropdown-menu" role="menu">
             <li
-                    data-ng-repeat="nonprofit in myNonprofitService.myNonprofits()">
+                    data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
                 <a href="#/myNonprofit/{{nonprofit.nonprofitId}}">
                     {{nonprofit.name}}
                 </a>
@@ -85,11 +85,11 @@
                 <a>Create New Nonprofit</a>
             </li>
             <li data-toggle="modal" data-target="#createNonprofitJob"
-                    data-ng-if="myNonprofitsService.myNonprofits()">
+                    data-ng-if="myNonprofits.myNonprofits()">
                 <a>Create New Job</a>
             </li>
             <li
-                    data-ng-if="myNonprofitsService.myNonprofits()">
+                    data-ng-if="myNonprofits.myNonprofits()">
                 <a href="#/myApplicants">View Job Applicants</a>
             </li>
         </ul>
