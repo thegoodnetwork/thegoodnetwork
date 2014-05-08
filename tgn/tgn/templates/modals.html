@@ -1,5 +1,6 @@
 <!-- Modals !-->
 <!-- Create New Non-profit Modal !-->
+{% verbatim %}
 <div class="modal fade" id="createNonprofitModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true"
      data-ng-controller="createNonprofitController">
@@ -220,7 +221,7 @@
                 <div class="row">
                     <label for="nonprofitName" class="col-sm-4">Non-profit:&nbsp;&nbsp;</label>
                     <select class="col-sm-8">
-                        <option data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">{{nonprofit.name}}</option>
+                        <option data-ng-repeat="nonprofit in myNonprofits.myNonprofits()" value="{{nonprofit.nonprofitId}}">{{nonprofit.name}}</option>
                     </select>
                 </div>
                 <br>
@@ -257,5 +258,6 @@
         </div>
     </div>
 </div>
+{% endverbatim %}
 {% block content %}
 {% endblock %}
