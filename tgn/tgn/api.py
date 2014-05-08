@@ -35,12 +35,12 @@ def loginWithFacebook(request):
     print request.body
     requiredFields = ['accessToken']
 
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
     accessToken = request['accessToken']
 
     graph = FBOpen(access_token=accessToken)
@@ -111,9 +111,9 @@ def updateProfile(request):
     '''
 
     # verify top-level objects
-    print str(request.POST)
+    print str(request.body)
     requiredFields = ['userId', 'profile']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -121,7 +121,7 @@ def updateProfile(request):
     # verify object nested in profile
     try:
         requiredFields = ['aboutMe', 'titles', 'skills', 'resume']
-        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+        verifiedRequestResponse = verifyRequest(json.loads(request.body[
             'profile']), requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
@@ -130,7 +130,7 @@ def updateProfile(request):
         errorMessage = 'profile was not a valid JSON'
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
     userId = request['userId']
     profile = json.loads(request['profile'])
 
@@ -198,7 +198,7 @@ def updateNonprofit(request):
 
     # verify top-level objects
     requiredFields = ['userId', 'nonprofit']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -207,7 +207,7 @@ def updateNonprofit(request):
     try:
         requiredFields = ['nonprofitId', 'description', 'mission', 'website',
                           'address']
-        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+        verifiedRequestResponse = verifyRequest(json.loads(request.body[
             'profile']), requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
@@ -216,7 +216,7 @@ def updateNonprofit(request):
         errorMessage = 'nonprofit was not a valid JSON'
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     userId = request['userId']
     nonprofit = json.loads(request['nonpprofit'])
@@ -272,7 +272,7 @@ def createNonprofit(request):
 
     # verify top-level objects
     requiredFields = ['userId', 'nonprofit']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -281,7 +281,7 @@ def createNonprofit(request):
     try:
         requiredFields = ['name', 'mission', 'description', 'website',
                           'address']
-        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+        verifiedRequestResponse = verifyRequest(json.loads(request.body[
             'nonprofit']), requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
@@ -290,7 +290,7 @@ def createNonprofit(request):
         errorMessage = 'nonprofit was not a valid JSON'
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     userId = request['userId']
     nonprofit = json.loads(request['nonprofit'])
@@ -341,12 +341,12 @@ def requestAffiliation(request):
     '''
     # verify top-level objects
     requiredFields = ['userId', 'nonprofitId']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
     userId = request['userId']
     nonprofitId = request['nonprofitId']
 
@@ -406,12 +406,12 @@ def acceptAffiliate(request):
     '''
     # verify top-level objects
     requiredFields = ['affiliateId', 'nonprofitId', 'newAffiliateId']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
     affiliateId = request['affiliateId']
     potentialAffiliateId = request['potentialAffiliateId']
     nonprofitId = request['nonprofitId']
@@ -477,7 +477,7 @@ def postJobAsNonprofit(request):
 
     # verify top-level objects
     requiredFields = ['userId', 'nonprofitId', 'jobToPost']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -486,7 +486,7 @@ def postJobAsNonprofit(request):
     try:
         requiredFields = ['name', 'compensation', 'description', 'city',
                           'state', 'titles', 'skills']
-        verifiedRequestResponse = verifyRequest(json.loads(request.POST[
+        verifiedRequestResponse = verifyRequest(json.loads(request.body[
             'jobToPost']), requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
@@ -495,7 +495,7 @@ def postJobAsNonprofit(request):
         errorMessage = 'jobToPost was not a valid JSON'
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     userId = request['userId']
     nonprofitId = request['nonprofitId']
@@ -570,12 +570,12 @@ def applyToJob(request):
     '''
 
     requiredFields = ['userId', 'jobId']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     userId = request['userId']
     jobId = request['jobId']
@@ -629,12 +629,12 @@ def acceptApplicant(request):
     '''
 
     requiredFields = ['affiliateId', 'applicantId', 'jobId', 'nonprofitId']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     applicantId = request['applicantId']
     affiliateId = request['affiliateId']
@@ -731,12 +731,12 @@ def viewOtherProfile(request):
     '''
 
     requiredFields = ['userId']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     userId = request['userId']
 
@@ -762,12 +762,12 @@ def viewJob(request):
     '''
 
     requiredFields = ['jobId', 'jobType']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
     jobId = request['jobId']
     jobType = request['jobType']
 
@@ -797,12 +797,12 @@ def viewNonprofit(request):
     '''
 
     requiredFields = ['nonprofitId']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     nonprofitId = request['nonprofitId']
 
@@ -828,12 +828,12 @@ def getPostedJobs(request):
     '''
 
     requiredFields = ['query']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     # currently ignoring query
 
@@ -854,12 +854,12 @@ def getNonprofits(request):
     '''
 
     requiredFields = ['query']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     # currently ignoring query
 
@@ -881,12 +881,12 @@ def getOtherUsers(request):
     '''
 
     requiredFields = ['query', 'userId']
-    verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
+    verifiedRequestResponse = verifyRequest(request.body, requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    request = request.POST
+    request = request.body
 
     userId = request['userId']
     # currently ignoring query
