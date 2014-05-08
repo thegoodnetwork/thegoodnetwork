@@ -500,6 +500,24 @@ var initTGN = function (accessToken) {
             console.log($scope.newJob.skills);
         };
 
+        $scope.addTitle = function (title) {
+            if (skill.length > 0 &&
+                $scope.newJob.titles.indexOf(title) == -1) {
+                $scope.newTitle = "";
+                $scope.newJob.titles.push(skill);
+                console.log($scope.newJob.titles);
+            }
+        };
+
+        $scope.removeSkill = function (title) {
+            console.log($scope.newJob.titles);
+            var index = $scope.newJob.titles.indexOf(skill);
+            $scope.newJob.titles.splice(index, 1);
+            console.log($scope.newJob.titles);
+        };
+
+
+
     });
 
     tgn.controller('viewMyJobController', function ($scope, myJobsService, $routeParams) {
