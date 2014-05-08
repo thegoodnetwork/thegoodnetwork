@@ -478,6 +478,7 @@ var initTGN = function (accessToken) {
     });
 
     tgn.controller('viewMyNonprofitController', function ($scope, $routeParams) {
+        console.log('got routeParams ' + JSON.stringify($routeParams));
         $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.nonprofitId)
     });
 };
