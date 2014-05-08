@@ -32,7 +32,7 @@ def loginWithFacebook(request):
         accessToken
 
     '''
-    print request.POST
+    print request.body
     requiredFields = ['accessToken']
 
     verifiedRequestResponse = verifyRequest(request.POST, requiredFields)
