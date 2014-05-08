@@ -54,6 +54,12 @@ tgn.config(
             .when('/myProfile', {
                 templateUrl: 'partials/myProfile'
             })
+	    .when('/otherProfile', {
+		templateUrl: 'partials/otherProfile'
+	    })
+	    .when('/otherNonprofit', {
+		    templateUrl: 'partials/otherNonprofit'
+	    })
             .otherwise({redirectTo: '/'});
     }
 );

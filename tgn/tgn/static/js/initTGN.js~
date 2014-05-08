@@ -1,49 +1,4 @@
-var tgn = angular.module('angularTGN', ['ngRoute'], function ($httpProvider) {
-    // Use x-www-form-urlencoded Content-Type
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset\
-=utf-8';
-
-    /**
-     * The workhorse; converts an object to x-www-form-urlencoded serialization.
-     * @param {Object} obj
-     * @return {String}
-     */
-    var param = function (obj) {
-        var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
-
-        for (name in obj) {
-            value = obj[name];
-
-            if (value instanceof Array) {
-                for (i = 0; i < value.length; ++i) {
-                    subValue = value[i];
-                    fullSubName = name + '[' + i + ']';
-                    innerObj = {};
-                    innerObj[fullSubName] = subValue;
-                    query += param(innerObj) + '&';
-                }
-            }
-            else if (value instanceof Object) {
-                for (subName in value) {
-                    subValue = value[subName];
-                    fullSubName = name + '[' + subName + ']';
-                    innerObj = {};
-                    innerObj[fullSubName] = subValue;
-                    query += param(innerObj) + '&';
-                }
-            }
-            else if (value !== undefined && value !== null)
-                query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-        }
-
-        return query.length ? query.substr(0, query.length - 1) : query;
-    };
-
-    // Override $http service's default transformRequest
-    $httpProvider.defaults.transformRequest = [function (data) {
-        return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-    }];
-});
+var tgn = angular.module('angularTGN', ['ngRoute']);
 
 tgn.config(
     function ($controllerProvider, $provide, $compileProvider, $routeProvider) {
@@ -102,120 +57,147 @@ tgn.config(
             .otherwise({redirectTo: '/'});
     }
 );
+
+tgn.factory('myProfileService', function () {
+    var userModel = {
+        accessToken: '',
+        userId: '',
+        name: '',
+        aboutMe: '',
+        resume: '',
+        profileImageUrl: '',
+        titles: [],
+        skills: []
+    };
+
+    var loggedIn = false;
+
+    var myProfileService = {}
+
+    myProfileService.login = function (user) {
+        for (attribute in user) {
+            userModel[attribute] = user[attribute]
+        }
+
+        loggedIn = true;
+    };
+
+    myProfileService.logout = function () {
+        userModel.accessToken = '';
+        userModel.userId = '';
+        userModel.name = '';
+        userModel.aboutMe = '';
+        userModel.resume = '';
+        userModel.profileImageUrl = '';
+        userModel.titles = [];
+        userModel.skills = [];
+
+        loggedIn = false;
+    };
+
+    myProfileService.updateModel = function (newModel) {
+        for (updatedAttribute in newModel) {
+            userModel[updatedAttribute] = newModel[updatedAttribute]
+        }
+    };
+
+    myProfileService.userModel = function () {
+        return userModel;
+    };
+
+    myProfileService.isLoggedIn = function () {
+        return loggedIn;
+    };
+
+    return myProfileService;
+});
+tgn.factory('myNonprofitsService', function () {
+    var myNonprofits = [];
+
+    var myNonprofitsService = {};
+
+    myNonprofitsService.setMyNonprofits = function (nonprofits) {
+        myNonprofits = nonprofits;
+    };
+
+    myNonprofitsService.updateNonprofit = function (nonprofitId, updatedNonprofitModel) {
+        for (var i = 0, j = myNonprofits.length; i < j; i++) {
+            if (myNonprofits[i].nonprofitId == nonprofitId) {
+                for (updatedAttribute in updatedNonprofitModel) {
+                    myNonprofits[i][updatedAttribute] = updatedNonprofitModel[updatedAttribute]
+                }
+                break;
+            }
+        }
+    };
+
+    myNonprofitsService.myNonprofits = function () {
+        return myNonprofits;
+    };
+
+    return myNonprofitsService;
+});
+
+tgn.factory('myJobsService', function () {
+    var myJobs = {
+        jobsAsApplicant: [],
+        currentJobsAsEmployee: [],
+        completedJobsAsEmployee: []
+    };
+
+    var myJobsService = {};
+
+    myJobsService.setMyJobs = function (jobs) {
+        myJobs = jobs;
+    };
+
+    myJobsService.setMyApplications = function (applications) {
+        myJobs['jobsAsApplicant'] = applications;
+    };
+
+    myJobsService.setMyCurrentJobs = function (currentJobs) {
+        myJobs['currentJobsAsEmployee'] = currentJobs;
+    };
+
+    myJobsService.setMyCompletedJobs = function (completedJobs) {
+        myJobs['completedJobsAsEmployee'] = completedJobs
+    };
+
+    myJobsService.myJobs = function () {
+        return myJobs
+    };
+
+    return myJobsService
+});
+
+
+tgn.controller('userController', function ($scope, myProfileService, myNonprofitsService, myJobsService) {
+    $scope.myProfile = myProfileService;
+    $scope.myNonprofits = myNonprofitsService;
+    $scope.myJobs = myJobsService;
+});
+
+tgn.controller('editProfileController', function ($scope, myProfileService) {
+    $scope.newModel = {}
+    $scope.newModel.skills = myProfileService.userModel().skills.slice(0);
+    $scope.newModel.titles = myProfileService.userModel().titles.slice(0);
+
+    $scope.addSkill = function (skill) {
+        $scope.newModel.skills.push(skill);
+    };
+    $scope.addTitle = function (title) {
+        $scope.newModel.titles.push(title);
+    };
+    $scope.removeSkill = function (skill) {
+        $scope.newModel.skills.remove(skill);
+    };
+    $scope.removeTitle = function (title) {
+        $scope.newModel.titles.remove(title);
+    };
+
+});
 var initTGN = function (accessToken) {
     tgn.value('accessToken', accessToken);
-    tgn.factory('myProfileService', function (accessToken) {
-        var userModel = {
-            accessToken: accessToken,
-            userId: '',
-            name: '',
-            aboutMe: '',
-            resume: '',
-            profileImageUrl: '',
-            titles: [],
-            skills: []
-        };
-
-        var loggedIn = false;
-
-        var myProfileService = {}
-
-        myProfileService.login = function (user) {
-            for (attribute in user) {
-                userModel[attribute] = user[attribute]
-            }
-
-            loggedIn = true;
-        };
-
-        myProfileService.logout = function () {
-            userModel.accessToken = '';
-            userModel.userId = '';
-            userModel.name = '';
-            userModel.aboutMe = '';
-            userModel.resume = '';
-            userModel.profileImageUrl = '';
-            userModel.titles = [];
-            userModel.skills = [];
-
-            loggedIn = false;
-        };
-
-        myProfileService.updateModel = function (newModel) {
-            for (updatedAttribute in newModel) {
-                userModel[updatedAttribute] = newModel[updatedAttribute]
-            }
-        };
-
-        myProfileService.userModel = function () {
-            return userModel;
-        };
-
-        myProfileService.isLoggedIn = function () {
-            return loggedIn;
-        };
-
-        return myProfileService;
-    });
-
-    tgn.factory('myNonprofitsService', function () {
-        var myNonprofits = [];
-
-        var myNonprofitsService = {};
-
-        myNonprofitsService.setMyNonprofits = function (nonprofits) {
-            myNonprofits = nonprofits;
-        };
-
-        myNonprofitsService.updateNonprofit = function (nonprofitId, updatedNonprofitModel) {
-            for (var i = 0, j = myNonprofits.length; i < j; i++) {
-                if (myNonprofits[i].nonprofitId == nonprofitId) {
-                    for (updatedAttribute in updatedNonprofitModel) {
-                        myNonprofits[i][updatedAttribute] = updatedNonprofitModel[updatedAttribute]
-                    }
-                    break;
-                }
-            }
-        };
-
-        myNonprofitsService.myNonprofits = function () {
-            return myNonprofits;
-        };
-
-        return myNonprofitsService;
-    });
-
-    tgn.factory('myJobsService', function () {
-        var myJobs = {
-            jobsAsApplicant: [],
-            currentJobsAsEmployee: [],
-            completedJobsAsEmployee: []
-        };
-
-        var myJobsService = {};
-
-        myJobsService.setMyJobs = function (jobs) {
-            myJobs = jobs;
-        };
-
-        myJobsService.setMyApplications = function (applications) {
-            myJobs['jobsAsApplicant'] = applications;
-        };
-
-        myJobsService.setMyCurrentJobs = function (currentJobs) {
-            myJobs['currentJobsAsEmployee'] = currentJobs;
-        };
-
-        myJobsService.setMyCompletedJobs = function (completedJobs) {
-            myJobs['completedJobsAsEmployee'] = completedJobs
-        };
-
-        myJobsService.myJobs = function () {
-            return myJobs
-        };
-
-        return myJobsService
-    });
 
     tgn.factory('searchResultsService', function () {
         var search = {
@@ -304,26 +286,56 @@ var initTGN = function (accessToken) {
         return viewContentService;
     });
 
-    tgn.factory('requestService', function ($http) {
+    tgn.factory('requestService', function ($http, accessToken) {
             var requestService = {};
+            var accessToken = accessToken;
             var getResponseData = function (response) {
+                console.log('got response:  ' + JSON.stringify(response))
                 return response.data;
             };
             var makePostRequest = function (url, parameters) {
-                $http.post(url, parameters).then(function (response) {
+                console.log("making post request with: " + JSON.stringify(parameters));
+
+
+                return $http.post(url, parameters, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (response) {
                     return getResponseData(response);
                 })
             };
             var requestPrefix = '/tgn/api/';
 
-            requestService.loginWithFacebook = function (myProfileService, requestArgs) {
+            requestService.loginWithFacebook = function (myProfileService, myNonprofitsService, myJobsService) {
                 var requestUrl = requestPrefix + 'loginWithFacebook';
+                var requestArgs = {
+                    accessToken: accessToken
+                };
+
                 makePostRequest(requestUrl, requestArgs).then(function (responseData) {
                     var loginInfo = responseData.data.me;
 
                     if (loginInfo) {
-                        console.log('logging in ' + json.stringify(loginInfo));
-                        myProfileService.login(loginInfo);
+                        console.log('logging in ' + JSON.stringify(loginInfo));
+
+                        var newProfileModel = {
+                            accessToken: accessToken,
+                            userId: loginInfo['userId'],
+                            profileImageUrl: loginInfo['profileImageUrl'],
+                            skills: loginInfo['skills'],
+                            titles: loginInfo['titles'],
+                            resume: loginInfo['resume'],
+                            aboutMe: loginInfo['aboutMe'],
+                            name: loginInfo['name']
+                        };
+                        myProfileService.login(newProfileModel);
+
+                        var newJobsModel = loginInfo['jobs'];
+                        myJobsService.setMyJobs(newJobsModel);
+
+                        var newNonprofitsModel = loginInfo['nonprofits']
+                        myNonprofitsService.setMyNonprofits(newNonprofitsModel);
                     } else {
                         console.log(responseData.errorMessage);
                     }
@@ -331,9 +343,12 @@ var initTGN = function (accessToken) {
 
             };
 
-            requestService.updateProfile = function (myProfileService, requestArgs) {
+            requestService.updateProfile = function (myProfileService, newModel) {
                 var requestUrl = requestPrefix + 'updateProfile';
-                makePostRequest(requestUrl, requestArgs).then(function (responseData) {
+
+                myProfileService.updateModel(newModel['profile']);
+                console.log('posting to update profile with:  ' + JSON.stringify(newModel));
+                makePostRequest(requestUrl, newModel).then(function (responseData) {
                     var updatedProfile = responseData.data.updatedProfile;
 
                     if (updatedProfile) {
@@ -347,18 +362,12 @@ var initTGN = function (accessToken) {
         }
     );
 
-    tgn.controller('TGNController', function ($scope, $rootScope, myProfileService, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
-	    console.log("in TGNController");    
-        $scope.myProfile = myProfileService;
-        $scope.myNonprofits = myNonprofitsService;
-        $scope.myJobs = myJobsService;
+    tgn.controller('TGNController', function ($scope, searchResultsService, viewContentService, requestService) {
         $scope.searchResults = searchResultsService;
         $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
+        console.log('made the controller');
+        $scope.requestService.loginWithFacebook($scope.myProfile, $scope.myNonprofits, $scope.myJobs);
 
-        $scope.requestService.loginWithFacebook($scope.myProfile,
-            {accessToken: $scope.myProfile.userModel().accessToken});
-        $rootScope.loggedIn = true;
-	//myProfileService.isLoggedIn();
     });
 };
