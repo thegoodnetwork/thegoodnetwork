@@ -17,10 +17,11 @@
 </head>
 <body data-ng-app="angularTGN">
 
+<div data-ng-controller="userController">
 <!-- ng-switch for navbar -->
 <nav class="navbar navbar-default custom-top-navbar"
      role="navigation"
-     data-ng-if="!(loggedIn)"
+     data-ng-if="!(myProfile.loggedIn())"
         >
     <div class="container-fluid">
         <div id="logoText">THE GOOD NETWORK</div>
@@ -31,7 +32,7 @@
 <nav id="main-top-navbar"
      class="navbar navbar-default"
      role="navigation"
-     data-ng-if="loggedIn"
+     data-ng-if="myProfile.loggedIn()"
         >
     <a href="/profile">
         <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
@@ -88,7 +89,7 @@
 <div data-ng-view>
 
 </div>
-
+</div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript"
         src='{% static "bootstrap-3.1.1/dist/js/bootstrap.min.js" %}'></script>
