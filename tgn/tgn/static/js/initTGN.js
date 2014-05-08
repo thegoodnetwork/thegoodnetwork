@@ -58,8 +58,7 @@ tgn.config(
                 templateUrl: 'partials/otherProfile'
             })
             .when('/myNonprofit/:myNonprofit', {
-                templateUrl: 'partials/myNonprofit',
-                controller: 'viewMyNonprofitController'
+                templateUrl: 'partials/myNonprofit'
             })
             .when('/otherNonprofit/:otherNonprofit', {
                 templateUrl: 'partials/otherNonprofit'
@@ -480,5 +479,6 @@ var initTGN = function (accessToken) {
     tgn.controller('viewMyNonprofitController', function ($scope, $routeParams) {
         console.log('got routeParams ' + JSON.stringify($routeParams));
         $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.nonprofitId)
+        console.log('my nonprofit: ' + JSON.stringify($scope.myNonprofit));
     });
 };
