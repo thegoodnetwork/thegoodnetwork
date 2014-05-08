@@ -60,9 +60,9 @@
         <ul class="dropdown-menu" role="menu">
             <li
                     data-ng-repeat="job in myJobsService.myJobs().currentJobsAsEmployee">
-                <a
-                        data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">{{job.name}}
-                    Event</a>
+                <a data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">
+                    {{job.name}}
+                </a>
             </li>
             <li role="presentation" class="divider"></li>
             <li><a href="#/searchResults">Find a Job</a></li>
