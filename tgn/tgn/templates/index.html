@@ -58,8 +58,7 @@
             class="caret"></span>
     </span>
         <ul class="dropdown-menu" role="menu">
-            <li
-                    data-ng-repeat="job in myJobs.myJobs().currentJobsAsEmployee">
+            <li data-ng-repeat="job in myJobs.myJobs().currentJobsAsEmployee">
                 <a data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">
                     {{job.name}}
                 </a>
@@ -74,9 +73,8 @@
             class="caret"></span>
     </span>
         <ul class="dropdown-menu" role="menu">
-            <li
-                    data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
-                <a href="#/myNonprofit/{{nonprofit.nonprofitId}}">
+            <li data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
+                <a data-ng-href="#/myNonprofit/{{nonprofit.nonprofitId}}">
                     {{nonprofit.name}}
                 </a>
             </li>
