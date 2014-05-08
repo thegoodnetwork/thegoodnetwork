@@ -504,7 +504,7 @@ def postJobAsNonprofit(request):
         requiredFields = ['name', 'compensation', 'description', 'city',
                           'state', 'titles', 'skills']
         verifiedRequestResponse = verifyRequest(json.loads(request.body)[
-                                                    'nonprofit'],
+                                                    'jobToPost'],
                                                 requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
