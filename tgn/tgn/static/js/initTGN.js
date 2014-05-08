@@ -300,7 +300,7 @@ var initTGN = function (accessToken) {
                     url: url,
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    data: JSON.stringify(parameters)
+                    data: parameters
                 };
                 return $http(requestObj).then(function (response) {
                     return getResponseData(response);
