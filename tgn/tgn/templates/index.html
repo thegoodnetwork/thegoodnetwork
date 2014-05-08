@@ -100,30 +100,36 @@
                 <div class="row">
                     <label for="nonprofitName" class="col-sm-4"> Name of
                         Organization:&nbsp;&nbsp;</label>
-                    <input id="nonprofitName" class="col-sm-8" type="text"/>
+                    <input id="nonprofitName" class="col-sm-8" type="text" data-ng-model="newNonprofit.name"/>
                 </div>
                 <br>
-                <!--
-
-                    <div class="row">
-                      <label for="nonprofitMission" class="col-sm-4">Mission:&nbsp;&nbsp;</label>
-                      <input id="nonprofitMission" class="col-sm-8" type="text"/>
-                    </div>
-                    <br>
-
-                -->
-
+                <div class="row">
+                    <label for="nonprofitImage" class="col-sm-4"> Image Url:&nbsp;&nbsp;</label>
+                    <input id="nonprofitImage" class="col-sm-8" type="text" data-ng-model="newNonprofit.imageUrl"/>
+                </div>
+                <br>
+                <div class="row">
+                  <label for="nonprofitMission" class="col-sm-4">Mission:&nbsp;&nbsp;</label>
+                  <input id="nonprofitMission" class="col-sm-8" type="text" data-ng-model="newNonprofit.mission"/>
+                </div>
+                <br>
                 <div class="row">
                     <label for="nonprofitDescription" class="col-sm-4">
                         Description:&nbsp;&nbsp;</label>
                     <textarea id="nonprofitDescription" class="col-sm-8"
-                              rows="4" cols="50"></textarea>
+                              rows="4" cols="50" data-ng-model="newNonprofit.description"></textarea>
+                </div>
+                <br>
+                <div class="row">
+                    <label for="address" class="col-sm-4">
+                        Address:&nbsp;&nbsp;</label>
+                  <input id="address" class="col-sm-8" type="text" data-ng-model="newNonprofit.address"/>
                 </div>
                 <br>
 
                 <div class="row">
                     <label for="nonprofitWebsite" class="col-sm-4">Website:&nbsp;&nbsp;</label>
-                    <input id="nonprofitWebsite" class="col-sm-8" type="text"/>
+                    <input id="nonprofitWebsite" class="col-sm-8" type="text" data-ng-model="newNonprofit.website"/>
                 </div>
                 <br>
 
