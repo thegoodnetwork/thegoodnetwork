@@ -401,12 +401,12 @@ var initTGN = function (accessToken) {
         }
     );
 
-    tgn.controller('TGNController', function ($scope, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
+    tgn.controller('TGNController', function ($scope, searchResultsService, viewContentService, requestService) {
         $scope.searchResults = searchResultsService;
         $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
         console.log('made the controller');
-        $scope.requestService.loginWithFacebook($scope.myProfile);
+        $scope.requestService.loginWithFacebook($scope.myProfile, $scope.myNonprofits, $scope.myJobs);
 
     });
 };
