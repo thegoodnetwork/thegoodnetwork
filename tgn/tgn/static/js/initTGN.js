@@ -494,7 +494,7 @@ var initTGN = function (accessToken) {
         $scope.requestService = requestService;
     });
 
-    tgn.controller('createNewJobController', function ($scope, requestService) {
+    tgn.controller('createNewJobController', function ($scope, requestService, myProfileService) {
         $scope.newJob = {};
         $scope.myProfile = myProfileService;
         $scope.requestService = requestService;
