@@ -1,4 +1,4 @@
-.xml
-.iml
-.pyc
+.*xml
+.*iml
+.*pyc
 .*~
