@@ -2,7 +2,7 @@
 {% block content %}
 {% verbatim %}
 <div data-ng-controller="TGNController">
-    <div class="container">
+    <div class="container" data-ng-controller="editProfileController">
 
         <div class="row">
             <div class="col-sm-4">
@@ -16,7 +16,8 @@
 
                 <br>
                 <button class="btn btn-warning btn-lg" data-toggle="modal"
-                        data-target="#editProfileModal">Edit Profile
+                        data-target="#editProfileModal"
+                        data-ng-click="resetSkillsAndTitles()">Edit Profile
                 </button>
             </div>
 
@@ -72,7 +73,7 @@
         <!-- Edit Profile Modal !-->
         <div class="modal fade" id="editProfileModal" tabindex="-1"
              role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-             data-ng-controller="editProfileController">
+             >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -168,7 +169,8 @@
                     
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default"
-                                data-dismiss="modal">Close
+                                data-dismiss="modal"
+                                >Close
                         </button>
                         <button type="button" class="btn btn-primary"
                                 data-dismiss="modal"

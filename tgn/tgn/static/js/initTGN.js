@@ -58,8 +58,7 @@ tgn.config(
                 templateUrl: 'partials/otherProfile'
             })
             .when('/myNonprofit/:myNonprofit', {
-                templateUrl: 'partials/myNonprofit',
-                controller: 'viewMyNonprofitController'
+                templateUrl: 'partials/myNonprofit'
             })
             .when('/otherNonprofit/:otherNonprofit', {
                 templateUrl: 'partials/otherNonprofit'
@@ -248,6 +247,11 @@ tgn.controller('editProfileController', function ($scope, myProfileService) {
 
     $scope.removeTitle = function (title) {
         $scope.newModel.titles.remove(title);
+    };
+
+    $scope.resetSkillsAndTitles = function () {
+        $scope.newModel.skills = myProfileService.userModel().skills.slice(0);
+        $scope.newModel.titles = myProfileService.userModel().titles.slice(0);
     };
 });
 
@@ -477,7 +481,9 @@ var initTGN = function (accessToken) {
         $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
     });
 
-    tgn.controller('viewMyNonprofitController', function ($scope, myNonprofitsService, $routeParams) {
-        $scope.myNonprofit = myNonprofitsService.getNonprofit($routeParams.nonprofitId)
+    tgn.controller('viewMyNonprofitController', function ($scope, $routeParams) {
+        console.log('got routeParams ' + JSON.stringify($routeParams));
+        $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.myNonprofit)
+        console.log('my nonprofit: ' + JSON.stringify($scope.myNonprofit));
     });
 };
