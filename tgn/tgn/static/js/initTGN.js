@@ -489,7 +489,7 @@ var initTGN = function (accessToken) {
                 $scope.newJob.skills.indexOf(skill) == -1) {
                 $scope.newSkill = "";
                 $scope.newJob.skills.push(skill);
-                console.log($scope.newModel.skills);
+                console.log($scope.newJob.skills);
             }
         };
 
@@ -497,7 +497,7 @@ var initTGN = function (accessToken) {
             console.log($scope.newJob.skills);
             var index = $scope.newJob.skills.indexOf(skill);
             $scope.newJob.skills.splice(index, 1);
-            console.log($scope.newModel.skills);
+            console.log($scope.newJob.skills);
         };
 
     });
