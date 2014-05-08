@@ -481,6 +481,25 @@ var initTGN = function (accessToken) {
     tgn.controller('createNewJobController', function ($scope, requestService) {
         $scope.newJob = {};
         $scope.requestService = requestService;
+        $scope.newJob.skills = [];
+        $scope.newJob.titles = [];
+
+        $scope.addSkill = function (skill) {
+            if (skill.length > 0 &&
+                $scope.newJob.skills.indexOf(skill) == -1) {
+                $scope.newSkill = "";
+                $scope.newJob.skills.push(skill);
+                console.log($scope.newModel.skills);
+            }
+        };
+
+        $scope.removeSkill = function (skill) {
+            console.log($scope.newJob.skills);
+            var index = $scope.newJob.skills.indexOf(skill);
+            $scope.newJob.skills.splice(index, 1);
+            console.log($scope.newModel.skills);
+        };
+
     });
 
     tgn.controller('viewMyJobController', function ($scope, myJobsService, $routeParams) {
