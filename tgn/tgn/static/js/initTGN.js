@@ -299,7 +299,7 @@ var initTGN = function (accessToken) {
 
                 return $http.post(url, $.param(parameters), {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        'Content-Type': 'application/json; charset=UTF-8'
                     }
                 }).then(function (response) {
                     return getResponseData(response);
