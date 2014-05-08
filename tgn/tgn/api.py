@@ -297,6 +297,7 @@ def createNonprofit(request):
         errorMessage = 'nonprofit was not a valid JSON'
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
+    print 'got past verification'
     request = json.loads(request.body)
 
     userId = request['userId']
