@@ -219,10 +219,11 @@ tgn.controller('userController', function ($scope, myProfileService, myNonprofit
     $scope.myJobs = myJobsService;
 });
 
-tgn.controller('createNonprofitController', function ($scope, myProfileService, myNonprofitsService) {
+tgn.controller('createNonprofitController', function ($scope, requestService, myProfileService, myNonprofitsService) {
     $scope.myProfile = myProfileService;
     $scope.myNonprofits = myNonprofitsService;
     $scope.newNonprofit = {};
+    $scope.requestService = requestService;
 });
 
 tgn.controller('editProfileController', function ($scope, myProfileService) {
