@@ -217,6 +217,9 @@ tgn.controller('userController', function ($scope, myProfileService, myNonprofit
     $scope.myProfile = myProfileService;
     $scope.myNonprofits = myNonprofitsService;
     $scope.myJobs = myJobsService;
+    setInterval(function () {
+        $scope.$apply()
+    }, 3000);
 });
 
 
