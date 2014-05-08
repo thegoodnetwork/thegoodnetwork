@@ -501,7 +501,7 @@ var initTGN = function (accessToken) {
         };
 
         $scope.addTitle = function (title) {
-            if (skill.length > 0 &&
+            if (title.length > 0 &&
                 $scope.newJob.titles.indexOf(title) == -1) {
                 $scope.newTitle = "";
                 $scope.newJob.titles.push(skill);
@@ -509,7 +509,7 @@ var initTGN = function (accessToken) {
             }
         };
 
-        $scope.removeSkill = function (title) {
+        $scope.removeTitle = function (title) {
             console.log($scope.newJob.titles);
             var index = $scope.newJob.titles.indexOf(skill);
             $scope.newJob.titles.splice(index, 1);
