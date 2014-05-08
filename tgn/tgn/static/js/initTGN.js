@@ -439,11 +439,11 @@ var initTGN = function (accessToken) {
                 });
             };
 
-            requestService.addNonprofitJob = function (userId, nonProfitId, newJob) {
+            requestService.addNonprofitJob = function (userId, nonprofitId, newJob) {
                 var requestUrl = requestPrefix + 'postJobAsNonprofit';
                 var data = {
                     'userId': userId,
-                    'nonProfitId': nonProfitId,
+                    'nonprofitId': nonprofitId,
                     'jobToPost': newJob
                 }
                 console.log('posting to addJobAsNonprofit with: ' + JSON.stringify(data));
@@ -496,6 +496,7 @@ var initTGN = function (accessToken) {
 
     tgn.controller('createNewJobController', function ($scope, requestService) {
         $scope.newJob = {};
+        $scope.myProfile = myProfileService;
         $scope.requestService = requestService;
         $scope.newJob.skills = [];
         $scope.newJob.titles = [];
