@@ -145,20 +145,6 @@ tgn.factory('myProfileService', function () {
             userModel[updatedAttribute] = newModel[updatedAttribute]
         }
     };
-    myProfileService.addSkill = function (skill) {
-        userModel.skills.push(skill);
-    };
-
-    myProfileService.addTitle = function (title) {
-        userModel.title.push(title);
-    };
-
-    myProfileService.removeTitle = function (title) {
-        userModel.title.remove(title);
-    };
-    myProfileService.removeTitle = function (title) {
-        userModel.title.remove(title)
-    };
 
     myProfileService.userModel = function () {
         return userModel;
@@ -237,9 +223,22 @@ tgn.controller('userController', function ($scope, myProfileService, myNonprofit
 });
 
 tgn.controller('editProfileController', function ($scope, myProfileService) {
-    $scope.updatedModel = {}
-    $scope.updatedModel.skills = myProfileService.userModel().skills;
-    $scope.updatedModel.titles = myProfileService.userModel().titles;
+    $scope.newModel = {}
+    $scope.newModel.skills = myProfileService.userModel().skills.slice(0);
+    $scope.newModel.titles = myProfileService.userModel().titles.slice(0);
+
+    $scope.addSkill = function (skill) {
+        $scope.newModel.skills.push(skill);
+    };
+    $scope.addTitle = function (title) {
+        $scope.newModel.titles.push(title);
+    };
+    $scope.removeSkill = function (skill) {
+        $scope.newModel.skills.remove(skill);
+    };
+    $scope.removeTitle = function (title) {
+        $scope.newModel.titles.remove(title);
+    };
 
 });
 var initTGN = function (accessToken) {
@@ -366,8 +365,11 @@ var initTGN = function (accessToken) {
 
             };
 
-            requestService.updateProfile = function (myProfileService, requestArgs) {
+            requestService.updateProfile = function (myProfileService, newModel) {
                 var requestUrl = requestPrefix + 'updateProfile';
+
+                myProfileService.updateModel(newModel);
+
                 makePostRequest(requestUrl, requestArgs).then(function (responseData) {
                     var updatedProfile = responseData.data.updatedProfile;
 

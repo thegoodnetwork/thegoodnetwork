@@ -80,7 +80,9 @@
                                 Link:&nbsp;&nbsp;</label>
                             <input id="editResumeLink" class="col-sm-8"
                                    type="text"
-                                   data-ng-value="myProfile.userModel().resume"/>
+                                   data-ng-value="myProfile.userModel().resume"
+                                   data-ng-model="newModel.resume"
+                                    />
                         </div>
                         <br>
 
@@ -89,18 +91,19 @@
                             l-sm-4">Add new skills: &nbsp;&nbsp;</label>
 
                             <form
-                                    data-ng-submit="myProfile.addSkill(newSkill)">
+                                    data-ng-submit="addSkill(newSkill)">
                                 <input id="new-skill" class="col-sm-8"
                                        type="text"
                                        data-ng-model="newSkill"
                                         >
                                 <button type="submit"
-                                        class="btn btn-default">Add</button>
+                                        class="btn btn-default">Add
+                                </button>
                             </form>
                             <h5>Current Skills</h5>
                             <ul>
                                 <li
-                                        data-ng-repeat="skill in myProfile.userModel().skills">
+                                        data-ng-repeat="skill in newModel.skills">
                                     {{ skill }}
                                 </li>
                             </ul>
@@ -112,18 +115,19 @@
                             l-sm-4">Add new titles: &nbsp;&nbsp;</label>
 
                             <form
-                                    data-ng-submit="myProfile.addTitle(newTitle)">
+                                    data-ng-submit="addTitle(newTitle)">
                                 <input id="new-title" class="col-sm-8"
                                        type="text"
                                        data-ng-model="newTitle"
                                         >
                                 <button type="submit"
-                                        class="btn btn-default">Add</button>
+                                        class="btn btn-default">Add
+                                </button>
                             </form>
                             <h5>Current Skills</h5>
                             <ul>
                                 <li
-                                        data-ng-repeat="title in myProfile.userModel().titles">
+                                        data-ng-repeat="title in newModel.titles">
                                     {{ title }}
                                 </li>
                             </ul>
@@ -132,8 +136,8 @@
                             <label for="editBio" class="col-sm-4">Quick
                                 Biography:&nbsp;&nbsp;</label>
                             <textarea id="editBio" class="col-sm-8" rows="4"
-                                      cols="50">{{myProfile.userModel()
-                                .aboutMe}}</textarea>
+                                      cols="50"
+                                      data-ng-model="newModel.aboutMe"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -141,7 +145,9 @@
                                 data-dismiss="modal">Close
                         </button>
                         <button type="button" class="btn btn-primary"
-                                data-dismiss="modal">Save changes
+                                data-dismiss="modal"
+                                data-ng-click="requestService.updateModel(myProfile, newModel)"
+                                >Save changes
                         </button>
                     </div>
                 </div>
