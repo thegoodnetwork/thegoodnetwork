@@ -346,7 +346,7 @@ var initTGN = function (accessToken) {
             };
             var requestPrefix = '/tgn/api/';
 
-            requestService.loginWithFacebook = function (myProfileService) {
+            requestService.loginWithFacebook = function (myProfileService, myNonprofitsService, myJobsService) {
                 var requestUrl = requestPrefix + 'loginWithFacebook';
                 var requestArgs = {
                     accessToken: accessToken
@@ -357,7 +357,24 @@ var initTGN = function (accessToken) {
 
                     if (loginInfo) {
                         console.log('logging in ' + JSON.stringify(loginInfo));
-                        myProfileService.login(loginInfo);
+
+                        var newProfileModel = {
+                            accessToken: accessToken,
+                            userId: loginInfo['userId'],
+                            profileImageUrl: loginInfo['profileImageUrl'],
+                            skills: loginInfo['skills'],
+                            titles: loginInfo['titles'],
+                            resume: loginInfo['resume'],
+                            aboutMe: loginInfo['aboutMe'],
+                            name: loginInfo['name']
+                        };
+                        myProfileService.login(newProfileModel);
+
+                        var newJobsModel = loginInfo['jobs'];
+                        myJobsService.setMyJobs(newJobsModel);
+
+                        var newNonprofitsModel = loginInfo['nonprofits']
+                        myNonprofitsService.setMyNonprofits(newNonprofitsModel);
                     } else {
                         console.log(responseData.errorMessage);
                     }
@@ -385,8 +402,6 @@ var initTGN = function (accessToken) {
     );
 
     tgn.controller('TGNController', function ($scope, myNonprofitsService, myJobsService, searchResultsService, viewContentService, requestService) {
-        $scope.myNonprofits = myNonprofitsService;
-        $scope.myJobs = myJobsService;
         $scope.searchResults = searchResultsService;
         $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
