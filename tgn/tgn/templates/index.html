@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>The Good Network</title>
     <link rel="stylesheet" type="text/css"
           href="http://fonts.googleapis.com/css?family=Lato:light">
@@ -15,92 +16,95 @@
     <script type="text/javascript" src='{% static "js/initTGN.js" %}'></script>
 
 </head>
+
+{% verbatim %}
 <body data-ng-app="angularTGN">
 
 <div data-ng-controller="userController">
-<!-- ng-switch for navbar -->
-<nav class="navbar navbar-default custom-top-navbar"
-     role="navigation"
-     data-ng-if="!(myProfile.isLoggedIn())"
-        >
-    <div class="container-fluid">
-        <div id="logoText">THE GOOD NETWORK</div>
-    </div>
-</nav>
+    <!-- ng-switch for navbar -->
+    <nav class="navbar navbar-default custom-top-navbar"
+         role="navigation"
+         data-ng-if="!(myProfile.isLoggedIn())"
+            >
+        <div class="container-fluid">
+            <div id="logoText">THE GOOD NETWORK</div>
+        </div>
+    </nav>
 
 
-<nav id="main-top-navbar"
-     class="navbar navbar-default"
-     role="navigation"
-     data-ng-if="myProfile.isLoggedIn()"
-        >
-    <a href="#/myProfile">
-        <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
-            NETWORK</strong></div>
-    </a>
+    <nav id="main-top-navbar"
+         class="navbar navbar-default"
+         role="navigation"
+         data-ng-if="myProfile.isLoggedIn()"
+            >
+        <a href="#/myProfile">
+            <div id="mainLogo" class="mainNavItem navbarText"><strong>THE GOOD
+                NETWORK</strong></div>
+        </a>
 
-    <form class="col-xs-4" action="#/searchResults">
-        <input class="form-control input-sm"
-               placeholder="type any keyword for jobs, people, nonprofits"
-               type="text"/>
-        <span class="glyphicon glyphicon-search"></span>
-        <input type="submit" class="hidden"/>
-    </form>
+        <form class="col-xs-4" action="#/searchResults">
+            <input class="form-control input-sm"
+                   placeholder="type any keyword for jobs, people, nonprofits"
+                   type="text"/>
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="submit" class="hidden"/>
+        </form>
 
-    <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
-       onclick="FB.logout();"> Log Out </a>
+        <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
+           onclick="FB.logout();"> Log Out </a>
 
-    <a id="meLink" href="#/myProfile" class="navbarText rightNavItem">Me
-    </a>
+        <a id="meLink" href="#/myProfile" class="navbarText rightNavItem">Me
+        </a>
 
-    <div class="btn-group navbarText rightNavItem">
+        <div class="btn-group navbarText rightNavItem">
     <span class="dropdown-toggle" data-toggle="dropdown">My Jobs <span
             class="caret"></span>
     </span>
-        <ul class="dropdown-menu" role="menu">
-            <li
-                    data-ng-repeat="job in myJobsService.myJobs().currentJobsAsEmployee">
-                <a data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">
-                    {{job.name}}
-                </a>
-            </li>
-            <li role="presentation" class="divider"
-                data-ng-if="myJobsService.myJobs.currentJobsAsEmployee"></li>
-            <li><a href="#/searchResults">Find a Job</a></li>
-        </ul>
-    </div>
-    <div class="btn-group navbarText rightNavItem">
+            <ul class="dropdown-menu" role="menu">
+                <li data-ng-repeat="job in myJobs.myJobs().currentJobsAsEmployee">
+                    <a data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">
+                        {{job.name}}
+                    </a>
+                </li>
+                <li role="presentation" class="divider"
+                    data-ng-if="myJobs.myJobs().currentJobsAsEmployee"></li>
+                <li><a href="#/searchResults">Find a Job</a></li>
+            </ul>
+        </div>
+        <div class="btn-group navbarText rightNavItem">
     <span class="dropdown-toggle" data-toggle="dropdown">My Nonprofits <span
             class="caret"></span>
     </span>
-        <ul class="dropdown-menu" role="menu">
-            <li
-                    data-ng-repeat="nonprofit in myNonprofitService.myNonprofits()">
-                <a href="#/myNonprofit/{{nonprofit.nonprofitId}}">
-                    {{nonprofit.name}}
-                </a>
-            </li>
-            <li role="presentation" class="divider" data-ng-if="myNonprofitsService.myNonprofits()"></li>
-            <li data-toggle="modal" data-target="#createNonprofitModal">
-                <a>Create New Nonprofit</a>
-            </li>
-            <li data-toggle="modal" data-target="#createNonprofitJob"
-                    data-ng-if="myNonprofitsService.myNonprofits()">
-                <a>Create New Job</a>
-            </li>
-            <li
-                    data-ng-if="myNonprofitsService.myNonprofits()">
-                <a href="#/myApplicants">View Job Applicants</a>
-            </li>
-        </ul>
+            <ul class="dropdown-menu" role="menu">
+                <li data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
+                    <a data-ng-href="#/myNonprofit/{{nonprofit.nonprofitId}}">
+                        {{ nonprofit.name }}
+                    </a>
+                </li>
+                <li role="presentation" class="divider"
+                    data-ng-if="myNonprofits.myNonprofits()"></li>
+                <li data-toggle="modal" data-target="#createNonprofitModal">
+                    <a>Create New Nonprofit</a>
+                </li>
+                <li data-toggle="modal" data-target="#createNonprofitJob"
+                    data-ng-if="myNonprofits.myNonprofits()">
+                    <a>Create New Job</a>
+                </li>
+                <li data-ng-if="myNonprofits.myNonprofits()">
+                    <a href="#/myApplicants">View Job Applicants</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <!-- ng-view for our ngRoute-->
+    {% endverbatim %}
+    <div data-ng-view>
+
     </div>
 
-</nav>
 
-<!-- ng-view for our ngRoute-->
-<div data-ng-view>
-
-</div>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript"
