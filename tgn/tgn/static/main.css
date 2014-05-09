@@ -2,10 +2,7 @@ body {
     font-family: 'Lato', 'Helvetica', sans-serif;
 }
 
-.nav > li > a:hover {
-/*      border: 1px solid #5986E4; */
-/*      background-color: grey;*/
-}
+
 
 .nav .nav-pills .nav-stacked > li .active {
     background-color:#5986E4;
