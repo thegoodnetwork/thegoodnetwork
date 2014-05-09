@@ -779,15 +779,15 @@ var initTGN = function (accessToken) {
             $scope.viewingPeople = false;
         };
 
-        $scope.viewNonprofit = function(nonprofitId) {
+        $scope.viewNonprofit = function (nonprofitId) {
             if (myNonprofitsService.getNonprofit(nonprofitId)) {
                 window.location = '#/myNonprofit/' + nonprofitId;
             } else {
                 window.location = '#/otherNonprofit/' + nonprofitId;
             }
         };
-        $scope.isOtherNonprofit = function(nonprofitId) {
-            return myNonprofitsService.getNonprofit(nonprofitId);
+        $scope.isMyNonprofit = function (nonprofitId) {
+            return true ? myNonprofitsService.getNonprofit(nonprofitId) : false;
         };
 
         if ($routeParams.query == 'allJobs') {
