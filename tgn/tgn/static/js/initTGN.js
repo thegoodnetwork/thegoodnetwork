@@ -307,16 +307,16 @@ tgn.factory('viewContentService', function () {
     var viewContentService = {};
 
     viewContentService.setNonprofitToView = function (nonprofit) {
-        nonprofitToView = nonprofit;
+        viewContent.nonprofitToView = nonprofit;
     };
 
     viewContentService.setOtherUserToView = function (otherUser) {
-        otherUserToView = otherUser;
+        viewContent.otherUserToView = otherUser;
         console.log('set otherUserToView: ' + JSON.stringify(otherUser));
     };
 
     viewContentService.setJobToView = function (job) {
-        jobToView = job;
+        viewContent.jobToView = job;
     };
 
     viewContentService.viewContent = function () {
