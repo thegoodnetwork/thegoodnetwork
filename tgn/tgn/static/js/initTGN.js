@@ -513,10 +513,11 @@ var initTGN = function (accessToken) {
         $scope.requestService = requestService;
     });
 
-    tgn.controller('createNewJobController', function ($scope, requestService, myProfileService) {
+    tgn.controller('createNewJobController', function ($scope, requestService, myProfileService, myNonprofitsService) {
         $scope.newJob = {};
         $scope.myProfile = myProfileService;
         $scope.requestService = requestService;
+        $scope.myNonprofitsService = myNonprofitsService;
         $scope.newJob.skills = [];
         $scope.newJob.titles = [];
 
