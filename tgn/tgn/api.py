@@ -58,7 +58,7 @@ def loginWithFacebook(request):
     userName = userInfo['name']
     userId = userInfo['id']
 
-    print 'got to before account'
+    print 'got to before account, ' + userId + ' '  + userName
 
     account, isAccountCreated = Account.objects.get_or_create(
         userId=userId,
@@ -78,6 +78,7 @@ def loginWithFacebook(request):
         skills = []
         profileImageUrl = 'http://graph.facebook.com/' + userId + \
                           '/picture?height=961'
+        resume = ''
 
         UserProfileImage.objects.create(account=account, url=profileImageUrl)
 
