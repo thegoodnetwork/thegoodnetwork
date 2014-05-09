@@ -224,11 +224,13 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
     $scope.myProfile = myProfileService;
     $scope.myNonprofits = myNonprofitsService;
     $scope.myJobs = myJobsService;
-    $scope.query = '';
+    $scope.searchBar = {};
+    $scope.searchBar.query = '';
     $scope.searchSubmit = function () {
         console.log('called search submit');
-        if ($scope.query) {
-            $location.path('/#/searchResults' + $scope.query)
+        console.log('query: ' + $scope.searchBar.query);
+        if ($scope.searchBar.query) {
+            $location.path('/#/searchResults' + $scope.searchBar.query)
         }
     };
 });
