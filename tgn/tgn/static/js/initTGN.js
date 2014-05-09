@@ -770,7 +770,7 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService, myNonprofitsService) {
+    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService, myNonprofitsService, myProfileService, myJobsService) {
         $scope.viewingPeople = true;
         $scope.viewingNonprofits = false;
         $scope.viewingJobs = false;
@@ -821,7 +821,7 @@ var initTGN = function (accessToken) {
         );
 
         $scope.applyToJob = function (jobId) {
-            requestService.applyToJob(jobId, $scope.myProfile.userId, $scope.myJobs);
+            requestService.applyToJob(jobId, myProfileService.userId, myJobsService);
         };
     });
 
