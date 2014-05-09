@@ -53,7 +53,7 @@ class Job(models.Model):
         abstract = True
 
     def __unicode__(self):
-        return str(self.title) + ', ' + str(self.nonprofit.name)
+        return str(self.name) + ', ' + str(self.nonprofit.name)
 
 
 class PostedJob(Job):
