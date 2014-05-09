@@ -699,7 +699,7 @@ var initTGN = function (accessToken) {
 
         $scope.newNPModel = {};
 
-        $scope.newNPModel.name = $scope.myNonprofit.name;
+//        $scope.newNPModel.name = $scope.myNonprofit.name;
         $scope.newNPModel.description = $scope.myNonprofit.description;
         $scope.newNPModel.mission = $scope.myNonprofit.mission;
         $scope.newNPModel.website = $scope.myNonprofit.website;
@@ -733,7 +733,7 @@ var initTGN = function (accessToken) {
 //        };
 //
         $scope.resetNonprofitInfo = function () {
-            $scope.newNPModel.name = $scope.myNonprofit.name;
+//            $scope.newNPModel.name = $scope.myNonprofit.name;
             $scope.newNPModel.description = $scope.myNonprofit.description;
             $scope.newNPModel.mission = $scope.myNonprofit.mission;
             $scope.newNPModel.website = $scope.myNonprofit.website;
