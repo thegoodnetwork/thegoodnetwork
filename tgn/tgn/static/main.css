@@ -1,5 +1,6 @@
 body {
     font-family: 'Lato', 'Helvetica', sans-serif;
+    background: grey;
 }
 
 
@@ -22,6 +23,10 @@ affix {
     text-align: center;
     font-size: 18px;
     top: 25px;
+}
+
+.row {
+    background-color: white;
 }
 
 /*MODALS */
@@ -166,7 +171,6 @@ affix {
     height: 53px;
     padding-right: 100px;
     font-family: 'Lato', sans-serif;
-
 }
 
 #asSeenIn {
