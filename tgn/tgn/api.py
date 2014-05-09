@@ -304,7 +304,7 @@ def createNonprofit(request):
 
     userId = request['userId']
     nonprofit = request['nonprofit']
-
+    print str(request)
     if Account.objects.filter(userId=userId).exists():
 
         print 'got to creating nonprofit'
