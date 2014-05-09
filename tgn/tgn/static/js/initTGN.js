@@ -376,7 +376,8 @@ var initTGN = function (accessToken) {
         };
 
         viewContentService.setOtherUserToView = function (otherUser) {
-            otherUserToView = otherUser
+            otherUserToView = otherUser;
+            console.log('set otherUserToView: ' + JSON.stringify(otherUser));
         };
 
         viewContentService.setJobToView = function (job) {
@@ -395,7 +396,7 @@ var initTGN = function (accessToken) {
             var requestService = {};
             var accessToken = accessToken;
             var getResponseData = function (response) {
-                console.log('got response:  ' + JSON.stringify(response))
+                console.log('got response:  ' + JSON.stringify(response));
                 return response.data;
             };
             var makePostRequest = function (url, parameters) {
@@ -546,6 +547,7 @@ var initTGN = function (accessToken) {
                 requestArgument = {nonprofitId: nonprofitId};
                 makePostRequest(nonprofitsRequestUrl, requestArgument).then(function (responseData) {
                     var nonprofit = responseData.data.nonprofitToView;
+                    console.log("received nonprofit: " + JSON.stringify(nonprofit));
                     if (nonprofit) {
                         return nonprofit;
                     } else {
