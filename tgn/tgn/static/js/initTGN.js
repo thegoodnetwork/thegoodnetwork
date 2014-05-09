@@ -226,6 +226,7 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
     $scope.myJobs = myJobsService;
     $scope.query = '';
     $scope.searchSubmit = function () {
+        console.log('called search submit');
         if ($scope.query) {
             $location.path('/#/searchResults' + $scope.query)
         }
@@ -235,7 +236,7 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
 
 tgn.controller('editProfileController', function ($scope) {
 
-    $scope.newModel = {}
+    $scope.newModel = {};
     $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
     $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
 
