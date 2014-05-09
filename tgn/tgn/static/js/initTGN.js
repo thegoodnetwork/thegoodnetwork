@@ -161,8 +161,13 @@ tgn.factory('myNonprofitsService', function () {
     };
 
     myNonprofitsService.addJobToNonprofit = function(nonprofitId, newJob) {
-        var nonprofit = myNonprofitsService.getNonprofit(nonprofitId);
-        nonprofit.jobs.append(newJob);
+        var nonProfit = {};
+        for (var i = 0, j = myNonprofits.length; i < j; i++) {
+            if (myNonprofits[i]['nonprofitId'] == nonprofitId) {
+                nonProfit = myNonprofits[i];
+            }
+        }
+        nonProfit.jobs.append(newJob);
     };
 
     myNonprofitsService.myNonprofits = function () {
