@@ -343,13 +343,6 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
     };
 });
 
-tgn.controller('otherNonprofitController', function ($scope, requestService, $routeParams) {
-    $scope.nonprofitId = $routeParams.nonprofitId;
-    $scope.nonprofit = requestService.getNonprofit($scope.nonprofitId);
-    $scope.testScope = "testScope";
-
-});
-
 tgn.controller('editProfileController', function ($scope) {
 
     $scope.newModel = {};
@@ -544,14 +537,14 @@ var initTGN = function (accessToken) {
 
             };
 
-            requestService.getNonprofit = function (nonprofitId) {
+            requestService.getNonprofit = function (nonprofitId, viewContentService) {
                 var nonprofitsRequestUrl = requestPrefix + 'viewNonprofit';
                 requestArgument = {nonprofitId: nonprofitId};
                 makePostRequest(nonprofitsRequestUrl, requestArgument).then(function (responseData) {
                     var nonprofit = responseData.data.nonprofitToView;
                     console.log("received nonprofit: " + JSON.stringify(nonprofit));
                     if (nonprofit) {
-                        return nonprofit;
+                        viewContentService.setNonprofitToView(nonprofit);
                     } else {
                         console.log(responseData.errorMessage);
                     }
@@ -801,4 +794,13 @@ var initTGN = function (accessToken) {
 
         requestService.viewOtherProfile($routeParams.userId, $scope.viewContent);
     });
+
+    tgn.controller('otherNonprofitController', function ($scope, requestService, $routeParams) {
+
+        $scope.nonprofitId = $routeParams.nonprofitId;
+        $scope.nonprofit = requestService.getNonprofit($scope.nonprofitId, $scope.viewContent);
+
+    });
 };
+
+
