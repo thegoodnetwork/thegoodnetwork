@@ -2,10 +2,7 @@ body {
     font-family: 'Lato', 'Helvetica', sans-serif;
 }
 
-.nav > li > a:hover {
-/*      border: 1px solid #5986E4; */
-/*      background-color: grey;*/
-}
+
 
 .nav .nav-pills .nav-stacked > li .active {
     background-color:#5986E4;
@@ -372,13 +369,4 @@ a:hover {
 
 .skillsOrTitlesToAdd:hover {
     cursor: pointer;
-}
-
-footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
-    background-color: #949494;
 }
