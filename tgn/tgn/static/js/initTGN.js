@@ -236,9 +236,9 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
 tgn.controller('editProfileController', function ($scope) {
 
     $scope.newModel = {}
+    
     $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
     $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
-
     $scope.newModel.aboutMe = $scope.myProfile.userModel().aboutMe;
     $scope.newModel.resume = $scope.myProfile.userModel().resume;
 
@@ -658,12 +658,13 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('updateNonprofitController', function ($scope, requestService, myProfileService, myNonprofitsService) {
+    tgn.controller('updateNonprofitController', function ($scope) {
 
         //inherits the viewed nonprofit from viewMyNonprofitController
         //$scope.myNonprofit
 
         $scope.newNPModel = {}
+        
 
         $scope.newNPModel.description = $scope.myNonprofit.description;
         $scope.newNPModel.mission = $scope.myNonprofit.mission;
