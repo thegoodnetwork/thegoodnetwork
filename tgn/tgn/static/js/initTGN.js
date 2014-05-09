@@ -162,7 +162,7 @@ tgn.factory('myNonprofitsService', function () {
 
     myNonprofitsService.addJobToNonprofit = function(nonprofitId, newJob) {
         var nonprofit = myNonprofitsService.getNonprofit(nonprofitId);
-        nonprofit.jobs.append(newjOB);
+        nonprofit.jobs.append(newJob);
     };
 
     myNonprofitsService.myNonprofits = function () {
