@@ -160,6 +160,11 @@ tgn.factory('myNonprofitsService', function () {
         }
     };
 
+    myNonprofitsService.addJobToNonprofit = function(nonprofitId, newJob) {
+        var nonprofit = myNonprofitsService.getNonprofit(nonprofitId);
+        nonprofit.jobs.append(newjOB);
+    };
+
     myNonprofitsService.myNonprofits = function () {
         return myNonprofits;
     };
@@ -366,6 +371,8 @@ var initTGN = function (accessToken) {
             return viewContent
         };
 
+
+
         return viewContentService;
     });
 
@@ -448,7 +455,7 @@ var initTGN = function (accessToken) {
         
         
             //CREATE NEW JOB REQUEST
-            requestService.addNonprofitJob = function (userId, nonprofitId, newJob) {
+            requestService.addNonprofitJob = function (userId, nonprofitId, newJob, myNonprofitsService) {
                 var requestUrl = requestPrefix + 'postJobAsNonprofit';
                 var data = {
                     'userId': userId,
@@ -459,9 +466,11 @@ var initTGN = function (accessToken) {
                 makePostRequest(requestUrl, data).then(function (responseData)
                     {
                         console.log("printing response data from job creation: " + responseData.data);
+                        myNonprofitsService.addJobToNonprofit(nonprofitId, newJob);
                         console.log(responseData.errorMessage);
                     }
                 )
+
             };
 
             //CREATE NEW NONPROFIT REQUEST
@@ -486,26 +495,6 @@ var initTGN = function (accessToken) {
                     }
                 });
             };
-        
-            //EDIT NONPROFIT PROFILE REQUEST
-//            requestService.editNonprofit = function(myProfileService, myNonprofitsService, nonprofit) {
-//                console.log('called edit nonprofit for: ' + JSON.stringify(nonprofit));
-//                
-//                var requestUrl = requestPrefix + 'editNonprofit';
-//                
-//                var editNonprofitRequestObject = {
-//                    userId: myProfileService.userModel().userId,
-//                    nonprofit: nonprofit;
-//                }
-//                
-//                makePostRequest(requestUrl, editNonprofitRequestObject).then(function (responseData) {
-//                    //Set nonprofit profile model info here
-//                    
-//                    
-//                });
-//                
-//            };
-        
             return requestService;
         }
     );
