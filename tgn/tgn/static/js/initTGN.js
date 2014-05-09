@@ -61,7 +61,8 @@ tgn.config(
                 templateUrl: 'partials/myNonprofit'
             })
             .when('/otherNonprofit/:nonprofitId', {
-                templateUrl: 'partials/otherNonprofit'
+                templateUrl: 'partials/otherNonprofit',
+                controller: 'otherNonprofitController'
             })
             .when('/myJob/:jobId/:jobType', {
                 templateUrl: 'partials/myJob',
