@@ -692,7 +692,7 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('updateNonprofitController', function ($scope) {
+    tgn.controller('updateNonprofitController', function ($scope, $routeParams) {
 
         //inherits the viewed nonprofit from viewMyNonprofitController
         //$scope.myNonprofit
