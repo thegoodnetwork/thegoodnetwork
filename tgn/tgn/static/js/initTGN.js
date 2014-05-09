@@ -250,12 +250,88 @@ tgn.factory('searchResultsService', function () {
 
     return searchService;
 });
+tgn.factory('viewContentService', function () {
+    var nonprofitToView = {
+        nonprofitId: '',
+        name: '',
+        mission: '',
+        description: '',
+        website: '',
+        address: '',
+        jobs: {
+            postedJobs: [],
+            currentJobs: [],
+            completedJobs: []
+        },
+        affiliates: []
+    };
 
-tgn.controller('userController', function ($scope, $location, myProfileService, myNonprofitsService, myJobsService, searchResultsService) {
+    var otherUserToView = {
+        userId: '',
+        name: '',
+        aboutMe: '',
+        profileImageUrl: '',
+        resume: '',
+        titles: [],
+        skills: [],
+        jobs: {
+            jobsAsApplicant: [],
+            currentJobsAsEmployee: [],
+            completedJobsAsEmployee: []
+        },
+        nonprofits: []
+    };
+
+    var jobToView = {
+        jobId: '',
+        name: '',
+        nonprofitId: '',
+        nonprofitName: '',
+        titles: [],
+        description: '',
+        compensation: '',
+        city: '',
+        state: '',
+        jobType: '',
+        timeCreated: '',
+        skills: []
+    };
+
+    var viewContent = {
+        nonprofitToView: nonprofitToView,
+        otherUserToView: otherUserToView,
+        jobToView: jobToView
+    };
+
+    var viewContentService = {};
+
+    viewContentService.setNonprofitToView = function (nonprofit) {
+        nonprofitToView = nonprofit;
+    };
+
+    viewContentService.setOtherUserToView = function (otherUser) {
+        otherUserToView = otherUser;
+        console.log('set otherUserToView: ' + JSON.stringify(otherUser));
+    };
+
+    viewContentService.setJobToView = function (job) {
+        jobToView = job;
+    };
+
+    viewContentService.viewContent = function () {
+        return viewContent
+    };
+
+
+    return viewContentService;
+});
+
+tgn.controller('userController', function ($scope, $location, myProfileService, myNonprofitsService, myJobsService, searchResultsService, viewContentService) {
     $scope.myProfile = myProfileService;
     $scope.myNonprofits = myNonprofitsService;
     $scope.myJobs = myJobsService;
     $scope.searchResults = searchResultsService;
+    $scope.viewContent = viewContentService;
     $scope.searchBar = {};
     $scope.searchBar.query = '';
     $scope.searchSubmit = function () {
@@ -267,9 +343,9 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
     };
 });
 
-tgn.controller('otherNonprofitController', function($scope, requestService, $routeParams) {
-   $scope.nonprofitId = $routeParams.nonprofitId;
-   $scope.nonprofit = requestService.getNonprofit($scope.nonprofitId);
+tgn.controller('otherNonprofitController', function ($scope, requestService, $routeParams) {
+    $scope.nonprofitId = $routeParams.nonprofitId;
+    $scope.nonprofit = requestService.getNonprofit($scope.nonprofitId);
 });
 
 tgn.controller('editProfileController', function ($scope) {
@@ -315,82 +391,6 @@ tgn.controller('editProfileController', function ($scope) {
 var initTGN = function (accessToken) {
     tgn.value('accessToken', accessToken);
 
-
-    tgn.factory('viewContentService', function () {
-        var nonprofitToView = {
-            nonprofitId: '',
-            name: '',
-            mission: '',
-            description: '',
-            website: '',
-            address: '',
-            jobs: {
-                postedJobs: [],
-                currentJobs: [],
-                completedJobs: []
-            },
-            affiliates: []
-        };
-
-        var otherUserToView = {
-            userId: '',
-            name: '',
-            aboutMe: '',
-            profileImageUrl: '',
-            resume: '',
-            titles: [],
-            skills: [],
-            jobs: {
-                jobsAsApplicant: [],
-                currentJobsAsEmployee: [],
-                completedJobsAsEmployee: []
-            },
-            nonprofits: []
-        };
-
-        var jobToView = {
-            jobId: '',
-            name: '',
-            nonprofitId: '',
-            nonprofitName: '',
-            titles: [],
-            description: '',
-            compensation: '',
-            city: '',
-            state: '',
-            jobType: '',
-            timeCreated: '',
-            skills: []
-        };
-
-        var viewContent = {
-            nonprofitToView: nonprofitToView,
-            otherUserToView: otherUserToView,
-            jobToView: jobToView
-        };
-
-        var viewContentService = {};
-
-        viewContentService.setNonprofitToView = function (nonprofit) {
-            nonprofitToView = nonprofit;
-        };
-
-        viewContentService.setOtherUserToView = function (otherUser) {
-            otherUserToView = otherUser;
-            console.log('set otherUserToView: ' + JSON.stringify(otherUser));
-        };
-
-        viewContentService.setJobToView = function (job) {
-            jobToView = job;
-        };
-
-        viewContentService.viewContent = function () {
-            return viewContent
-        };
-
-
-        return viewContentService;
-    });
 
     tgn.factory('requestService', function ($http, accessToken) {
             var requestService = {};
@@ -702,7 +702,7 @@ var initTGN = function (accessToken) {
         //inherits the viewed nonprofit from viewMyNonprofitController
         //$scope.myNonprofit
 
-        $scope.newNPModel = {}
+        $scope.newNPModel = {};
 
 
         $scope.newNPModel.description = $scope.myNonprofit.description;
@@ -792,11 +792,10 @@ var initTGN = function (accessToken) {
         );
     });
 
-    tgn.controller('otherProfileController', function ($scope, $routeParams, requestService, viewContentService) {
+    tgn.controller('otherProfileController', function ($scope, $routeParams, requestService) {
 
-        $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
 
-        $scope.requestService.viewOtherProfile($routeParams.userId, $scope.viewContent);
+        requestService.viewOtherProfile($routeParams.userId, $scope.viewContent);
     });
 };
