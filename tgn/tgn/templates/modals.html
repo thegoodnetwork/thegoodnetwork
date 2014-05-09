@@ -219,32 +219,38 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <label for="nonprofitName" class="col-sm-4">Non-profit:&nbsp;&nbsp;</label>
-                    <select class="col-sm-4" data-ng-model="newJob.nonprofit">
+                    <label for="nonprofitName" class="col-sm-3">Non-profit:&nbsp;&nbsp;</label>
+                    <select class="col-sm-9 form-control" data-ng-model="newJob.nonprofit">
                         <option data-ng-repeat="nonprofit in myNonprofits.myNonprofits()" value="{{nonprofit.nonprofitId}}">{{nonprofit.name}}</option>
                     </select>
-                    <select class="col-sm-4" data-ng-model="newJob.nonprofit" ng-options="nonprofit.name for nonprofit in myNonprofits.myNonprofits()"><option value="{{nonprofit.nonprofitId}}"></option></select>
+<!--                    <select class="col-sm-4" data-ng-model="newJob.nonprofit" ng-options="nonprofit.name for nonprofit in myNonprofits.myNonprofits()"><option value="{{nonprofit.nonprofitId}}"></option></select>-->
                 </div>
                 <br>
 
                 <div class="row">
-                    <label for="jobName" class="col-sm-4">Job Name:&nbsp;&nbsp;</label>
-                    <input id="jobName" class="col-sm-8" type="text" data-ng-model="newJob.name"/>
+                    <label for="jobName" class="col-sm-3">Job Name:&nbsp;&nbsp;</label>
+                    <input id="jobName" class="col-sm-9 form-control" type="text" data-ng-model="newJob.name"/>
                 </div>
                 <br>
 
                 <div class="row">
-                    <label for="jobDescription" class="col-sm-4">Job
+                    <label for="jobDescription" class="col-sm-3">Job
                         description:&nbsp;&nbsp;</label>
-                    <textarea id="jobDescription" class="col-sm-8"
-                              rows="4" cols="50" data-ng-model="newJob.description"></textarea>
+                    <textarea id="jobDescription" 
+                              class="col-sm-9 form-control"
+                              style="resize: none;" 
+                              rows="4" 
+                              maxlength="300" 
+                              placeholder="300 char max";
+                              data-ng-model="newJob.description"></textarea>
                 </div>
                 <br>
 
                 <div class="row">
-                    <label for="compensation" class="col-sm-4">Compensation:&nbsp;&nbsp;</label>
-                    <input id="compensation" class="col-sm-8" type="text" data-ng-model="newJob.compensation"/>
+                    <label for="compensation" class="col-sm-3">Compensation:&nbsp;&nbsp;</label>
+                    <input id="compensation" class="col-sm-9 form-control" type="text" data-ng-model="newJob.compensation"/>
                 </div>
+                
                 <br>
 
                 <div class="row">
@@ -305,13 +311,13 @@
 
                 <div class="row">
                     <label for="jobCity" class="col-sm-4">City:&nbsp;&nbsp;</label>
-                    <input id="jobCity" class="col-sm-8" type="text" data-ng-model="newJob.city"/>
+                    <input id="jobCity" class="col-sm-8 form-control" type="text" data-ng-model="newJob.city"/>
                 </div>
                 <br>
 
                 <div class="row">
                     <label for="jobState" class="col-sm-4">State:&nbsp;&nbsp;</label>
-                    <input id="jobState" class="col-sm-8" type="text" data-ng-model="newJob.state"/>
+                    <input id="jobState" class="col-sm-8 form-control" type="text" data-ng-model="newJob.state"/>
                 </div>
                 <br>
 
