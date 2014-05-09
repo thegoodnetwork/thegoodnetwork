@@ -699,7 +699,7 @@ var initTGN = function (accessToken) {
 
         $scope.newNPModel = {};
 
-        $scope.newNPModel.name = $scope.myNonprofit.name;
+//        $scope.newNPModel.name = $scope.myNonprofit.name;
         $scope.newNPModel.description = $scope.myNonprofit.description;
         $scope.newNPModel.mission = $scope.myNonprofit.mission;
         $scope.newNPModel.website = $scope.myNonprofit.website;
@@ -733,7 +733,7 @@ var initTGN = function (accessToken) {
 //        };
 //
         $scope.resetNonprofitInfo = function () {
-            $scope.newNPModel.name = $scope.myNonprofit.name;
+//            $scope.newNPModel.name = $scope.myNonprofit.name;
             $scope.newNPModel.description = $scope.myNonprofit.description;
             $scope.newNPModel.mission = $scope.myNonprofit.mission;
             $scope.newNPModel.website = $scope.myNonprofit.website;
@@ -751,7 +751,7 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService) {
+    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService, myNonprofitsService) {
         $scope.viewingPeople = true;
         $scope.viewingNonprofits = false;
         $scope.viewingJobs = false;
@@ -777,6 +777,17 @@ var initTGN = function (accessToken) {
 
             $scope.viewingNonprofits = false;
             $scope.viewingPeople = false;
+        };
+
+        $scope.viewNonprofit = function (nonprofitId) {
+            if (myNonprofitsService.getNonprofit(nonprofitId)) {
+                window.location = '#/myNonprofit/' + nonprofitId;
+            } else {
+                window.location = '#/otherNonprofit/' + nonprofitId;
+            }
+        };
+        $scope.isMyNonprofit = function (nonprofitId) {
+            return true ? myNonprofitsService.getNonprofit(nonprofitId) : false;
         };
 
         if ($routeParams.query == 'allJobs') {
