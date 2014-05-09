@@ -8,7 +8,7 @@ class Account(models.Model):
     resume = models.CharField(max_length=200, default='')
 
     def __unicode__(self):
-        return str(self.firstName) + ' ' + str(self.lastName) + ', ' + \
+        return str(self.name) + ', ' + \
                self.userId
 
 
