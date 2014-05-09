@@ -163,7 +163,7 @@ tgn.factory('myNonprofitsService', function () {
     myNonprofitsService.addJobToNonprofit = function(nonprofitId, newJob) {
         for (var i = 0, j = myNonprofits.length; i < j; i++) {
             if (myNonprofits[i]['nonprofitId'] == nonprofitId) {
-                myNonprofits[i].jobs.postedJobs.append(newJob);
+                myNonprofits[i].jobs.postedJobs.push(newJob);
             }
         }
     };
