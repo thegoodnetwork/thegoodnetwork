@@ -218,7 +218,38 @@ tgn.factory('myJobsService', function () {
 
     return myJobsService;
 });
+tgn.factory('searchResultsService', function () {
+    var search = {
+        postedJobs: [],
+        nonprofits: [],
+        otherUsers: [],
+        query: ''
+    };
 
+    var searchService = {};
+
+    searchService.setPostedJobs = function (postedJobs) {
+        search.postedJobs = postedJobs;
+    };
+
+    searchService.setNonprofits = function (nonprofits) {
+        search.nonprofits = nonprofits;
+    };
+
+    searchService.setOtherUsers = function (otherUsers) {
+        search.otherUsers = otherUsers;
+    };
+
+    searchService.setQuery = function (query) {
+        search.query = query;
+    };
+
+    searchService.searchResults = function () {
+        return search;
+    };
+
+    return searchService;
+});
 
 tgn.controller('userController', function ($scope, $location, myProfileService, myNonprofitsService, myJobsService, searchResultsService) {
     $scope.myProfile = myProfileService;
@@ -280,38 +311,6 @@ tgn.controller('editProfileController', function ($scope) {
 var initTGN = function (accessToken) {
     tgn.value('accessToken', accessToken);
 
-    tgn.factory('searchResultsService', function () {
-        var search = {
-            postedJobs: [],
-            nonprofits: [],
-            otherUsers: [],
-            query: ''
-        };
-
-        var searchService = {};
-
-        searchService.setPostedJobs = function (postedJobs) {
-            search.postedJobs = postedJobs;
-        };
-
-        searchService.setNonprofits = function (nonprofits) {
-            search.nonprofits = nonprofits;
-        };
-
-        searchService.setOtherUsers = function (otherUsers) {
-            search.otherUsers = otherUsers;
-        };
-
-        searchService.setQuery = function (query) {
-            search.query = query;
-        };
-
-        searchService.searchResults = function () {
-            return search;
-        };
-
-        return searchService;
-    });
 
     tgn.factory('viewContentService', function () {
         var nonprofitToView = {
