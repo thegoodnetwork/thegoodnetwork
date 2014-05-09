@@ -522,7 +522,7 @@ var initTGN = function (accessToken) {
 
                 makePostRequest(requestUrl, editNonprofitRequestObject).then(function (responseData) {
                     //Set nonprofit profile model info here
-
+                    console.log(responseData.data);
                     var updatedNonprofitModel = responseData.data.nonprofitProfile;
                     var updatedNonprofitId = responseData.data.updatedNonprofitId;
 
