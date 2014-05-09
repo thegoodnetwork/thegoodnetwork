@@ -45,12 +45,13 @@
                 class="searchResultTable"
                 data-ng-repeat="job in searchResults.searchResults().postedJobs"
                 data-ng-if="viewingJobs"
+                data-ng-if="!(isMyNonprofit(job.nonprofitId))"
                 >
 
             <tr>
                 <td class="imageTd">
                     <a
-                            data-ng-href="#/otherNonprofit/{{nonprofit.nonprofitId}}">
+                            data-ng-click="viewNonprofit(job.nonprofitId)" >
                         <img class="imageInTable"
                              data-ng-src="{{job.nonprofitImageUrl}}"
                              height="160" width="160">
@@ -74,7 +75,9 @@
                         -->
                         <button type="button" class="btn btn-default"
                                 data-toggle="modal"
-                                data-target="#appliedForJobModal">
+                                data-target="#appliedForJobModal"
+                                data-ng-click="applyToJob(job.jobId, myProfile.userModel().userId, myJobs)"
+                                >
                             Apply to Job
                         </button>
                     </div>
@@ -97,7 +100,7 @@
 
             <tr>
                 <td class="imageTd">
-                    <a data-ng-click="viewNonprofit(nonprofit.nonprofitId)">
+                    <a data-ng-href="#/otherProfile/{{profile.userId}}">
                         <img class="imageInTable"
                              data-ng-src="{{profile.profileImageUrl}}"
                              height="160" width="160">
@@ -108,7 +111,7 @@
 
                     <div
                             style="display: inline-block;">
-                        <a data-ng-click="viewNonprofit(nonprofit.nonprofitId)">
+                        <a data-ng-href="#/otherProfile/{{profile.userId}}">
                             <button type="button"
                                     class="btn btn-default">
                                 View Profile
@@ -168,7 +171,9 @@
                         </form>
                         <button type="button" class="btn btn-default"
                                 data-toggle="modal"
-                                data-target="#requestedAffiliationModal">
+                                data-target="#requestedAffiliationModal"
+                                data-ng-if="!(isMyNonprofit(nonprofit.nonprofitId))"
+                                >
                             Request Affiliation
                         </button>
 

@@ -613,6 +613,25 @@ var initTGN = function (accessToken) {
                 });
             };
 
+            requestService.applyToJob = function (jobId, userId, myJobsService) {
+                var requestArguments = {
+                    jobId: jobId,
+                    userId: userId
+                };
+
+                var applyToJobRequestUrl = requestPrefix + 'applyToJob';
+
+                makePostRequest(applyToJobRequestUrl, requestArguments).then(function(responseData) {
+                   var myJobsAsApplicant = responseData.data.jobsAsApplicant;
+                    if (myJobsAsApplicant) {
+                        myJobsService.setMyApplications(myJobsAsApplicant);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+
+            };
+
             return requestService;
         }
     );
@@ -751,7 +770,7 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService) {
+    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService, myNonprofitsService) {
         $scope.viewingPeople = true;
         $scope.viewingNonprofits = false;
         $scope.viewingJobs = false;
@@ -779,12 +798,15 @@ var initTGN = function (accessToken) {
             $scope.viewingPeople = false;
         };
 
-        $scope.viewNonprofit = function(nonprofitId) {
-            if ($scope.myNonprofit.getNonprofit(nonprofitId)) {
+        $scope.viewNonprofit = function (nonprofitId) {
+            if (myNonprofitsService.getNonprofit(nonprofitId)) {
                 window.location = '#/myNonprofit/' + nonprofitId;
             } else {
                 window.location = '#/otherNonprofit/' + nonprofitId;
             }
+        };
+        $scope.isMyNonprofit = function (nonprofitId) {
+            return true ? myNonprofitsService.getNonprofit(nonprofitId) : false;
         };
 
         if ($routeParams.query == 'allJobs') {
@@ -797,13 +819,21 @@ var initTGN = function (accessToken) {
             $scope.myProfile.userModel().userId,
             $scope.searchResults
         );
+
+        $scope.applyToJob = function (jobId, userId, myJobsService) {
+            requestService.applyToJob(jobId, userId, myJobsService);
+        };
     });
 
     tgn.controller('otherProfileController', function ($scope, $routeParams, requestService) {
 
         $scope.requestService = requestService;
 
-        requestService.viewOtherProfile($routeParams.userId, $scope.viewContent);
+        requestService.viewOtherProfile($routeParams.userId, $scope.viewContentService);
+    });
+
+    tgn.controller('viewJobApplicantsController', function($scope, myNonprofitsService) {
+        $scope.myNonprofits = myNonprofitsService.myNonprofits();
     });
 
     tgn.controller('otherNonprofitController', function ($scope, requestService, $routeParams, $location, $anchorScroll) {
