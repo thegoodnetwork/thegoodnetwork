@@ -33,9 +33,7 @@ def loginWithFacebook(request):
         accessToken
 
     '''
-    print request.body
-    
-        
+
     requiredFields = ['accessToken']
 
     verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
@@ -56,6 +54,8 @@ def loginWithFacebook(request):
 
     userName = userInfo['name']
     userId = userInfo['id']
+
+    print 'got to before account'
 
     account, isAccountCreated = Account.objects.get_or_create(
         userId=userId,
