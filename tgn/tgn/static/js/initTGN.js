@@ -70,7 +70,7 @@ tgn.config(
             .when('/jobApplicants', {
                 templateUrl: 'partials/jobApplicants'
             })
-            .when('/searchResults/:search', {
+            .when('/searchResults/:query', {
                 templateUrl: 'partials/searchResults'
             })
 
@@ -220,11 +220,11 @@ tgn.controller('userController', function ($scope, myProfileService, myNonprofit
 
 
 tgn.controller('editProfileController', function ($scope) {
-    
+
     $scope.newModel = {}
     $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
     $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
-    
+
     $scope.newModel.aboutMe = $scope.myProfile.userModel().aboutMe;
     $scope.newModel.resume = $scope.myProfile.userModel().resume;
 
@@ -432,10 +432,10 @@ var initTGN = function (accessToken) {
 
                 myProfileService.updateModel(newModel['profile']);
                 console.log('posting to update profile with:  ' + JSON.stringify(newModel));
-                
+
                 makePostRequest(requestUrl, newModel).then(function (responseData) {
-                    
-                    
+
+
                     var updatedProfile = responseData.data.updatedProfile;
 
                     if (updatedProfile) {
@@ -445,8 +445,8 @@ var initTGN = function (accessToken) {
                     }
                 });
             };
-        
-        
+
+
             //CREATE NEW JOB REQUEST
             requestService.addNonprofitJob = function (userId, nonprofitId, newJob) {
                 var requestUrl = requestPrefix + 'postJobAsNonprofit';
@@ -456,8 +456,7 @@ var initTGN = function (accessToken) {
                     'jobToPost': newJob
                 }
                 console.log('posting to addJobAsNonprofit with: ' + JSON.stringify(data));
-                makePostRequest(requestUrl, data).then(function (responseData)
-                    {
+                makePostRequest(requestUrl, data).then(function (responseData) {
                         console.log(responseData.data);
                         console.log(responseData.errorMessage);
                     }
@@ -486,7 +485,7 @@ var initTGN = function (accessToken) {
                     }
                 });
             };
-        
+
             //EDIT NONPROFIT PROFILE REQUEST
 //            requestService.editNonprofit = function(myProfileService, myNonprofitsService, nonprofit) {
 //                console.log('called edit nonprofit for: ' + JSON.stringify(nonprofit));
@@ -505,7 +504,51 @@ var initTGN = function (accessToken) {
 //                });
 //                
 //            };
-        
+
+            requestService.getSearchResults = function (query, userId, searchResultsService) {
+                query = query ? query : '';
+                var requestArgument = {
+                    query: query,
+                    userId: userId
+                };
+
+                var nonprofitsRequestUrl = requestPrefix + 'getNonprofits';
+
+                makePostRequest(nonprofitsRequestUrl, requestArgument).then(function (responseData) {
+                    var nonprofits = responseData.data.nonprofits;
+
+                    if (nonprofits) {
+                        searchResultsService.setNonprofits(nonprofits);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+
+                var otherUsersRequestUrl = requestPrefix + 'getOtherUsers';
+
+                makePostRequest(otherUsersRequestUrl, requestArgument).then(function (responseData) {
+                    var otherUsers = responseData.data.otherUsers;
+
+                    if (otherUsers) {
+                        searchResultsService.setOtherUsers(otherUsers);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+
+                var postedJobsRequestUrl = requestPrefix + 'getPostedJobs';
+
+                makePostRequest(postedJobsRequestUrl, requestArgument).then(function (responseData) {
+                    var postedJobs = responseData.data.postedJobs;
+
+                    if (postedJobs) {
+                        searchResultsService.setPostedJobs(postedJobs);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+            };
+
             return requestService;
         }
     );
@@ -564,7 +607,6 @@ var initTGN = function (accessToken) {
         };
 
 
-
     });
 
     tgn.controller('viewMyJobController', function ($scope, myJobsService, $routeParams) {
@@ -572,14 +614,49 @@ var initTGN = function (accessToken) {
     });
 
     tgn.controller('viewMyNonprofitController', function ($scope, $routeParams, $location, $anchorScroll) {
-        
-        $scope.goToJobs = function() {
+
+        $scope.goToJobs = function () {
             $location.hash('jobAnchor');
             $anchorScroll();
-        }
-        
+        };
+
         console.log('got routeParams ' + JSON.stringify($routeParams));
         $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.myNonprofit);
         console.log('my nonprofit: ' + JSON.stringify($scope.myNonprofit));
+    });
+
+    tgn.controller('searchResultsController', function ($scope, $routeParams) {
+        $scope.viewingPeople = true;
+        $scope.viewingNonprofits = false;
+        $scope.viewingJobs = false;
+
+        $scope.viewPeople = function () {
+            $scope.viewingPeople = true;
+
+            $scope.viewingNonprofits = false;
+            $scope.viewingJobs = false;
+
+        };
+
+        $scope.viewNonprofits = function () {
+            $scope.viewingNonprofits = true;
+
+            $scope.viewingPeople = false;
+            $scope.viewingJobs = false;
+
+        };
+
+        $scope.viewJobs = function () {
+            $scope.viewingJobs = true;
+
+            $scope.viewingNonprofits = false;
+            $scope.viewingPeople = false;
+        };
+
+        $scope.requestService.getSearchResults(
+            $routeParams.query,
+            $scope.myProfile.userModel().userId,
+            $scope.searchResults
+        );
     });
 };

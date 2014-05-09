@@ -241,6 +241,7 @@ def updateNonprofit(request):
                 nonprofitToUpdate.mission = nonprofit['mission']
                 nonprofitToUpdate.website = nonprofit['website']
                 nonprofitToUpdate.address = nonprofit['address']
+                nonprofitToUpdate.imageUrl = nonprofit['imageUrl']
 
                 nonprofitToUpdate.save()
 
@@ -260,7 +261,8 @@ def updateNonprofit(request):
             'description': str(nonprofitToUpdate.description),
             'mission': str(nonprofitToUpdate.mission),
             'website': str(nonprofitToUpdate.website),
-            'address': str(nonprofitToUpdate.address)
+            'address': str(nonprofitToUpdate.address),
+            'imageUrl': str(nonprofitToUpdate.imageUrl)
         },
         'updatedNonprofitId': nonprofitId
     }
