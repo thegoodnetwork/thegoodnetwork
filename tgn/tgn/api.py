@@ -334,9 +334,12 @@ def createNonprofit(request):
                 nonprofitId=str(newNonprofit.pk),
                 userId=userId
             )
+
+            print 'made nonprofit relation'
             userNonprofits = map(lambda nonprofit: getNonprofitModel(
                 nonprofit), (getUserNonprofits(account)))
 
+            print 'got user nonprofits'
         else:
             errorMessage = 'Failed to create nonprofit'
             return formattedResponse(isError=True, errorMessage=errorMessage)
