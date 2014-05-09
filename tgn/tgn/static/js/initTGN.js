@@ -710,6 +710,7 @@ var initTGN = function (accessToken) {
         $scope.newNPModel.website = $scope.myNonprofit.website;
         $scope.newNPModel.address = $scope.myNonprofit.address;
         $scope.newNPModel.imageUrl = $scope.myNonprofit.imageUrl;
+        $scope.newNPModel.nonprofitId = $routeParams.myNonprofit;
 
 //        $scope.addSkill = function (skill) {
 //            if (skill.length > 0 &&
@@ -743,6 +744,8 @@ var initTGN = function (accessToken) {
             $scope.newNPModel.website = $scope.myNonprofit.website;
             $scope.newNPModel.address = $scope.myNonprofit.address;
             $scope.newNPModel.imageUrl = $scope.myNonprofit.imageUrl;
+            $scope.newNPModel.nonprofitId = $routeParams.myNonprofit;
+
         };
 
         //DELETE THIS NONPROFIT METHOD
