@@ -53,16 +53,22 @@
             <input type="submit" class="hidden"/>
         </form>
 
-        <a href="/" class="navbarText rightNavItem" type="button" value="Logout"
-           onclick="FB.logout();"> Log Out </a>
+        <a href="/"
+           class="navbarText rightNavItem"
+           type="button"
+           value="Logout"
+           onclick="FB.logout();">
+            Log Out
+        </a>
 
-        <a id="meLink" href="#/myProfile" class="navbarText rightNavItem">Me
+        <a id="meLink" href="#/myProfile" class="navbarText rightNavItem">
+            Me
         </a>
 
         <div class="btn-group navbarText rightNavItem">
-    <span class="dropdown-toggle" data-toggle="dropdown">My Jobs <span
-            class="caret"></span>
-    </span>
+        <span class="dropdown-toggle" data-toggle="dropdown">My Jobs <span
+                class="caret"></span>
+        </span>
             <ul class="dropdown-menu" role="menu">
                 <li data-ng-repeat="job in myJobs.myJobs().currentJobsAsEmployee">
                     <a data-ng-href="#/myJob/{{job.jobId}}/{{job.jobType}}">
@@ -71,7 +77,10 @@
                 </li>
                 <li role="presentation" class="divider"
                     data-ng-if="myJobs.myJobs().currentJobsAsEmployee"></li>
-                <li><a href="#/searchResults">Find a Job</a></li>
+                <li>
+                    <a data-ng-href="#/searchResults/allJobs">Find a Job
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="btn-group navbarText rightNavItem">

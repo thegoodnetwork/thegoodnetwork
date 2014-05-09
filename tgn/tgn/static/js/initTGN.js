@@ -227,6 +227,7 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
     $scope.query = '';
     $scope.searchSubmit = function () {
         console.log('called search submit');
+        console.log('query: ' + $scope.query);
         if ($scope.query) {
             $location.path('/#/searchResults' + $scope.query)
         }
