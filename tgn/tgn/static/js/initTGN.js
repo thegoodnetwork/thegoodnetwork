@@ -751,7 +751,7 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService) {
+    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService, myNonprofitsService) {
         $scope.viewingPeople = true;
         $scope.viewingNonprofits = false;
         $scope.viewingJobs = false;
@@ -780,7 +780,7 @@ var initTGN = function (accessToken) {
         };
 
         $scope.viewNonprofit = function(nonprofitId) {
-            if ($scope.myNonprofits.getNonprofit(nonprofitId)) {
+            if (myNonprofitsService.getNonprofit(nonprofitId)) {
                 window.location = '#/myNonprofit/' + nonprofitId;
             } else {
                 window.location = '#/otherNonprofit/' + nonprofitId;
