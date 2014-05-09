@@ -64,9 +64,9 @@
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-8">
-                <span data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
+                <a data-ng-repeat="nonprofit in myNonprofits.myNonprofits()" href="#/myNonprofit/{{nonprofit.nonprofitId}}">
                     {{nonprofit.name}}
-                </span>
+                </a>
             </div>
         </div>
         
