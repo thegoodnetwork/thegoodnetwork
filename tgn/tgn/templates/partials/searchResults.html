@@ -1,60 +1,75 @@
 {% extends "modals.html" %}
 {% block content %}
 {% verbatim %}
-<div class="container">
-    
+<div class="container" data-ng-controller="searchResultsController">
+
     <div class="col-sm-2">
         <br>
+
         <div class='span3 sidebar'>
             <ul class="nav nav-pills nav-stacked affix">
-                <li class="active"><a href='#jobsAnchor'>Jobs</a></li>
-                <li><a href='#peopleAnchor'>People</a></li>
-                <li><a href='#nonprofitsAnchor'>Nonprofits</a></li>
+                <li data-ng-class="{ active: viewingJobs}">
+                    <a data-ng-click="viewJobs()">
+                        Jobs
+                    </a>
+                </li>
+                <li data-ng-class="{ active: viewingPeople }">
+                    <a data-ng-click="viewPeople()">
+                        People
+                    </a>
+                </li>
+                <li data-ng-class="{ active: viewingNonprofits }">
+                    <a data-ng-click="viewNonprofits()">
+                        Nonprofits
+                    </a>
+                </li>
             </ul>
         </div>
-    
+
     </div>
-    
+
     <div class="col-sm-1"></div>
 
     <div class="col-sm-9">
-        
-        <div class="row resultTitle">
-            
-        <a name="jobsAnchor"></a>
-        <h3>Jobs</h3>
-        <hr>
-        </div>
-        
-        <!---List of Jobs !-->
-        <div data-ng-controller="otherNonprofitsController">
-        <table id="jobListTable" class="searchResultTable"
-               data-ng-repeat="nonprofit in otherNonprofits">
 
-            <tr >
+        <div class="row resultTitle">
+
+            <a name="jobsAnchor"></a>
+
+            <h3>Jobs</h3>
+            <hr>
+        </div>
+
+        <!---List of Jobs !-->
+        <table
+                class="searchResultTable"
+                data-ng-repeat="nonprofit in searchResults.postedJobs"
+                data-ng-if="viewingJobs"
+                >
+
+            <tr>
                 <td class="imageTd">
-              <a href="/otherNonprofit">
-                    <img class="imageInTable"
-                         src="{{nonprofit.bannerLink}}"
-                         height="160" width="160">
-              </a>
+                    <a
+                            data-ng-href="/otherNonprofit/{{nonprofit.nonprofitId}}">
+                        <img class="imageInTable"
+                             data-ng-src="{{nonprofit.imageUrl}}"
+                             height="160" width="160">
+                    </a>
                 </td>
                 <td class="contentTd">
-                    <h3>{{nonprofit.job.title}}</h3>
+                    <h3>{{nonprofit.jobs.postedJobs.title}}</h3>
 
-                    <p>{{nonprofit.job.description}}</p>
+                    <p>{{nonprofit.jobs.postedJobs.description}}</p>
 
-                    <p>{{nonprofit.address}}</p>
+                    <p>{{nonprofit.jobs.postedJobs.address}}</p>
 
                     <p>{{nonprofit.job.compensation}}</p>
 
                     <div>
-                        <form action="/otherNonprofit"
-                              style="display: inline-block;">
-                            <button type="submit" class="btn btn-default">
-                                View Job
-                            </button>
-                        </form>
+                        style="display: inline-block;">
+                        <button type="button" class="btn btn-default">
+                            View Job
+                        </button>
                         <button type="button" class="btn btn-default"
                                 data-toggle="modal"
                                 data-target="#appliedForJobModal">
@@ -64,69 +79,69 @@
                 </td>
             </tr>
         </table>
-            </div>
         <div class="row resultTitle">
-            
-            <a name="peopleAnchor"></a>
+
+
             <h3>People</h3>
             <hr>
         </div>
-        <div data-ng-controller="otherProfilesController">
-            <table id="peopleListTable" class="searchResultTable"
-
-                   data-ng-repeat="profile in otherProfiles">
-
-                <tr>
-                    <td class="imageTd">
-              <a href="/otherProfile">
-                        <img class="imageInTable"
-                             src="{{profile.profileLink}}"
-                             height="160" width="160">
-              </a>
-                    </td>
-                    <td class="contentTd">
-                        <h3>{{profile.name}}</h3>
-
-                        <p>{{profile.skills}}</p>
-
-                        <p>{{profile.location}}</p>
-
-                        <div>
-                            <form action="/otherProfile"
-                                  style="display: inline-block;">
-                                <button type="submit" class="btn btn-default">
-                                    View Profile
-
-                                </button>
-                            </form>
-                            <button type="button" class="btn btn-default"
-                                    data-toggle="modal"
-                                    data-target="#sendMessageModal">
-                                Contact
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-
-        <!-- List of People !-->
-        <div class="row resultTitle">
-            <a name="nonprofitsAnchor"></a>
-            <h3>Nonprofits</h3>
-            <hr>
-        </div>
-        <div data-ng-controller="otherNonprofitsController">
-        <table id="nonprofitsListTable" class="searchResultTable"
-                data-ng-repeat="nonprofit in otherNonprofits">
+        <table
+                class="searchResultTable"
+                data-ng-repeat="profile in searchResults.otherUsers"
+                data-ng-if="viewingPeople"
+                >
 
             <tr>
                 <td class="imageTd">
-              <a href="/otherNonprofit">
-                    <img class="imageInTable"
-                         src="{{ nonprofit.bannerLink }}">
-              </a>
+                    <a href="/otherProfile">
+                        <img class="imageInTable"
+                             data-ng-src="{{profile.profileImageUrl}}"
+                             height="160" width="160">
+                    </a>
+                </td>
+                <td class="contentTd">
+                    <h3>{{profile.name}}</h3>
+
+                    <p>{{profile.skills}}</p>
+
+                    <p>{{profile.location}}</p>
+
+                    <div>
+                        <form action="/otherProfile"
+                              style="display: inline-block;">
+                            <button type="submit" class="btn btn-default">
+                                View Profile
+
+                            </button>
+                        </form>
+                        <button type="button" class="btn btn-default"
+                                data-toggle="modal"
+                                data-target="#sendMessageModal">
+                            Contact
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+
+        <!-- List of People !-->
+        <div class="row resultTitle">
+
+            <h3>Nonprofits</h3>
+            <hr>
+        </div>
+        <table class="searchResultTable"
+               data-ng-repeat="nonprofit in searchResults.nonprofits"
+               data-ng-if="viewingNonprofits"
+                >
+
+            <tr>
+                <td class="imageTd">
+                    <a href="/otherNonprofit">
+                        <img class="imageInTable"
+                             data-ng-src="{{ nonprofit.imageUrl }}">
+                    </a>
                 </td>
                 <td class="contentTd">
                     <h3>{{nonprofit.name}}</h3>
@@ -164,7 +179,6 @@
                 !-->
             </tr>
         </table>
-            </div>
         <!-- List of nonprofits !-->
     </div>
 </div>
