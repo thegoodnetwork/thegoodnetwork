@@ -550,7 +550,7 @@ var initTGN = function (accessToken) {
         }
         
         console.log('got routeParams ' + JSON.stringify($routeParams));
-        $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.myNonprofit)
+        $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.myNonprofit);
         console.log('my nonprofit: ' + JSON.stringify($scope.myNonprofit));
     });
 };
