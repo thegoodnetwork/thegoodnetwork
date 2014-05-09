@@ -62,6 +62,7 @@ def loginWithFacebook(request):
         name=userName
     )
 
+    print 'created account ' + str(isAccountCreated)
     if isAccountCreated:
         titles = []
         aboutMe = ''
