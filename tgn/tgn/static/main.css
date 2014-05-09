@@ -41,6 +41,9 @@ affix {
 
 }
 
+.glyphicon {
+    margin-right: 3px;
+}
 
 /*MODALS */
 .attrBlocks {
