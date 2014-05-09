@@ -779,6 +779,14 @@ var initTGN = function (accessToken) {
             $scope.viewingPeople = false;
         };
 
+        $scope.viewNonprofit = function(nonprofitId) {
+            if ($scope.myNonprofit.getNonprofit(nonprofitId)) {
+                window.location = '#/myNonprofit/' + nonprofitId;
+            } else {
+                window.location = '#/otherNonprofit/' + nonprofitId;
+            }
+        };
+
         if ($routeParams.query == 'allJobs') {
             $scope.viewJobs();
         }
