@@ -458,7 +458,7 @@ var initTGN = function (accessToken) {
                 console.log('posting to addJobAsNonprofit with: ' + JSON.stringify(data));
                 makePostRequest(requestUrl, data).then(function (responseData)
                     {
-                        console.log(responseData.data);
+                        console.log("printing response data from job creation: " + responseData.data);
                         console.log(responseData.errorMessage);
                     }
                 )
