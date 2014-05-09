@@ -90,7 +90,8 @@ def formatNonprofitForUserModel(nonprofit):
     formattedNonprofit = {
         'nonprofitId': str(nonprofit.pk),
         'name': str(nonprofit.name),
-        'mission': str(nonprofit.mission)
+        'mission': str(nonprofit.mission),
+        'imageUrl': str(nonprofit.imageUrl)
     }
 
     return formattedNonprofit
