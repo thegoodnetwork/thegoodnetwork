@@ -650,6 +650,7 @@ var initTGN = function (accessToken) {
 
     tgn.controller('viewMyNonprofitController', function ($scope, $routeParams, $location, $anchorScroll, requestService) {
 
+        $scope.requestService = requestService;
         $scope.goToJobs = function () {
             $location.hash('jobAnchor');
             $anchorScroll();
