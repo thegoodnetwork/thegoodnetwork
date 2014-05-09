@@ -348,12 +348,10 @@ def getNonprofitModel(nonprofit):
         'completedJobs': completedJobs
     }
 
-    print 'got nonprofit jobs:  ' + str(jobs)
-    # get the nonprofit affiliates
 
-    #nonprofitAffiliates = formatUsersForAffiliationOrApplications(
-    #   getNonprofitAffiliates(nonprofit)
-    #)
+    nonprofitAffiliates = formatUsersForAffiliationOrApplications(
+       getNonprofitAffiliates(nonprofit)
+    )
 
     #print 'getting affiliates: ' + str(nonprofitAffiliates)
     nonprofitModel = {
@@ -364,7 +362,7 @@ def getNonprofitModel(nonprofit):
         'website': website,
         'address': address,
         'jobs': jobs,
-        #'affiliates': nonprofitAffiliates,
+        'affiliates': nonprofitAffiliates,
         'imageUrl': imageUrl
     }
 
