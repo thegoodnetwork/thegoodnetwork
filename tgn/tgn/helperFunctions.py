@@ -36,6 +36,7 @@ def formatJob(job, jobType):
     formattedJob = {
         'nonprofitId': str(job.nonprofit.pk),
         'nonprofitName': str(job.nonprofit.name),
+        'nonprofitImageUrl': str(job.nonprofit.imageUrl),
         'titles': formatTitles(getJobTitles(job, jobType=jobType)),
         'description': str(job.description),
         'compensation': str(job.compensation),

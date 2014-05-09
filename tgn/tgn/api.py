@@ -214,8 +214,9 @@ def updateNonprofit(request):
     try:
         requiredFields = ['nonprofitId', 'description', 'mission', 'website',
                           'address']
-        verifiedRequestResponse = verifyRequest(json.loads(request.body[
-            'profile']), requiredFields)
+        verifiedRequestResponse = verifyRequest(json.loads(request.body)[
+                                                    'nonprofit'],
+                                                requiredFields)
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
             return formattedResponse(isError=True, errorMessage=errorMessage)
