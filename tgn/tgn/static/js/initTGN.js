@@ -218,12 +218,44 @@ tgn.factory('myJobsService', function () {
 
     return myJobsService;
 });
+tgn.factory('searchResultsService', function () {
+    var search = {
+        postedJobs: [],
+        nonprofits: [],
+        otherUsers: [],
+        query: ''
+    };
 
+    var searchService = {};
 
-tgn.controller('userController', function ($scope, $location, myProfileService, myNonprofitsService, myJobsService) {
+    searchService.setPostedJobs = function (postedJobs) {
+        search.postedJobs = postedJobs;
+    };
+
+    searchService.setNonprofits = function (nonprofits) {
+        search.nonprofits = nonprofits;
+    };
+
+    searchService.setOtherUsers = function (otherUsers) {
+        search.otherUsers = otherUsers;
+    };
+
+    searchService.setQuery = function (query) {
+        search.query = query;
+    };
+
+    searchService.searchResults = function () {
+        return search;
+    };
+
+    return searchService;
+});
+
+tgn.controller('userController', function ($scope, $location, myProfileService, myNonprofitsService, myJobsService, searchResultsService) {
     $scope.myProfile = myProfileService;
     $scope.myNonprofits = myNonprofitsService;
     $scope.myJobs = myJobsService;
+    $scope.searchResults = searchResultsService;
     $scope.searchBar = {};
     $scope.searchBar.query = '';
     $scope.searchSubmit = function () {
@@ -279,38 +311,6 @@ tgn.controller('editProfileController', function ($scope) {
 var initTGN = function (accessToken) {
     tgn.value('accessToken', accessToken);
 
-    tgn.factory('searchResultsService', function () {
-        var search = {
-            postedJobs: [],
-            nonprofits: [],
-            otherUsers: [],
-            query: ''
-        };
-
-        var searchService = {};
-
-        searchService.setPostedJobs = function (postedJobs) {
-            search.postedJobs = postedJobs;
-        };
-
-        searchService.setNonprofits = function (nonprofits) {
-            search.nonprofits = nonprofits;
-        };
-
-        searchService.setOtherUsers = function (otherUsers) {
-            search.otherUsers = otherUsers;
-        };
-
-        searchService.setQuery = function (query) {
-            search.query = query;
-        };
-
-        searchService.searchResults = function () {
-            return search;
-        };
-
-        return searchService;
-    });
 
     tgn.factory('viewContentService', function () {
         var nonprofitToView = {
@@ -586,8 +586,7 @@ var initTGN = function (accessToken) {
         }
     );
 
-    tgn.controller('TGNController', function ($scope, searchResultsService, viewContentService, requestService) {
-        $scope.searchResults = searchResultsService;
+    tgn.controller('TGNController', function ($scope, viewContentService, requestService) {
         $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
         console.log('made the controller');
@@ -650,6 +649,7 @@ var initTGN = function (accessToken) {
 
     tgn.controller('viewMyNonprofitController', function ($scope, $routeParams, $location, $anchorScroll, requestService) {
 
+        $scope.requestService = requestService;
         $scope.goToJobs = function () {
             $location.hash('jobAnchor');
             $anchorScroll();
@@ -667,7 +667,7 @@ var initTGN = function (accessToken) {
         //$scope.myNonprofit
 
         $scope.newNPModel = {}
-        
+
 
         $scope.newNPModel.description = $scope.myNonprofit.description;
         $scope.newNPModel.mission = $scope.myNonprofit.mission;
@@ -716,7 +716,7 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('searchResultsController', function ($scope, $routeParams) {
+    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService) {
         $scope.viewingPeople = true;
         $scope.viewingNonprofits = false;
         $scope.viewingJobs = false;
@@ -743,7 +743,7 @@ var initTGN = function (accessToken) {
             $scope.viewingNonprofits = false;
             $scope.viewingPeople = false;
         };
-
+        $scope.requestService = requestService;
         $scope.requestService.getSearchResults(
             $routeParams.query,
             $scope.myProfile.userModel().userId,

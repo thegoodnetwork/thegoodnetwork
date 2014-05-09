@@ -106,7 +106,9 @@ def formatUserForAffiliationOrApplication(account):
     formattedUser = {
         'userId': str(account.userId),
         'name': str(account.name),
-        'profielImageUrl': getUserProfileImageUrl(account)
+        'profileImageUrl': getUserProfileImageUrl(account),
+        'titles': getUserTitles(account),
+        'skills': getUserSkills(account)
     }
 
     return formattedUser

@@ -32,9 +32,9 @@
 
     <div class="col-sm-9">
 
-        <div class="row resultTitle">
-
-            <a name="jobsAnchor"></a>
+        <div class="row resultTitle"
+             data-ng-if="viewingPeople"
+                >
 
             <h3>Jobs</h3>
             <hr>
@@ -43,7 +43,7 @@
         <!---List of Jobs !-->
         <table
                 class="searchResultTable"
-                data-ng-repeat="nonprofit in searchResults.postedJobs"
+                data-ng-repeat="nonprofit in searchResults.searchResults().postedJobs"
                 data-ng-if="viewingJobs"
                 >
 
@@ -79,7 +79,9 @@
                 </td>
             </tr>
         </table>
-        <div class="row resultTitle">
+        <div class="row resultTitle"
+             data-ng-if="viewingPeople"
+                >
 
 
             <h3>People</h3>
@@ -87,7 +89,7 @@
         </div>
         <table
                 class="searchResultTable"
-                data-ng-repeat="profile in searchResults.otherUsers"
+                data-ng-repeat="profile in searchResults.searchResults().otherUsers"
                 data-ng-if="viewingPeople"
                 >
 
@@ -101,10 +103,6 @@
                 </td>
                 <td class="contentTd">
                     <h3>{{profile.name}}</h3>
-
-                    <p>{{profile.skills}}</p>
-
-                    <p>{{profile.location}}</p>
 
                     <div>
                         <form action="/otherProfile"
@@ -126,13 +124,16 @@
         </table>
 
         <!-- List of People !-->
-        <div class="row resultTitle">
+        <div class="row resultTitle"
+             data-ng-if="viewingNonprofits"
+
+                >
 
             <h3>Nonprofits</h3>
             <hr>
         </div>
         <table class="searchResultTable"
-               data-ng-repeat="nonprofit in searchResults.nonprofits"
+               data-ng-repeat="nonprofit in searchResults.searchResults().nonprofits"
                data-ng-if="viewingNonprofits"
                 >
 
