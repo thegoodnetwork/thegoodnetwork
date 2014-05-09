@@ -376,7 +376,8 @@ var initTGN = function (accessToken) {
         };
 
         viewContentService.setOtherUserToView = function (otherUser) {
-            otherUserToView = otherUser
+            otherUserToView = otherUser;
+            console.log('set otherUserToView: ' + JSON.stringify(otherUser));
         };
 
         viewContentService.setJobToView = function (job) {
