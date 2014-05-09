@@ -55,6 +55,11 @@ affix {
     padding-left: 5px;
 }
 
+.centerContent {
+    display: inline;
+    float: none;
+}
+
 /*END MODALS*/
 
 #logoText {
@@ -213,6 +218,9 @@ affix {
 
 .myJobPost {
     margin-left: 20px;
+    display: inline-block;
+    margin: auto;
+    width: 400px;
 }
 
 .jobApply {

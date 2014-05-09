@@ -72,8 +72,13 @@
     <div class="row center">
         <h1 id="jobAnchor">Job Postings</h1>
     </div>
-    <div class="row">
-        <div class="well col-sm-6 myJobPost"
+    
+    <br>
+    <br>
+    
+    <div class="row centerContent">
+        
+        <div class="well myJobPost"
              data-ng-repeat="job in myNonprofit.jobs['postedJobs']">
             <div class="row center">
                 <h2> {{job.name}} </h2>
@@ -88,6 +93,7 @@
                     {{job.description}}
                 </div>
             </div>
+            
             <br>
 
             <div class="row">
@@ -100,6 +106,7 @@
                     {{job.compensation}}
                 </div>
             </div>
+            
             <br>
 
             <div class="col-sm-3"></div>
