@@ -108,8 +108,8 @@ def formatUserForAffiliationOrApplication(account):
         'userId': str(account.userId),
         'name': str(account.name),
         'profileImageUrl': getUserProfileImageUrl(account),
-        'titles': getUserTitles(account),
-        'skills': getUserSkills(account)
+        'titles': formatTitles(getUserTitles(account)),
+        'skills': formatSkills(getUserSkills(account))
     }
 
 
