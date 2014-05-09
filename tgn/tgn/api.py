@@ -328,7 +328,7 @@ def createNonprofit(request):
             account = Account.objects.get(userId=userId)
 
             newNonprofitModel = getNonprofitModel(newNonprofit)
-
+            print 'got nonprofit model'
             # add nonprofit relation
             NonprofitRelation.objects.create(
                 nonprofitId=str(newNonprofit.pk),
