@@ -806,8 +806,13 @@ var initTGN = function (accessToken) {
         requestService.viewOtherProfile($routeParams.userId, $scope.viewContent);
     });
 
-    tgn.controller('otherNonprofitController', function ($scope, requestService, $routeParams) {
+    tgn.controller('otherNonprofitController', function ($scope, requestService, $routeParams, $location, $anchorScroll) {
 
+        $scope.goToJobs = function () {
+            $location.hash('jobAnchor');
+            $anchorScroll();
+        };
+        
         $scope.nonprofitId = $routeParams.nonprofitId;
         $scope.nonprofit = requestService.getNonprofit($scope.nonprofitId, $scope.viewContent);
 
