@@ -123,15 +123,101 @@
             <br>
             
             <!-- OPEN MODAL TO EDIT JOB -->
-            <button> Edit Job </button>
+            <button class="btn btn-default btn-sm" data-toggle="modal"
+                        data-target="#editProfileModal"
+                        data-ng-click="resetSkillsAndTitles()">Edit Job
+            </button>
 
         </div>
     </div>
     <br>
     <br>
     <br>
-    
+
 </div>
+
+
+
+<!-- EDIT PROFILE MODAL    -->
+<!--
+<div class="modal fade" id="createNonprofitModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true"
+     data-ng-controller="editNonprofitController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="CreateNewNonprofitLabel">Edit
+                    Non-profit</h4>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row">
+                    <label for="nonprofitName" class="col-sm-3"> Name of
+                        Organization: </label>
+                    <div class="col-sm-9">
+                    <input id="nonprofitName" class="form-control" type="text" data-ng-model="newNonprofit.name"/> </div>
+                </div>
+                
+                <br>
+                
+                <div class="row">
+                    <label for="nonprofitImage" class="col-sm-3"> Image Url:&nbsp;&nbsp;</label>
+                    <div class="col-sm-9">
+                    <input id="nonprofitImage" class="form-control" type="text" data-ng-model="newNonprofit.imageUrl"/></div>
+                </div>
+            
+                <br>
+                
+                <div class="row">
+                  <label for="nonprofitMission" class="col-sm-3">Mission:&nbsp;&nbsp;</label>
+                  <div class="col-sm-9">    
+                  <input id="nonprofitMission" class="form-control" type="text" data-ng-model="newNonprofit.mission"/></div>
+                </div>
+                
+                <br>
+                
+                <div class="row">
+                    <label for="nonprofitDescription" class="col-sm-3">
+                        Description:&nbsp;&nbsp;</label>
+                    <div class="col-sm-9">
+                    <textarea id="nonprofitDescription" class="form-control"
+                              style="resize: none;" rows="6" maxlength="500" placeholder="500 char limit" data-ng-model="newNonprofit.description"></textarea></div>
+                </div>
+                
+                <br>
+                
+                <div class="row">
+                    <label for="address" class="col-sm-3">
+                        Address:&nbsp;&nbsp;</label>
+                <div class="col-sm-9">    
+                  <input id="address" class="form-control" type="text" data-ng-model="newNonprofit.address"/></div>
+                </div>
+                
+                <br>
+
+                <div class="row">
+                    <label for="nonprofitWebsite" class="col-sm-3">Website:&nbsp;&nbsp;</label>
+                    <div class="col-sm-9">
+                    <input id="nonprofitWebsite" class="form-control" type="text" data-ng-model="newNonprofit.website"/></div>
+                </div>
+                <br>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">Cancel
+                </button>
+                <button type="button" class="btn btn-primary"
+                        data-dismiss="modal" data-ng-click="requestService.createNonprofit(myProfile, myNonprofits, newNonprofit)">Create Nonprofit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+-->
 
 
 {% endverbatim %}
