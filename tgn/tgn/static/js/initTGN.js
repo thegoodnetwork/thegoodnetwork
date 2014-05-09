@@ -780,7 +780,7 @@ var initTGN = function (accessToken) {
         };
 
         $scope.viewNonprofit = function(nonprofitId) {
-            if ($scope.myNonprofit.getNonprofit(nonprofitId)) {
+            if ($scope.myNonprofits.getNonprofit(nonprofitId)) {
                 window.location = '#/myNonprofit/' + nonprofitId;
             } else {
                 window.location = '#/otherNonprofit/' + nonprofitId;
