@@ -1,48 +1,81 @@
 {% extends "modals.html" %}
 {% block content %}
 {% verbatim %}
+<div class="container" data-ng-controller="otherProfileController">
 
-<div class="container" data-ng-app="angularTGN">
-  <div class="row" data-ng-controller="otherProfileController">
-    <div class="col-sm-6">
-    <h1 id="profileName">{{name}}
-    </h1>
-      <img id="profileImage" src="{{profileLink}}" width="180px"
-           height="180px"/>
-      <br>
-      <h3>Resume
-      </h3>
-      <a>{{resumeLink}}</a>
-      <h3>
-	Skills
-      </h3>
-    <p>
-      {{skills}}
-    </p>
-    <h3>
-	Affiliations
-    </h3>
-    <p>
-      {{affiliations}}
-    </p>
+    <div class="row">
+        <div class="col-sm-4">
+            <h1 id="profileName">
+                {{viewContent.viewContent().otherUserToView.name}}
+            </h1>
+            <img id="profileImage"
+                 data-ng-src="{{viewContent.viewContent().otherUserToView.profileImageUrl}}"
+                 width="180px"
+                 height="180px"/>
+            <br>
+
+            <br>
+        </div>
+
+        <div class="col-sm-6">
+            <h1> Biography </h1>
+
+            <p id="aboutMe">
+                {{viewContent.viewContent().otherUserToView.aboutMe}} </p>
+        </div>
+
     </div>
-    <div class="col-sm-6">
-      <h1> Quick Biography </h1>
-      <p id="aboutMe">
-	{{aboutMe}}
-      </p>
-      <br>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#sendMessageModal">contact</button>
-      <div class="btn-group">
-	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-	  add as affiliate <span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-	  <li data-toggle="modal" data-target="#acceptAffiliateModal"><a href="#">Finding Refuge</a></li>
-	</ul>
-      </div>
+    <!--    Profile Details    -->
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <h3 class="details"> Resume </h3>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8">
+            <div class="subtext"><a
+                    href="{{viewContent.viewContent().otherUserToView.resume}}">{{viewContent.viewContent().otherUserToView.resume}}</a>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <h3 class="details"> Skills </h3>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8">
+            <div class="attrBlocks"
+                 data-ng-repeat="skill in viewContent.viewContent().otherUserToView.skills">
+                {{skill}}
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <h3 class="details"> Affiliations </h3>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8">
+            <a id="affiliations"
+               data-ng-repeat="nonprofit in viewContent.viewContent().otherUserToView.nonprofits"
+               href="#/myNonprofit/{{nonprofit.nonprofitId}}">
+                {{nonprofit.name}}
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
 </div>
 {% endverbatim %}
 {% endblock %}

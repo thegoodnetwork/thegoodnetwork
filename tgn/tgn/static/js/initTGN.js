@@ -54,13 +54,13 @@ tgn.config(
             .when('/myProfile', {
                 templateUrl: 'partials/myProfile'
             })
-            .when('/otherProfile/:otherProfile', {
+            .when('/otherProfile/:userId', {
                 templateUrl: 'partials/otherProfile'
             })
             .when('/myNonprofit/:myNonprofit', {
                 templateUrl: 'partials/myNonprofit'
             })
-            .when('/otherNonprofit/:otherNonprofit', {
+            .when('/otherNonprofit/:nonprofitId', {
                 templateUrl: 'partials/otherNonprofit'
             })
             .when('/myJob/:jobId/:jobType', {
@@ -269,7 +269,7 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
 
 tgn.controller('otherNonprofitController', function($scope, requestService, $routeParams) {
    $scope.nonprofitId = $routeParams.nonprofitId;
-   $scope.nonprofit = $requestService.getNonprofit($scope.nonprofitId);
+   $scope.nonprofit = requestService.getNonprofit($scope.nonprofitId);
 });
 
 tgn.controller('editProfileController', function ($scope) {
@@ -598,6 +598,24 @@ var initTGN = function (accessToken) {
                 });
             };
 
+            requestService.viewOtherProfile = function (userId, viewContentService) {
+                var requestArgument = {
+                    userId: userId
+                };
+
+                var viewOtherProfileRequestUrl = requestPrefix + 'viewOtherProfile';
+
+                makePostRequest(viewOtherProfileRequestUrl, requestArgument).then(function (responseData) {
+                    var otherUser = responseData.data.userToView;
+
+                    if (otherUser) {
+                        viewContentService.setOtherUserToView(otherUser);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+            };
+
             return requestService;
         }
     );
@@ -770,5 +788,13 @@ var initTGN = function (accessToken) {
             $scope.myProfile.userModel().userId,
             $scope.searchResults
         );
+    });
+
+    tgn.controller('otherProfileController', function ($scope, $routeParams, requestService, viewContentService) {
+
+        $scope.viewContent = viewContentService;
+        $scope.requestService = requestService;
+
+        $scope.requestService.viewOtherProfile($routeParams.userId, $scope.viewContent);
     });
 };
