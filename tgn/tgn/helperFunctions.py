@@ -329,6 +329,7 @@ def getNonprofitModel(nonprofit):
     address = str(nonprofit.address)
     imageUrl = str(nonprofit.imageUrl)
 
+    print 'getting nonprofit ' + str(nonprofit.name)
     # get the jobs associated with the nonprofit
     postedJobs = formatJobs(getNonprofitPostedJobs(nonprofit),
                             jobType=POSTED_JOB_TYPE)
@@ -343,12 +344,14 @@ def getNonprofitModel(nonprofit):
         'completedJobs': completedJobs
     }
 
+    print 'got nonprofit jobs:  ' + str(jobs)
     # get the nonprofit affiliates
 
     nonprofitAffiliates = formatUsersForAffiliationOrApplications(
         getNonprofitAffiliates(nonprofit)
     )
 
+    print 'getting affiliates: ' + str(nonprofitAffiliates)
     nonprofitModel = {
         'nonprofitId': nonprofitId,
         'name': name,
