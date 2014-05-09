@@ -133,6 +133,88 @@
     <br>
     <br>
     <br>
+
+
+<!-- EDIT PROFILE MODAL    -->
+
+<div class="modal fade" id="createNonprofitModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true"
+     data-ng-controller="updateNonprofitController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="editNewNonprofitLabel">Edit
+                    Non-profit Info</h4>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row">
+                    <label for="nonprofitName" class="col-sm-3"> Name of
+                        Organization: </label>
+                    <div class="col-sm-9">
+                    <input class="nonprofitName" class="form-control" type="text" data-ng-model="nonprofit.name"/> </div>
+                </div>
+                
+                <br>
+                
+                <div class="row">
+                    <label for="nonprofitImage" class="col-sm-3"> Image Url:&nbsp;&nbsp;</label>
+                    <div class="col-sm-9">
+                    <input id="nonprofitImage" class="form-control" type="text" data-ng-model="nonprofit.imageUrl"/></div>
+                </div>
+            
+                <br>
+                
+                <div class="row">
+                  <label for="nonprofitMission" class="col-sm-3">Mission:&nbsp;&nbsp;</label>
+                  <div class="col-sm-9">    
+                  <input id="nonprofitMission" class="form-control" type="text" data-ng-model="nonprofit.mission"/></div>
+                </div>
+                
+                <br>
+                
+                <div class="row">
+                    <label for="nonprofitDescription" class="col-sm-3">
+                        Description:&nbsp;&nbsp;</label>
+                    <div class="col-sm-9">
+                    <textarea id="nonprofitDescription" class="form-control"
+                              style="resize: none;" rows="6" maxlength="500" placeholder="500 char limit" data-ng-model="nonprofit.description"></textarea></div>
+                </div>
+                
+                <br>
+                
+                <div class="row">
+                    <label for="address" class="col-sm-3">
+                        Address:&nbsp;&nbsp;</label>
+                <div class="col-sm-9">    
+                  <input id="address" class="form-control" type="text" data-ng-model="nonprofit.address"/></div>
+                </div>
+                
+                <br>
+
+                <div class="row">
+                    <label for="nonprofitWebsite" class="col-sm-3">Website:</label>
+                    <div class="col-sm-9">
+                    <input id="nonprofitWebsite" class="form-control" type="text" data-ng-model="nonprofit.website"/></div>
+                </div>
+                <br>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">Cancel
+                </button>
+                <button type="button" class="btn btn-primary"
+                        data-dismiss="modal" data-ng-click="requestService.updateNonprofit(myProfile, myNonprofits, nonprofit)">Update Nonprofit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 
 {% endverbatim %}

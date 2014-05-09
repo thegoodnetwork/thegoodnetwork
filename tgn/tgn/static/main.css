@@ -1,5 +1,6 @@
 body {
     font-family: 'Lato', 'Helvetica', sans-serif;
+    background-color: #F2F2F2;
 }
 
 
@@ -150,6 +151,7 @@ affix {
 
 .container {
     max-width: 800px;
+    background-color: white;
 }
 
 .custom-bottom-navbar {
@@ -166,7 +168,6 @@ affix {
     height: 53px;
     padding-right: 100px;
     font-family: 'Lato', sans-serif;
-
 }
 
 #asSeenIn {
