@@ -230,7 +230,7 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
         console.log('called search submit');
         console.log('query: ' + $scope.searchBar.query);
         if ($scope.searchBar.query) {
-            $location.path('/#/searchResults' + $scope.searchBar.query)
+            window.location = '/#/searchResults/' + $scope.searchBar.query
         }
     };
 });
@@ -717,7 +717,7 @@ var initTGN = function (accessToken) {
     });
 
 
-    tgn.controller('searchResultsController', function ($scope, $routeParams) {
+    tgn.controller('searchResultsController', function ($scope, $routeParams, requestService) {
         $scope.viewingPeople = true;
         $scope.viewingNonprofits = false;
         $scope.viewingJobs = false;
@@ -744,7 +744,7 @@ var initTGN = function (accessToken) {
             $scope.viewingNonprofits = false;
             $scope.viewingPeople = false;
         };
-
+        $scope.requestService = requestService;
         $scope.requestService.getSearchResults(
             $routeParams.query,
             $scope.myProfile.userModel().userId,
