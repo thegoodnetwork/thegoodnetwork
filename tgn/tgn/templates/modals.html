@@ -231,7 +231,7 @@
                     <div class="col-sm-3">
                     <label for="jobName">Job Name:&nbsp;&nbsp;</label></div>
                     <div class="col-sm-9">
-                    <input id="jobName" class="col-sm-9 form-control" type="text" data-ng-model="newJob.name"/></div>
+                    <input id="jobName" class="form-control" type="text" data-ng-model="newJob.name"/></div>
                     
                 </div>
                 <br>
@@ -260,11 +260,12 @@
                     <div class="col-sm-9">
                     <textarea id="compensation" 
                               class="form-control" 
+                              style="resize:none;"
                               type="text" 
                               rows="2"
                               maxlength="100"
                               placeholder="100 char max"
-                              data-ng-model="newJob.compensation"/></div>
+                              data-ng-model="newJob.compensation"></textarea></div>
                 </div>
                 
                 <br>
@@ -355,7 +356,7 @@
                         data-ng-click="requestService.addNonprofitJob(myProfile.userModel().userId, newJob.nonprofit, newJob)"
                         >Create Job
                 </button>
-                <!--EXAMPLE
+                EXAMPLE
                                  <button type="button" class="btn btn-primary"
                                 data-dismiss="modal"
                                 data-ng-click="requestService.updateProfile(myProfile,
@@ -365,11 +366,11 @@
                                 )"
                                 >Save changes
                         </button>
-                !-->
+                !
             </div>
         </div>
     </div>
-</div>
+</div> 
 {% endverbatim %}
 {% block content %}
 {% endblock %}
