@@ -117,6 +117,7 @@ def formatUserForAffiliationOrApplication(account):
 
 
 def formatUsersForAffiliationOrApplications(accounts):
+    print 'formatting: ' + str(accounts)
     formattedUsers = map(lambda account:
                          formatUserForAffiliationOrApplication(account),
                          accounts)
