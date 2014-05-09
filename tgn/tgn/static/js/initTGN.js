@@ -267,6 +267,10 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
     };
 });
 
+tgn.controller('otherNonprofitController', function($scope, requestService, $routeParams) {
+   $scope.nonprofitId = $routeParams.nonprofitId;
+   $scope.nonprofit = $requestService.getNonprofit($scope.nonprofitId);
+});
 
 tgn.controller('editProfileController', function ($scope) {
 
@@ -537,6 +541,18 @@ var initTGN = function (accessToken) {
 
             };
 
+            requestService.getNonprofit = function (nonprofitId) {
+                var nonprofitsRequestUrl = requestPrefix + 'viewNonprofit';
+                requestArgument = {'nonprofitId': nonprofitId};
+                makePostRequest(nonprofitsRequestUrl, requestArgument).then(function (responseData) {
+                    var nonprofit = responseData.data.nonprofitToView;
+                    if (nonprofit) {
+                        return nonprofit;
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+            };
 
             requestService.getSearchResults = function (query, userId, searchResultsService) {
                 query = query ? query : '';
