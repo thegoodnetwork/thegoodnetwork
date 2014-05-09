@@ -264,7 +264,8 @@ def getUserModel(account):
     skills = formatSkills(getUserSkills(account))
 
     # get nonprofits
-    formattedUserNonprofits = map(lambda nonprofit: getNonprofitModel(
+    formattedUserNonprofits = map(lambda nonprofit: getNonprofitModel
+(
         nonprofit), getUserNonprofits(account))
 
 

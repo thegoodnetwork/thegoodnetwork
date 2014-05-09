@@ -221,9 +221,7 @@ def getUserNonprofits(account):
 
     nonprofits = []
     if nonprofitRelations is not None:
-        
         for relation in nonprofitRelations:
-            print 'relation: ' + userId + ' ' + str(relation.nonprofitId)
             nonprofit = Nonprofit.objects.get(pk=str(relation.nonprofitId))
             nonprofits.append(nonprofit)
 

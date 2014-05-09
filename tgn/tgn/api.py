@@ -328,6 +328,7 @@ def createNonprofit(request):
             imageUrl=nonprofit['imageUrl']
         )
         print 'created nonprofit'
+        print str(newNonprofit)
         if isNewNonprofitCreated:
 
             # get user nonprofit models
@@ -341,19 +342,19 @@ def createNonprofit(request):
                 userId=userId
             )
 
-            print 'made nonprofit relation'
+            print 'made nonprofit relation ' + str(newNonprofitModel)
             userNonprofits = map(lambda nonprofit: getNonprofitModel(
                 nonprofit
             ), (getUserNonprofits(account)))
 
-            print 'got user nonprofits'
+            print 'got user nonprofits ' + str(userNonprofits)
         else:
             errorMessage = 'Failed to create nonprofit'
             return formattedResponse(isError=True, errorMessage=errorMessage)
     else:
         errorMessage = 'Unknown user'
         return formattedResponse(isError=True, errorMessage=errorMessage)
-
+    
     userNonprofitModels = {
         'myNonprofits': userNonprofits,
         'newNonprofit': newNonprofitModel
