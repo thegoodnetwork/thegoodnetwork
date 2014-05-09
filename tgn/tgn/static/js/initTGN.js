@@ -160,6 +160,14 @@ tgn.factory('myNonprofitsService', function () {
         }
     };
 
+    myNonprofitsService.addJobToNonprofit = function (nonprofitId, newJob) {
+        for (var i = 0, j = myNonprofits.length; i < j; i++) {
+            if (myNonprofits[i]['nonprofitId'] == nonprofitId) {
+                myNonprofits[i].jobs.postedJobs.push(newJob);
+            }
+        }
+    };
+
     myNonprofitsService.myNonprofits = function () {
         return myNonprofits;
     };
@@ -366,6 +374,7 @@ var initTGN = function (accessToken) {
             return viewContent
         };
 
+
         return viewContentService;
     });
 
@@ -448,19 +457,22 @@ var initTGN = function (accessToken) {
 
 
             //CREATE NEW JOB REQUEST
-            requestService.addNonprofitJob = function (userId, nonprofitId, newJob) {
+            requestService.addNonprofitJob = function (userId, nonprofitId, newJob, myNonprofitsService) {
                 var requestUrl = requestPrefix + 'postJobAsNonprofit';
                 var data = {
                     'userId': userId,
                     'nonprofitId': nonprofitId,
                     'jobToPost': newJob
-                }
+                };
                 console.log('posting to addJobAsNonprofit with: ' + JSON.stringify(data));
+
                 makePostRequest(requestUrl, data).then(function (responseData) {
-                        console.log(responseData.data);
+                        console.log("printing response data from job creation: " + responseData.data);
+                        myNonprofitsService.addJobToNonprofit(nonprofitId, newJob);
                         console.log(responseData.errorMessage);
                     }
                 )
+
             };
 
             //CREATE NEW NONPROFIT REQUEST
@@ -486,24 +498,6 @@ var initTGN = function (accessToken) {
                 });
             };
 
-            //EDIT NONPROFIT PROFILE REQUEST
-//            requestService.editNonprofit = function(myProfileService, myNonprofitsService, nonprofit) {
-//                console.log('called edit nonprofit for: ' + JSON.stringify(nonprofit));
-//                
-//                var requestUrl = requestPrefix + 'editNonprofit';
-//                
-//                var editNonprofitRequestObject = {
-//                    userId: myProfileService.userModel().userId,
-//                    nonprofit: nonprofit;
-//                }
-//                
-//                makePostRequest(requestUrl, editNonprofitRequestObject).then(function (responseData) {
-//                    //Set nonprofit profile model info here
-//                    
-//                    
-//                });
-//                
-//            };
 
             requestService.getSearchResults = function (query, userId, searchResultsService) {
                 query = query ? query : '';
@@ -549,6 +543,11 @@ var initTGN = function (accessToken) {
                 });
             };
 
+            ======
+            =
+            >>>>>>>
+            9126e
+            d2437b03f2ad3f4f493793dd821b1aa0eac
             return requestService;
         }
     );
@@ -567,10 +566,11 @@ var initTGN = function (accessToken) {
         $scope.requestService = requestService;
     });
 
-    tgn.controller('createNewJobController', function ($scope, requestService, myProfileService) {
+    tgn.controller('createNewJobController', function ($scope, requestService, myProfileService, myNonprofitsService) {
         $scope.newJob = {};
         $scope.myProfile = myProfileService;
         $scope.requestService = requestService;
+        $scope.myNonprofitsService = myNonprofitsService;
         $scope.newJob.skills = [];
         $scope.newJob.titles = [];
 
