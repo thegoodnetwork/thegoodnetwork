@@ -546,6 +546,7 @@ var initTGN = function (accessToken) {
                 requestArgument = {nonprofitId: nonprofitId};
                 makePostRequest(nonprofitsRequestUrl, requestArgument).then(function (responseData) {
                     var nonprofit = responseData.data.nonprofitToView;
+                    console.log("received nonprofit: " + JSON.stringfy(nonprofit));
                     if (nonprofit) {
                         return nonprofit;
                     } else {
