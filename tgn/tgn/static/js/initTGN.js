@@ -220,10 +220,11 @@ tgn.factory('myJobsService', function () {
 });
 
 
-tgn.controller('userController', function ($scope, $location, myProfileService, myNonprofitsService, myJobsService) {
+tgn.controller('userController', function ($scope, $location, myProfileService, myNonprofitsService, myJobsService, searchResultsService) {
     $scope.myProfile = myProfileService;
     $scope.myNonprofits = myNonprofitsService;
     $scope.myJobs = myJobsService;
+    $scope.searchResults = searchResultsService;
     $scope.searchBar = {};
     $scope.searchBar.query = '';
     $scope.searchSubmit = function () {
@@ -586,8 +587,7 @@ var initTGN = function (accessToken) {
         }
     );
 
-    tgn.controller('TGNController', function ($scope, searchResultsService, viewContentService, requestService) {
-        $scope.searchResults = searchResultsService;
+    tgn.controller('TGNController', function ($scope, viewContentService, requestService) {
         $scope.viewContent = viewContentService;
         $scope.requestService = requestService;
         console.log('made the controller');
@@ -668,7 +668,7 @@ var initTGN = function (accessToken) {
         //$scope.myNonprofit
 
         $scope.newNPModel = {}
-        
+
 
         $scope.newNPModel.description = $scope.myNonprofit.description;
         $scope.newNPModel.mission = $scope.myNonprofit.mission;
