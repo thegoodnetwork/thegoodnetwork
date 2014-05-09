@@ -28,11 +28,19 @@ affix {
     top: 25px;
 }
 
-.editProfileLink {
+#editProfile {
     position: relative;
-    top: 30px;
+    top: 33px;
     font-size: 18px;
 }
+
+#editNonprofit {
+    position: relative;
+    top: 27px;
+    font-size: 18px;
+
+}
+
 
 /*MODALS */
 .attrBlocks {
