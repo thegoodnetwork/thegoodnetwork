@@ -219,7 +219,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-3"><label for="nonprofitName" class="col-sm-3">Nonprofit: </label></div>
+                    <div class="col-sm-3 lower"><label for="nonprofitName">Nonprofit: </label></div>
                     <div class="col-sm-9"><select class="form-control" data-ng-model="newJob.nonprofit">
                         <option class="form-control" data-ng-repeat="nonprofit in myNonprofits.myNonprofits()" value="{{nonprofit.nonprofitId}}">{{nonprofit.name}}</option>
                     </select></div>
@@ -228,8 +228,8 @@
                 <br>
 
                 <div class="row">
-                    <div class="col-sm-3">
-                    <label for="jobName">Job Name:&nbsp;&nbsp;</label></div>
+                    <div class="col-sm-3 lower">
+                    <label for="jobName">Job Name:</label></div>
                     <div class="col-sm-9">
                     <input id="jobName" class="form-control" type="text" data-ng-model="newJob.name"/></div>
                     
@@ -237,7 +237,7 @@
                 <br>
 
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 lower">
                     <label for="jobDescription" >Job
                         description:</label></div>
                     
@@ -254,7 +254,7 @@
                 <br>
 
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 lower">
                     <label for="compensation">Compensation: </label></div>
                     
                     <div class="col-sm-9">
@@ -332,14 +332,14 @@
                 <br>
 
                 <div class="row">
-                    <label for="jobCity" class="col-sm-3">City: </label>
+                    <label for="jobCity" class="col-sm-3 lower">City: </label>
                     <div class="col-sm-9">
                         <input id="jobCity" class="form-control" type="text" data-ng-model="newJob.city"/></div>
                 </div>
                 <br>
 
                 <div class="row">
-                    <label for="jobState" class="col-sm-3">State: </label>
+                    <label for="jobState" class="col-sm-3 lower">State: </label>
                     <div class="col-sm-9">  
                     <input id="jobState" class="form-control" type="text" data-ng-model="newJob.state"/></div>
                 </div>
@@ -356,7 +356,7 @@
                         data-ng-click="requestService.addNonprofitJob(myProfile.userModel().userId, newJob.nonprofit, newJob)"
                         >Create Job
                 </button>
-                EXAMPLE
+                
                                  <button type="button" class="btn btn-primary"
                                 data-dismiss="modal"
                                 data-ng-click="requestService.updateProfile(myProfile,
@@ -366,7 +366,7 @@
                                 )"
                                 >Save changes
                         </button>
-                !
+                
             </div>
         </div>
     </div>
