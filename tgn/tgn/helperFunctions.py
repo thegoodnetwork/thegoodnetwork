@@ -305,11 +305,13 @@ def getNonprofitAffiliates(nonprofit):
         nonprofitId=nonprofitId)
 
     nonprofitAffiliates = []
+    print 'getting affiliates ' + nonprofitId
     for relation in nonprofitRelations:
         nonprofitAffiliate = Account.objects.get(userId=str(relation
                                                             .userId))
         nonprofitAffiliates.append(nonprofitAffiliate)
 
+    print 'finished getting affiliates'
     return nonprofitAffiliates
 
 
