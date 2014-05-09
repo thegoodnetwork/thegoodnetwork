@@ -343,7 +343,8 @@ def createNonprofit(request):
 
             print 'made nonprofit relation'
             userNonprofits = map(lambda nonprofit: getNonprofitModel(
-                nonprofit), (getUserNonprofits(account)))
+                nonprofit
+            ), (getUserNonprofits(account)))
 
             print 'got user nonprofits'
         else:

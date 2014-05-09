@@ -241,6 +241,7 @@ def getUserModel(account):
     # get titles
     titles = formatTitles(getUserTitles(account))
 
+    print 'got basic user model'
     # get user-specific jobs
     currentJobsAsApplicant = formatJobs(getPostedJobsAsApplicant(account),
                                         jobType=POSTED_JOB_TYPE)
@@ -255,6 +256,7 @@ def getUserModel(account):
         'completedJobsAsEmployee': completedJobsAsEmployee
     }
 
+    print 'got jobs'
     # get skills
     skills = formatSkills(getUserSkills(account))
 
@@ -262,6 +264,8 @@ def getUserModel(account):
     formattedUserNonprofits = map(lambda nonprofit: getNonprofitModel(
         nonprofit), getUserNonprofits(account))
 
+
+    print 'got nonprofits'
     userModel = {
         'userId': userId,
         'resume': resume,
@@ -339,7 +343,8 @@ def getNonprofitModel(nonprofit):
     # get the nonprofit affiliates
 
     nonprofitAffiliates = formatUsersForAffiliationOrApplications(
-        getNonprofitAffiliates(nonprofit))
+        getNonprofitAffiliates(nonprofit)
+    )
 
     nonprofitModel = {
         'nonprofitId': nonprofitId,
