@@ -219,37 +219,61 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <label for="nonprofitName" class="col-sm-4">Non-profit:&nbsp;&nbsp;</label>
-                    <select class="col-sm-8" data-ng-model="newJob.nonprofit">
-                        <option data-ng-repeat="nonprofit in myNonprofits.myNonprofits()" value="{{nonprofit.nonprofitId}}">{{nonprofit.name}}</option>
-                    </select>
+                    <div class="col-sm-3 lower"><label for="nonprofitName">Nonprofit: </label></div>
+                    <div class="col-sm-9"><select class="form-control" data-ng-model="newJob.nonprofit">
+                        <option class="form-control" data-ng-repeat="nonprofit in myNonprofits.myNonprofits()" value="{{nonprofit.nonprofitId}}">{{nonprofit.name}}</option>
+                    </select></div>
+                </div>
+                
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-3 lower">
+                    <label for="jobName">Job Name:</label></div>
+                    <div class="col-sm-9">
+                    <input id="jobName" class="form-control" type="text" data-ng-model="newJob.name"/></div>
+                    
                 </div>
                 <br>
 
                 <div class="row">
-                    <label for="jobName" class="col-sm-4">Job Name:&nbsp;&nbsp;</label>
-                    <input id="jobName" class="col-sm-8" type="text" data-ng-model="newJob.name"/>
+                    <div class="col-sm-3 lower">
+                    <label for="jobDescription" >Job
+                        description:</label></div>
+                    
+                    <div class="col-sm-9">
+                    <textarea id="jobDescription" 
+                              class="form-control"
+                              style="resize: none;" 
+                              rows="4" 
+                              maxlength="300" 
+                              placeholder="300 char max"
+                              data-ng-model="newJob.description"></textarea></div>
                 </div>
+                
                 <br>
 
                 <div class="row">
-                    <label for="jobDescription" class="col-sm-4">Job
-                        description:&nbsp;&nbsp;</label>
-                    <textarea id="jobDescription" class="col-sm-8"
-                              rows="4" cols="50" data-ng-model="newJob.description"></textarea>
+                    <div class="col-sm-3 lower">
+                    <label for="compensation">Compensation: </label></div>
+                    
+                    <div class="col-sm-9">
+                    <textarea id="compensation" 
+                              class="form-control" 
+                              style="resize:none;"
+                              type="text" 
+                              rows="2"
+                              maxlength="100"
+                              placeholder="100 char max"
+                              data-ng-model="newJob.compensation"></textarea></div>
                 </div>
-                <br>
-
-                <div class="row">
-                    <label for="compensation" class="col-sm-4">Compensation:&nbsp;&nbsp;</label>
-                    <input id="compensation" class="col-sm-8" type="text" data-ng-model="newJob.compensation"/>
-                </div>
+                
                 <br>
 
                 <div class="row">
                     <form data-ng-submit="addSkill(newSkill)">
-                        <div class="col-sm-2"><label for="newJobSkill" class="lower">Skills: </label></div>
-                            <div class="col-sm-8">
+                        <div class="col-sm-3"><label for="newJobSkill" class="lower">Skills: </label></div>
+                            <div class="col-sm-7">
                                 <input id="newJobSkill" class="form-control"
                                        type="text"
                                        data-ng-model="newSkill"
@@ -263,9 +287,11 @@
                             </div>
                     </form>
                 </div>
+                
                 <br>
+                
                 <div class="row">
-                    <label class="inline lower col-sm-3">Added Skills:</label>
+                    <label class="inline lower col-sm-3">Needed Skills:</label>
                     <div class="col-sm-9">
                         <div class="inline skillsOrTitlesToAdd" data-ng-repeat="skill in newJob.skills">
                             <div ng-click="removeSkill(skill)" class="attrBlocks">{{ skill }}<span class="left-space">[X]</span></div>
@@ -273,11 +299,13 @@
                     </div>
                 </div>
                 <br>
-
+                <br> 
+                
+<!--
                 <div class="row">
                     <form data-ng-submit="addTitle(newTitle)">
-                        <div class="col-sm-2"><label for="newJobTitle" class="lower">Titles: </label></div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-3"><label for="newJobTitle" class="lower">Titles: </label></div>
+                        <div class="col-sm-7">
                             <input id="newJobTitle" class="form-control"
                                    type="text"
                                    data-ng-model="newTitle"
@@ -291,7 +319,11 @@
                         </div>
                     </form>
                 </div>
+-->
+<!--
+                
                 <br>
+                
                 <div class="row">
                     <label class="inline lower col-sm-3">Added Titles:</label>
                     <div class="col-sm-9">
@@ -300,21 +332,25 @@
                         </div>
                     </div>
                 </div>
+-->
                 <br>
 
                 <div class="row">
-                    <label for="jobCity" class="col-sm-4">City:&nbsp;&nbsp;</label>
-                    <input id="jobCity" class="col-sm-8" type="text" data-ng-model="newJob.city"/>
+                    <label for="jobCity" class="col-sm-3 lower">City: </label>
+                    <div class="col-sm-9">
+                        <input id="jobCity" class="form-control" type="text" data-ng-model="newJob.city"/></div>
                 </div>
                 <br>
 
                 <div class="row">
-                    <label for="jobState" class="col-sm-4">State:&nbsp;&nbsp;</label>
-                    <input id="jobState" class="col-sm-8" type="text" data-ng-model="newJob.state"/>
+                    <label for="jobState" class="col-sm-3 lower">State: </label>
+                    <div class="col-sm-9">  
+                    <input id="jobState" class="form-control" type="text" data-ng-model="newJob.state"/></div>
                 </div>
+                
                 <br>
-
             </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-default"
                         data-dismiss="modal">Close
@@ -324,7 +360,7 @@
                         data-ng-click="requestService.addNonprofitJob(myProfile.userModel().userId, newJob.nonprofit, newJob)"
                         >Create Job
                 </button>
-                <!--EXAMPLE
+                
                                  <button type="button" class="btn btn-primary"
                                 data-dismiss="modal"
                                 data-ng-click="requestService.updateProfile(myProfile,
@@ -334,12 +370,11 @@
                                 )"
                                 >Save changes
                         </button>
-                !-->
-
+                
             </div>
         </div>
     </div>
-</div>
+</div> 
 {% endverbatim %}
 {% block content %}
 {% endblock %}

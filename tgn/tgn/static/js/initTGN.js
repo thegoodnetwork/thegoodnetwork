@@ -219,10 +219,14 @@ tgn.controller('userController', function ($scope, myProfileService, myNonprofit
 });
 
 
-tgn.controller('editProfileController', function ($scope, myProfileService) {
+tgn.controller('editProfileController', function ($scope) {
+    
     $scope.newModel = {}
-    $scope.newModel.skills = myProfileService.userModel().skills.slice(0);
-    $scope.newModel.titles = myProfileService.userModel().titles.slice(0);
+    $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
+    $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
+    
+    $scope.newModel.aboutMe = $scope.myProfile.userModel().aboutMe;
+    $scope.newModel.resume = $scope.myProfile.userModel().resume;
 
     $scope.addSkill = function (skill) {
         if (skill.length > 0 &&
@@ -250,8 +254,8 @@ tgn.controller('editProfileController', function ($scope, myProfileService) {
     };
 
     $scope.resetSkillsAndTitles = function () {
-        $scope.newModel.skills = myProfileService.userModel().skills.slice(0);
-        $scope.newModel.titles = myProfileService.userModel().titles.slice(0);
+        $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
+        $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
     };
 });
 
@@ -428,7 +432,10 @@ var initTGN = function (accessToken) {
 
                 myProfileService.updateModel(newModel['profile']);
                 console.log('posting to update profile with:  ' + JSON.stringify(newModel));
+                
                 makePostRequest(requestUrl, newModel).then(function (responseData) {
+                    
+                    
                     var updatedProfile = responseData.data.updatedProfile;
 
                     if (updatedProfile) {
@@ -438,7 +445,9 @@ var initTGN = function (accessToken) {
                     }
                 });
             };
-
+        
+        
+            //CREATE NEW JOB REQUEST
             requestService.addNonprofitJob = function (userId, nonprofitId, newJob) {
                 var requestUrl = requestPrefix + 'postJobAsNonprofit';
                 var data = {
@@ -455,6 +464,7 @@ var initTGN = function (accessToken) {
                 )
             };
 
+            //CREATE NEW NONPROFIT REQUEST
             requestService.createNonprofit = function (myProfileService, myNonprofitsService, newNonprofit) {
                 console.log('called create nonprofit for: ' + JSON.stringify(newNonprofit));
                 var requestUrl = requestPrefix + 'createNonprofit';
@@ -476,6 +486,26 @@ var initTGN = function (accessToken) {
                     }
                 });
             };
+        
+            //EDIT NONPROFIT PROFILE REQUEST
+//            requestService.editNonprofit = function(myProfileService, myNonprofitsService, nonprofit) {
+//                console.log('called edit nonprofit for: ' + JSON.stringify(nonprofit));
+//                
+//                var requestUrl = requestPrefix + 'editNonprofit';
+//                
+//                var editNonprofitRequestObject = {
+//                    userId: myProfileService.userModel().userId,
+//                    nonprofit: nonprofit;
+//                }
+//                
+//                makePostRequest(requestUrl, editNonprofitRequestObject).then(function (responseData) {
+//                    //Set nonprofit profile model info here
+//                    
+//                    
+//                });
+//                
+//            };
+        
             return requestService;
         }
     );
