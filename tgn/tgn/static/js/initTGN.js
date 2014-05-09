@@ -54,13 +54,13 @@ tgn.config(
             .when('/myProfile', {
                 templateUrl: 'partials/myProfile'
             })
-            .when('/otherProfile/:otherProfile', {
+            .when('/otherProfile/:userId', {
                 templateUrl: 'partials/otherProfile'
             })
             .when('/myNonprofit/:myNonprofit', {
                 templateUrl: 'partials/myNonprofit'
             })
-            .when('/otherNonprofit/:otherNonprofit', {
+            .when('/otherNonprofit/:nonprofitId', {
                 templateUrl: 'partials/otherNonprofit'
             })
             .when('/myJob/:jobId/:jobType', {
