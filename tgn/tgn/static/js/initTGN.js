@@ -743,6 +743,11 @@ var initTGN = function (accessToken) {
             $scope.viewingNonprofits = false;
             $scope.viewingPeople = false;
         };
+
+        if ($routeParams.query == 'allJobs') {
+            $scope.viewJobs();
+        }
+
         $scope.requestService = requestService;
         requestService.getSearchResults(
             $routeParams.query,
