@@ -526,7 +526,7 @@ var initTGN = function (accessToken) {
 
                 makePostRequest(requestUrl, editNonprofitRequestObject).then(function (responseData) {
                     //Set nonprofit profile model info here
-
+                    console.log(responseData.data);
                     var updatedNonprofitModel = responseData.data.nonprofitProfile;
                     var updatedNonprofitId = responseData.data.updatedNonprofitId;
 
@@ -759,6 +759,11 @@ var initTGN = function (accessToken) {
             $scope.viewingNonprofits = false;
             $scope.viewingPeople = false;
         };
+
+        if ($routeParams.query == 'allJobs') {
+            $scope.viewJobs();
+        }
+
         $scope.requestService = requestService;
         requestService.getSearchResults(
             $routeParams.query,

@@ -23,6 +23,17 @@ affix {
     top: 25px;
 }
 
+#affiliations {
+    position: relative;
+    top: 25px;
+}
+
+#editProfileLink {
+    position: relative;
+    top: 25px;
+    font-size: 18px;
+}
+
 /*MODALS */
 .attrBlocks {
     border-radius: 3px;
