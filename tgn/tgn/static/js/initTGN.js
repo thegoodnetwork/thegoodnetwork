@@ -829,7 +829,11 @@ var initTGN = function (accessToken) {
 
         $scope.requestService = requestService;
 
-        requestService.viewOtherProfile($routeParams.userId, $scope.viewContent);
+        requestService.viewOtherProfile($routeParams.userId, $scope.viewContentService);
+    });
+
+    tgn.controller('viewJobApplicantsController', function($scope, myNonprofitsService) {
+        $scope.myNonprofits = myNonprofitsService.myNonprofits();
     });
 
     tgn.controller('otherNonprofitController', function ($scope, requestService, $routeParams) {
