@@ -220,10 +220,16 @@ tgn.factory('myJobsService', function () {
 });
 
 
-tgn.controller('userController', function ($scope, myProfileService, myNonprofitsService, myJobsService) {
+tgn.controller('userController', function ($scope, $location, myProfileService, myNonprofitsService, myJobsService) {
     $scope.myProfile = myProfileService;
     $scope.myNonprofits = myNonprofitsService;
     $scope.myJobs = myJobsService;
+
+    $scope.searchSubmit = function () {
+        if ($scope.query) {
+            $location.path('/searchResults' + $scope.query)
+        }
+    };
 });
 
 

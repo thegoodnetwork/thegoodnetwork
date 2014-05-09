@@ -42,11 +42,11 @@
                 NETWORK</strong></div>
         </a>
 
-        <form class="col-xs-4" data-ng-submit="#/searchResults/{{query}}">
+        <form class="col-xs-4" data-ng-submit="searchSubmit()">
             <input class="form-control input-sm"
                    placeholder="type any keyword for jobs, people, nonprofits"
                    type="text"
-                    data-ng-model="query"
+                   data-ng-model="query"
                     />
             <span class="glyphicon glyphicon-search"></span>
             <input type="submit" class="hidden"/>
