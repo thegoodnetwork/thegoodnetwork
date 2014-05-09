@@ -211,12 +211,20 @@ affix {
     margin-left: 30px;
 }
 
+/*
 
 .myJobPost {
     margin-left: 20px;
     display: inline-block;
     margin: auto;
     width: 200px;
+}
+*/
+
+.well {
+    width: 350px;
+    display: inline-block;
+    background-color: #C6E2FF;
 }
 
 .jobApply {
