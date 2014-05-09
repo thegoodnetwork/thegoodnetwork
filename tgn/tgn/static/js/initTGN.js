@@ -494,8 +494,12 @@ var initTGN = function (accessToken) {
         $scope.requestService = requestService;
     });
 
-    tgn.controller('createNewJobController', function ($scope, requestService, myProfileService) {
+    tgn.controller('createNewJobController', function ($scope, requestService, myProfileService, myNonprofitsService) {
+        $scope.myNonprofits = myNonprofitsService;
         $scope.newJob = {};
+        
+//        set default value for dropbown
+        $scope.newJob.nonprofit = myNonprofits.myNonprofits()[0]; 
         $scope.myProfile = myProfileService;
         $scope.requestService = requestService;
         $scope.newJob.skills = [];
