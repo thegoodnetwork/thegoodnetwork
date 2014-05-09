@@ -313,6 +313,7 @@ def getNonprofitAffiliates(nonprofit):
         nonprofitAffiliates.append(nonprofitAffiliate)
 
     print 'finished getting affiliates'
+    print str(nonprofitAffiliates)
     return nonprofitAffiliates
 
 
