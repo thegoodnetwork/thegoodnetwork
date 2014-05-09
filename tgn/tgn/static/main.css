@@ -377,3 +377,9 @@ a:hover {
 .skillsOrTitlesToAdd:hover {
     cursor: pointer;
 }
+
+#editProfileLink {
+    position: absolute;
+    right: -40px;
+    top: -30px;
+}
