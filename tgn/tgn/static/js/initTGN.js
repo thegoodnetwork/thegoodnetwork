@@ -226,6 +226,7 @@ tgn.controller('editProfileController', function ($scope) {
     $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
     
     $scope.newModel.aboutMe = $scope.myProfile.userModel().aboutMe;
+    $scope.newModel.resume = $scope.myProfile.userModel().resume;
 
     $scope.addSkill = function (skill) {
         if (skill.length > 0 &&
