@@ -218,6 +218,7 @@ affix {
     background-color: #E6E8FA;
     margin: 15px;
     border: none;
+    border-radius: 2px;
 }
 
 .jobApply {
