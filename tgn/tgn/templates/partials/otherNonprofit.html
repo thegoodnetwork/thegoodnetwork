@@ -74,83 +74,58 @@
     <div class="row center">
         <h1>Job Postings</h1>
     </div>
-    <div class="row">
-        <div class="well col-sm-5 jobPost">
-            <div class="row center">
-                <h2> Cook Dinner </h2>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4>Description</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-11">
-                    Come cook a delicious meal on May 5th for everyone at Sean's
-                    outpost. We'll reimburse you for any food you buy and
-                    compensate you for your time. Everyone here is friendly and
-                    a blast to work with.
-                </div>
-            </div>
-            <br>
+   <div class="row centerContent">
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4>Compensation</h4>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-11">
-                    $250 + Ingredients.
-                </div>
-            </div>
-            <br>
-
-            <div class="row center">
-                <button class="btn btn-lg btn-primary"
-                        data-toggle="modal" data-target="#appliedForJobModal">
-                    Apply
-                </button>
+    <div class="well"
+         data-ng-repeat="job in viewContent.viewContent().nonprofitToView.jobs.postedJobs">
+        <div class="row center">
+            <h2> {{job.name}} </h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Description</h4>
             </div>
         </div>
-        <div class="well col-sm-offset-1 col-sm-5 jobPost">
-            <div class="row center">
-                <h2> Clean Dishes </h2>
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-11">
+                {{job.description}}
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4>Description</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-11">
-                    Help us take care of the dishes after our meal on May 5th.
-                </div>
-            </div>
-            <br>
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4>Compensation</h4>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-11">
-                    $50 and dinner
-                </div>
-            </div>
-            <br>
-
-            <div class="row center">
-                <button class="btn btn-lg btn-primary"
-                        data-toggle="modal" data-target="#appliedForJobModal">
-                    Apply
-                </button>
-            </div>
-            <div class="col-sm-3"></div>
         </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Compensation</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-11">
+                {{job.compensation}}
+            </div>
+        </div>
+
+        <br>
+
+        <div class="col-sm-3"></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Location</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-11">
+                {{job.city}}, {{job.state}}
+            </div>
+        </div>
+        <br>
+
+        <!-- OPEN MODAL TO EDIT JOB -->
+        <button class="btn btn-lg btn-primary"
+                data-toggle="modal" data-target="#appliedForJobModal">
+            Apply
+        </button>
+
     </div>
 </div>
 {% endverbatim %}

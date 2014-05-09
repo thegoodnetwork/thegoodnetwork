@@ -39,7 +39,8 @@ def loginWithFacebook(request):
 
     requiredFields = ['accessToken']
 
-    verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
+    verifiedRequestResponse = verifyRequest(json.loads(request.body),
+                                            requiredFields)
     if verifiedRequestResponse['isMissingFields']:
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -58,7 +59,7 @@ def loginWithFacebook(request):
     userName = userInfo['name']
     userId = userInfo['id']
 
-    print 'got to before account, ' + userId + ' '  + userName
+    print 'got to before account, ' + userId + ' ' + userName
 
     account, isAccountCreated = Account.objects.get_or_create(
         userId=userId,
@@ -221,9 +222,10 @@ def updateNonprofit(request):
     try:
         requiredFields = ['nonprofitId', 'description', 'mission', 'website',
                           'address']
-        verifiedRequestResponse = verifyRequest(json.loads(request.body)[
-                                                    'nonprofit'],
-                                                requiredFields)
+        verifiedRequestResponse = verifyRequest(
+            json.loads(request.body)['nonprofit'],
+            requiredFields
+        )
         if verifiedRequestResponse['isMissingFields']:
             errorMessage = verifiedRequestResponse['errorMessage']
             return formattedResponse(isError=True, errorMessage=errorMessage)
@@ -236,7 +238,7 @@ def updateNonprofit(request):
     userId = request['userId']
     nonprofit = request['nonprofit']
 
-    nonprofitId = nonprofit['id']
+    nonprofitId = nonprofit['nonprofitId']
     if Account.objects.filter(userId=userId).exists():
         if Nonprofit.objects.filter(pk=nonprofitId).exists():
             if NonprofitRelation.objects.filter(
@@ -354,7 +356,7 @@ def createNonprofit(request):
     else:
         errorMessage = 'Unknown user'
         return formattedResponse(isError=True, errorMessage=errorMessage)
-    
+
     userNonprofitModels = {
         'myNonprofits': userNonprofits,
         'newNonprofit': newNonprofitModel
