@@ -582,6 +582,24 @@ var initTGN = function (accessToken) {
                 });
             };
 
+            requestService.viewOtherProfile = function (userId, viewContentService) {
+                var requestArgument = {
+                    userId: userId
+                };
+
+                var viewOtherProfileRequestUrl = requestPrefix + 'viewOtherProfile';
+
+                makePostRequest(viewOtherProfileRequestUrl, requestArgument).then(function (responseData) {
+                    var otherUser = responseData.data.userToView;
+
+                    if (otherUser) {
+                        viewContentService.setOtherUserToView(otherUser);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+            };
+
             return requestService;
         }
     );
@@ -754,5 +772,13 @@ var initTGN = function (accessToken) {
             $scope.myProfile.userModel().userId,
             $scope.searchResults
         );
+    });
+
+    tgn.controller('otherProfileController', function ($scope, $routeParams, requestService, viewContentService) {
+
+        $scope.viewContent = viewContentService;
+        $scope.requestService = requestService;
+
+        $scope.requestService.viewOtherProfile($routeParams.userId, $scope.viewContent);
     });
 };
