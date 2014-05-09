@@ -112,6 +112,7 @@ def formatUserForAffiliationOrApplication(account):
         'skills': getUserSkills(account)
     }
 
+
     return formattedUser
 
 
