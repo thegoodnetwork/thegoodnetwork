@@ -820,8 +820,8 @@ var initTGN = function (accessToken) {
             $scope.searchResults
         );
 
-        $scope.applyToJob = function (jobId) {
-            requestService.applyToJob(jobId, myProfileService.userId, myJobsService);
+        $scope.applyToJob = function (jobId, userId, myJobsService) {
+            requestService.applyToJob(jobId, userId, myJobsService);
         };
     });
 
