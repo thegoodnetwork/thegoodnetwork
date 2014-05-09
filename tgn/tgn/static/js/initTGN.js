@@ -253,8 +253,8 @@ tgn.controller('editProfileController', function ($scope) {
     };
 
     $scope.resetSkillsAndTitles = function () {
-        $scope.newModel.skills = myProfileService.userModel().skills.slice(0);
-        $scope.newModel.titles = myProfileService.userModel().titles.slice(0);
+        $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
+        $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
     };
 });
 
