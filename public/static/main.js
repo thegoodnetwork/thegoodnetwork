@@ -1,4 +1,48 @@
-var angularTGN = angular.module('angularTGN', []);
+var angularTGN = angular.module('angularTGN', [], function($httpProvider){
+  // Use x-www-form-urlencoded Content-Type
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+
+  /**
+   * The workhorse; converts an object to x-www-form-urlencoded serialization.
+   * @param {Object} obj
+   * @return {String}
+   */
+  var param = function(obj) {
+    var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+
+    for(name in obj) {
+      value = obj[name];
+
+      if(value instanceof Array) {
+        for(i=0; i<value.length; ++i) {
+          subValue = value[i];
+          fullSubName = name + '[' + i + ']';
+          innerObj = {};
+          innerObj[fullSubName] = subValue;
+          query += param(innerObj) + '&';
+        }
+      }
+      else if(value instanceof Object) {
+        for(subName in value) {
+          subValue = value[subName];
+          fullSubName = name + '[' + subName + ']';
+          innerObj = {};
+          innerObj[fullSubName] = subValue;
+          query += param(innerObj) + '&';
+        }
+      }
+      else if(value !== undefined && value !== null)
+        query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+    }
+
+    return query.length ? query.substr(0, query.length - 1) : query;
+  };
+
+  // Override $http service's default transformRequest
+  $httpProvider.defaults.transformRequest = [function(data) {
+    return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+  }];
+});
 
 var Chris = {
     name: 'Chris Christoplas',
@@ -78,14 +122,17 @@ var MakeAWish = {
         compensation: '$100'
     }
 }
-angularTGN.controller('myProfileController', function ($scope) {
-
-    $scope.profileLink = Bob.profileLink;
-    $scope.name = Bob.name;
-    $scope.aboutMe = Bob.aboutMe;
-    $scope.resumeLink = Bob.resumeLink;
-    $scope.skills = Bob.skills;
-    $scope.affiliations = Bob.affiliations
+angularTGN.controller('myProfileController', function($scope, updateProfileService){
+    updateProfileService.getMyProfileData().then(function(serverResponse) {
+       console.log(serverResponse);
+       $scope.name = serverResponse.name;
+       $scope.profileLink = serverResponse.profileImageUrl;
+       $scope.aboutMe = serverResponse.aboutMe;
+       $scope.resumeLink = "";
+       $scope.affiliations = serverResponse.nonprofits;
+       $scope.skills = serverResponse.skills;
+       $scope.resume = serverResponse.resume;
+    });
 });
 
 angularTGN.controller('otherProfileController', function ($scope) {
@@ -139,4 +186,21 @@ angularTGN.controller('myJobController', function ($scope) {
     $scope.compensation = SeansOutpost.job.compensation;
 });
 
+angularTGN.factory('requestService', function($http) {
+  var reqeustService = {};
+  requestService.updateProfile = function(profileService) {
 
+  }
+});
+
+angularTGN.factory('updateProfileService', function($http) {
+  return {
+      getMyProfileData: function() {
+        return $http.post("/tgn/api/loginWithFacebook",
+        {"accessToken": "CAAUOQD9mzrYBAG4z6DGeY0ZARZBi16rT5XgS3uZCnLpdxqB11cPkEx1WqleguZCPv0vJoXoG9aHGnOFa3PZAF8nYFSdIpUD8hHXAnUHu17un1qjE1ZBonTd13iFAZCzAjV3lgBP9aZATVUw9ZBZC0BNHsGJGW6k52EUWaCB0KgKIBuSRpbdeE84hup2WovuKZCWOXUZD"}).then(function(result) {
+          console.log(result.data.data.me);
+          return result.data.data.me;
+        });
+      }
+  }
+});
