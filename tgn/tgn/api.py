@@ -606,6 +606,7 @@ def applyToJob(request):
     '''
 
     requiredFields = ['userId', 'jobId']
+    print str(request.body)
     verifiedRequestResponse = verifyRequest(json.loads(request.body),
                                             requiredFields)
     if verifiedRequestResponse['isMissingFields']:
