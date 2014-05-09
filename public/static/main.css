@@ -1,6 +1,65 @@
+body {
+    font-family: 'Lato', 'Helvetica', sans-serif;
+}
+
+
+
+.nav .nav-pills .nav-stacked > li .active {
+    background-color:#5986E4;
+}
+
+.nav-pills>li.active>a {
+    background-color: #5986E4;
+}
+
+affix {
+    width: 5px;
+    height: 100px;
+    border: 5px black solid;
+}
+
+#jobPostAnchor {
+    text-align: center;
+    font-size: 18px;
+    top: 25px;
+}
+
+/*MODALS */
+.attrBlocks {
+    border-radius: 3px;
+    padding: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #5986E4;
+    display: inline-block;
+    color: white;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.inline { 
+    display: inline-block;
+}
+
+.lower {
+    position: relative;
+    top: 10px;
+}   
+
+.left-space {
+    padding-left: 5px;
+}
+
+/*END MODALS*/
+
 #logoText {
     text-align: center;
-    font-size: 50px;
+    font-size: 75px;
     font-family: 'Lato', sans-serif;
     color: white;
     padding-top: 10px;
@@ -14,9 +73,18 @@
     text-align: center;
 }
 
+.subtext {
+    position: relative;
+    top: 25px;
+}
 
 .center {
     text-align: center;
+}
+
+#homePageContent{
+    font-size: 2em;
+    vertical-align: middle;
 }
 
 .homePageList {
@@ -72,6 +140,8 @@
 .navbarText {
     color: white;
     margin-top: 15px;
+    font-family: 'Lato', sans-serif;
+
 }
 
 .container {
@@ -79,7 +149,7 @@
 }
 
 .custom-bottom-navbar {
-    background-color: #5986E4;
+/*    background-color: #5986E4;*/
     text-align: center;
 }
 
@@ -89,8 +159,10 @@
 
 #main-top-navbar {
     background-color: #5986E4;
-    height: 60px;
+    height: 53px;
     padding-right: 100px;
+    font-family: 'Lato', sans-serif;
+
 }
 
 #asSeenIn {
@@ -183,7 +255,7 @@ table a:hover {
     text-decoration:underline;
 }*/
 table {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Lato', 'Helvetica', sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
@@ -289,4 +361,12 @@ table tr:last-child td:last-child   {
 .uselessImage {
     width: 150px;
     height: 150px;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.skillsOrTitlesToAdd:hover {
+    cursor: pointer;
 }
