@@ -696,10 +696,13 @@ var initTGN = function (accessToken) {
 //            $scope.newModel.titles.remove(title);
 //        };
 //
-//        $scope.resetSkillsAndTitles = function () {
-//            $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
-//            $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
-//        };
+        $scope.resetNonprofitInfo = function () {
+            $scope.newNPModel.description = $scope.myNonprofit.description;
+            $scope.newNPModel.mission = $scope.myNonprofit.mission;
+            $scope.newNPModel.website = $scope.myNonprofit.website;
+            $scope.newNPModel.address = $scope.myNonprofit.address;
+            $scope.newNPModel.imageUrl = $scope.myNonprofit.imageUrl;
+        };
 
         //DELETE THIS NONPROFIT METHOD
 //        $scope.removeNonprofit = function() {
