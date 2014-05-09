@@ -220,7 +220,8 @@
             <div class="modal-body">
                 <div class="row">
                     <label for="nonprofitName" class="col-sm-4">Non-profit:&nbsp;&nbsp;</label>
-                    <select class="col-sm-8" data-ng-model="newJob.nonprofit" ng-option="nonprofit.name for nonprofit in myNonprofits.myNonprofits()" value="{{nonprofit.nonprofitId}}">
+                    <select class="col-sm-8" data-ng-model="newJob.nonprofit">
+                        <option data-ng-repeat="nonprofit in myNonprofits.myNonprofits()" value="{{nonprofit.nonprofitId}}">{{nonprofit.name}}</option>
                     </select>
                 </div>
                 <br>
