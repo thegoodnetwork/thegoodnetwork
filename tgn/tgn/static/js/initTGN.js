@@ -428,7 +428,10 @@ var initTGN = function (accessToken) {
 
                 myProfileService.updateModel(newModel['profile']);
                 console.log('posting to update profile with:  ' + JSON.stringify(newModel));
+                
                 makePostRequest(requestUrl, newModel).then(function (responseData) {
+                    
+                    
                     var updatedProfile = responseData.data.updatedProfile;
 
                     if (updatedProfile) {
