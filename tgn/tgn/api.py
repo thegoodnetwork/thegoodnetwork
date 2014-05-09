@@ -22,6 +22,8 @@ def formattedResponse(isError=False, errorMessage=None, data=None):
         'data': data,
     }
 
+    print 'returning'
+
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
@@ -105,6 +107,7 @@ def loginWithFacebook(request):
         }
     }
 
+    print 'got to return'
     return formattedResponse(data=loginWithFacebookReturn)
 
 
