@@ -744,7 +744,7 @@ var initTGN = function (accessToken) {
             $scope.viewingPeople = false;
         };
         $scope.requestService = requestService;
-        $scope.requestService.getSearchResults(
+        requestService.getSearchResults(
             $routeParams.query,
             $scope.myProfile.userModel().userId,
             $scope.searchResults

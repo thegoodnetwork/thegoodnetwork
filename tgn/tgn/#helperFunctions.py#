@@ -117,7 +117,6 @@ def formatUserForAffiliationOrApplication(account):
 
 
 def formatUsersForAffiliationOrApplications(accounts):
-    print 'formatting: ' + str(accounts)
     formattedUsers = map(lambda account:
                          formatUserForAffiliationOrApplication(account),
                          accounts)
@@ -265,7 +264,8 @@ def getUserModel(account):
     skills = formatSkills(getUserSkills(account))
 
     # get nonprofits
-    formattedUserNonprofits = map(lambda nonprofit: getNonprofitModel(
+    formattedUserNonprofits = map(lambda nonprofit: getNonprofitModel
+(
         nonprofit), getUserNonprofits(account))
 
 
@@ -306,14 +306,11 @@ def getNonprofitAffiliates(nonprofit):
         nonprofitId=nonprofitId)
 
     nonprofitAffiliates = []
-    print 'getting affiliates ' + nonprofitId
     for relation in nonprofitRelations:
         nonprofitAffiliate = Account.objects.get(userId=str(relation
                                                             .userId))
         nonprofitAffiliates.append(nonprofitAffiliate)
 
-    print 'finished getting affiliates'
-    print str(nonprofitAffiliates)
     return nonprofitAffiliates
 
 
@@ -333,7 +330,6 @@ def getNonprofitModel(nonprofit):
     address = str(nonprofit.address)
     imageUrl = str(nonprofit.imageUrl)
 
-    print 'getting nonprofit ' + str(nonprofit.name)
     # get the jobs associated with the nonprofit
     postedJobs = formatJobs(getNonprofitPostedJobs(nonprofit),
                             jobType=POSTED_JOB_TYPE)
@@ -348,14 +344,12 @@ def getNonprofitModel(nonprofit):
         'completedJobs': completedJobs
     }
 
-    print 'got nonprofit jobs:  ' + str(jobs)
     # get the nonprofit affiliates
 
-    #nonprofitAffiliates = formatUsersForAffiliationOrApplications(
-    #   getNonprofitAffiliates(nonprofit)
-    #)
+    nonprofitAffiliates = formatUsersForAffiliationOrApplications(
+        getNonprofitAffiliates(nonprofit)
+    )
 
-    #print 'getting affiliates: ' + str(nonprofitAffiliates)
     nonprofitModel = {
         'nonprofitId': nonprofitId,
         'name': name,
@@ -364,7 +358,7 @@ def getNonprofitModel(nonprofit):
         'website': website,
         'address': address,
         'jobs': jobs,
-        #'affiliates': nonprofitAffiliates,
+        'affiliates': nonprofitAffiliates,
         'imageUrl': imageUrl
     }
 

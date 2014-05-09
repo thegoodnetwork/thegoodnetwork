@@ -22,6 +22,9 @@ def formattedResponse(isError=False, errorMessage=None, data=None):
         'data': data,
     }
 
+    print 'returning'
+
+    print str(response)
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
@@ -33,9 +36,7 @@ def loginWithFacebook(request):
         accessToken
 
     '''
-    print request.body
-    
-        
+
     requiredFields = ['accessToken']
 
     verifiedRequestResponse = verifyRequest(json.loads(request.body), requiredFields)
@@ -57,11 +58,14 @@ def loginWithFacebook(request):
     userName = userInfo['name']
     userId = userInfo['id']
 
+    print 'got to before account, ' + userId + ' '  + userName
+
     account, isAccountCreated = Account.objects.get_or_create(
         userId=userId,
         name=userName
     )
 
+    print 'created account ' + str(isAccountCreated)
     if isAccountCreated:
         titles = []
         aboutMe = ''
@@ -74,12 +78,14 @@ def loginWithFacebook(request):
         skills = []
         profileImageUrl = 'http://graph.facebook.com/' + userId + \
                           '/picture?height=961'
+        resume = ''
 
         UserProfileImage.objects.create(account=account, url=profileImageUrl)
 
     else:
         userModel = getUserModel(account)
 
+        print 'got user model'
         titles = userModel['titles']
         aboutMe = userModel['aboutMe']
         resume = userModel['resume']
@@ -103,6 +109,7 @@ def loginWithFacebook(request):
         }
     }
 
+    print 'got to return'
     return formattedResponse(data=loginWithFacebookReturn)
 
 
@@ -303,6 +310,7 @@ def createNonprofit(request):
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
     print 'got past verification'
+    print request.body
     request = json.loads(request.body)
 
     userId = request['userId']
@@ -320,28 +328,33 @@ def createNonprofit(request):
             imageUrl=nonprofit['imageUrl']
         )
         print 'created nonprofit'
+        print str(newNonprofit)
         if isNewNonprofitCreated:
 
             # get user nonprofit models
             account = Account.objects.get(userId=userId)
 
             newNonprofitModel = getNonprofitModel(newNonprofit)
-
+            print 'got nonprofit model'
             # add nonprofit relation
             NonprofitRelation.objects.create(
                 nonprofitId=str(newNonprofit.pk),
                 userId=userId
             )
-            userNonprofits = map(lambda nonprofit: getNonprofitModel(
-                nonprofit), (getUserNonprofits(account)))
 
+            print 'made nonprofit relation ' + str(newNonprofitModel)
+            userNonprofits = map(lambda nonprofit: getNonprofitModel(
+                nonprofit
+            ), (getUserNonprofits(account)))
+
+            print 'got user nonprofits ' + str(userNonprofits)
         else:
             errorMessage = 'Failed to create nonprofit'
             return formattedResponse(isError=True, errorMessage=errorMessage)
     else:
         errorMessage = 'Unknown user'
         return formattedResponse(isError=True, errorMessage=errorMessage)
-
+    
     userNonprofitModels = {
         'myNonprofits': userNonprofits,
         'newNonprofit': newNonprofitModel
