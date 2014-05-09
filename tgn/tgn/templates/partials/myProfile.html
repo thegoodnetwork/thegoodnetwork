@@ -64,7 +64,10 @@
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-8">
-                <p class="subtext"> {{affiliations}} </p>
+                <div class="attrBlocks"
+                     data-ng-repeat="nonprofit in myNonprofits.myNonprofits()">
+                    {{nonprofit.name}}
+                </div>
             </div>
         </div>
         
