@@ -1,6 +1,6 @@
 body {
     font-family: 'Lato', 'Helvetica', sans-serif;
-    background: grey;
+    background-color: #F2F2F2;
 }
 
 
@@ -23,10 +23,6 @@ affix {
     text-align: center;
     font-size: 18px;
     top: 25px;
-}
-
-.row {
-    background-color: white;
 }
 
 /*MODALS */
@@ -155,6 +151,7 @@ affix {
 
 .container {
     max-width: 800px;
+    background-color: white;
 }
 
 .custom-bottom-navbar {
