@@ -310,6 +310,7 @@ def createNonprofit(request):
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
     print 'got past verification'
+    print request.body
     request = json.loads(request.body)
 
     userId = request['userId']
