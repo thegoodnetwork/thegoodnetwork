@@ -230,7 +230,7 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
         console.log('called search submit');
         console.log('query: ' + $scope.searchBar.query);
         if ($scope.searchBar.query) {
-            $location.path('/#/searchResults' + $scope.searchBar.query)
+            window.location = '/#/searchResults/' + $scope.searchBar.query
         }
     };
 });
