@@ -480,31 +480,42 @@ var initTGN = function (accessToken) {
 
                     if (myNonprofits) {
                         myNonprofitsService.setMyNonprofits(myNonprofits);
-                        window.location = '#/myNonprofit/' + newNonprofit.nonprofitId
+                        window.location = '#/myNonprofit/' + newNonprofit.nonprofitId;
                     } else {
-                        console.log(responseData.errorMessage)
+                        console.log(responseData.errorMessage);
                     }
                 });
             };
         
             //EDIT NONPROFIT PROFILE REQUEST
-//            requestService.editNonprofit = function(myProfileService, myNonprofitsService, nonprofit) {
-//                console.log('called edit nonprofit for: ' + JSON.stringify(nonprofit));
-//                
-//                var requestUrl = requestPrefix + 'editNonprofit';
-//                
-//                var editNonprofitRequestObject = {
-//                    userId: myProfileService.userModel().userId,
-//                    nonprofit: nonprofit;
-//                }
-//                
-//                makePostRequest(requestUrl, editNonprofitRequestObject).then(function (responseData) {
-//                    //Set nonprofit profile model info here
-//                    
-//                    
-//                });
-//                
-//            };
+            requestService.updateNonprofit = function(myProfileService, myNonprofitsService, nonprofit) {
+                //nonprofit is a dictionary object
+                
+                console.log('called edit nonprofit for: ' + JSON.stringify(nonprofit));
+                
+                var requestUrl = requestPrefix + 'updateNonprofit';
+                
+                var editNonprofitRequestObject = {
+                    userId: myProfileService.userModel().userId,
+                    nonprofit: nonprofit;
+                };
+                
+                makePostRequest(requestUrl, editNonprofitRequestObject).then(function (responseData) {
+                    //Set nonprofit profile model info here
+                    
+                    var updatedNonprofitModel = responseData.data.nonprofitProfile;
+                    var updatedNonprofitId = responseData.data.updatedNonprofitId;
+                    
+                    if (updatedNonprofitModel) {
+                        //if response is not null, update view
+                        myNonprofitsService.updateNonprofit(updatedNonprofitId, updatedNonprofitModel);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                    
+                });
+                
+            };
         
             return requestService;
         }
@@ -571,6 +582,7 @@ var initTGN = function (accessToken) {
         $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
     });
 
+    
     tgn.controller('viewMyNonprofitController', function ($scope, $routeParams, $location, $anchorScroll) {
         
         $scope.goToJobs = function() {
@@ -582,4 +594,57 @@ var initTGN = function (accessToken) {
         $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.myNonprofit);
         console.log('my nonprofit: ' + JSON.stringify($scope.myNonprofit));
     });
+    
+    
+    
+    tgn.controller('updateNonprofitController', function($scope) {
+        
+        //inherits the viewed nonprofit from viewMyNonprofitController
+        //$scope.myNonprofit
+        
+        $scope.newNPModel = {}
+        
+        $scope.newNPModel.description = $scope.myNonprofit.description;
+        $scope.newNPModel.mission = $scope.myNonprofit.mission;
+        $scope.newNPModel.website = $scope.myNonprofit.website;
+        $scope.newNPModel.address = $scope.myNonprofit.address;
+        $scope.newNPModel.imageUrl = $scope.myNonprofit.imageUrl;
+
+//        $scope.addSkill = function (skill) {
+//            if (skill.length > 0 &&
+//                $scope.newModel.skills.indexOf(skill) == -1) {
+//                $scope.newSkill = "";
+//                $scope.newModel.skills.push(skill);
+//                console.log($scope.newModel.skills);
+//            }
+//        };
+//
+//        $scope.addTitle = function (title) {
+//            $scope.newModel.titles.push(title);
+//        };
+//
+//        $scope.removeSkill = function (skill) {
+//            console.log($scope.newModel.skills);
+//            var index = $scope.newModel.skills.indexOf(skill);
+//            $scope.newModel.skills.splice(index, 1);
+//            console.log($scope.newModel.skills);
+//
+//        };
+//
+//        $scope.removeTitle = function (title) {
+//            $scope.newModel.titles.remove(title);
+//        };
+//
+//        $scope.resetSkillsAndTitles = function () {
+//            $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
+//            $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
+//        };
+        
+        //DELETE THIS NONPROFIT METHOD
+//        $scope.removeNonprofit = function() {
+//        
+//        }
+        
+    }
+                   
 };
