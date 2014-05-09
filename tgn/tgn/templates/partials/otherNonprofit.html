@@ -1,12 +1,12 @@
 {% extends "modals.html" %}
 {% block content %}
 {% verbatim %}
-<div class="container" data-ng-app="angularTGN"
+<div class="container"
      data-ng-controller="otherNonprofitController">
     <div class="row center">
         <div class="col-sm-6">
             <h2>
-                {{name}}
+                {{viewContent.viewContent().nonprofitToView.name}}
             </h2>
         </div>
         <div class="col-sm-6">
@@ -23,7 +23,7 @@
     </div>
     <hr>
     <div class="row center">
-        <img src="{{bannerLink}}"/>
+        <img src="{{nonprofit.imageUrl}}"/>
     </div>
     <hr>
     <div class="row">
