@@ -23,6 +23,12 @@ affix {
     top: 25px;
 }
 
+#affiliations {
+    position: relative;
+    top: 20px;
+    background-color: green;
+}
+
 /*MODALS */
 .attrBlocks {
     border-radius: 3px;
