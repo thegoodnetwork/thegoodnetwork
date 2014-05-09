@@ -786,6 +786,9 @@ var initTGN = function (accessToken) {
                 window.location = '#/otherNonprofit/' + nonprofitId;
             }
         };
+        $scope.isOtherNonprofit = function(nonprofitId) {
+            return myNonprofitsService.getNonprofit(nonprofitId);
+        };
 
         if ($routeParams.query == 'allJobs') {
             $scope.viewJobs();
