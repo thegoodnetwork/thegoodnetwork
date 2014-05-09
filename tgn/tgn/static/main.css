@@ -28,9 +28,9 @@ affix {
     top: 25px;
 }
 
-#editProfileLink {
+.editProfileLink {
     position: relative;
-    top: 25px;
+    top: 30px;
     font-size: 18px;
 }
 
