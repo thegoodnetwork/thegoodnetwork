@@ -45,6 +45,7 @@
                 class="searchResultTable"
                 data-ng-repeat="job in searchResults.searchResults().postedJobs"
                 data-ng-if="viewingJobs"
+                data-ng-if="!(isMyNonprofit(job.nonprofitId))"
                 >
 
             <tr>
