@@ -117,7 +117,6 @@ def formatUserForAffiliationOrApplication(account):
 
 
 def formatUsersForAffiliationOrApplications(accounts):
-    print 'formatting: ' + str(accounts)
     formattedUsers = map(lambda account:
                          formatUserForAffiliationOrApplication(account),
                          accounts)
@@ -222,9 +221,7 @@ def getUserNonprofits(account):
 
     nonprofits = []
     if nonprofitRelations is not None:
-        
         for relation in nonprofitRelations:
-            print 'relation: ' + userId + ' ' + str(relation.nonprofitId)
             nonprofit = Nonprofit.objects.get(pk=str(relation.nonprofitId))
             nonprofits.append(nonprofit)
 
@@ -306,14 +303,11 @@ def getNonprofitAffiliates(nonprofit):
         nonprofitId=nonprofitId)
 
     nonprofitAffiliates = []
-    print 'getting affiliates ' + nonprofitId
     for relation in nonprofitRelations:
         nonprofitAffiliate = Account.objects.get(userId=str(relation
                                                             .userId))
         nonprofitAffiliates.append(nonprofitAffiliate)
 
-    print 'finished getting affiliates'
-    print str(nonprofitAffiliates)
     return nonprofitAffiliates
 
 
@@ -333,7 +327,6 @@ def getNonprofitModel(nonprofit):
     address = str(nonprofit.address)
     imageUrl = str(nonprofit.imageUrl)
 
-    print 'getting nonprofit ' + str(nonprofit.name)
     # get the jobs associated with the nonprofit
     postedJobs = formatJobs(getNonprofitPostedJobs(nonprofit),
                             jobType=POSTED_JOB_TYPE)
@@ -348,12 +341,12 @@ def getNonprofitModel(nonprofit):
         'completedJobs': completedJobs
     }
 
+    # get the nonprofit affiliates
 
     nonprofitAffiliates = formatUsersForAffiliationOrApplications(
-       getNonprofitAffiliates(nonprofit)
+        getNonprofitAffiliates(nonprofit)
     )
 
-    #print 'getting affiliates: ' + str(nonprofitAffiliates)
     nonprofitModel = {
         'nonprofitId': nonprofitId,
         'name': name,
