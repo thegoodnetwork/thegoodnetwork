@@ -613,6 +613,25 @@ var initTGN = function (accessToken) {
                 });
             };
 
+            requestService.applyToJob = function (jobId, userId, myJobsService) {
+                var requestArguments = {
+                    jobId: jobId,
+                    userId: userId
+                };
+
+                var applyToJobRequestUrl = requestPrefix + 'applyToJob';
+
+                makePostRequest(applyToJobRequestUrl, requestArguments).then(function(responseData) {
+                   var myJobsAsApplicant = responseData.data.jobsAsApplicant;
+                    if (myJobsAsApplicant) {
+                        myJobsService.setMyApplications(myJobsAsApplicant);
+                    } else {
+                        console.log(responseData.errorMessage);
+                    }
+                });
+
+            };
+
             return requestService;
         }
     );
@@ -800,6 +819,10 @@ var initTGN = function (accessToken) {
             $scope.myProfile.userModel().userId,
             $scope.searchResults
         );
+
+        $scope.applyToJob = function (jobId, userId, myJobsService) {
+            requestService.applyToJob(jobId, userId, myJobsService);
+        };
     });
 
     tgn.controller('otherProfileController', function ($scope, $routeParams, requestService) {

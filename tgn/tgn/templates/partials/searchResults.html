@@ -75,7 +75,9 @@
                         -->
                         <button type="button" class="btn btn-default"
                                 data-toggle="modal"
-                                data-target="#appliedForJobModal">
+                                data-target="#appliedForJobModal"
+                                data-ng-click="applyToJob(job.jobId, myProfile.userId, myJobs)"
+                                >
                             Apply to Job
                         </button>
                     </div>
