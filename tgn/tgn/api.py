@@ -612,7 +612,8 @@ def applyToJob(request):
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
-    print request.body
+    print 'verified'
+    print str(request.body)
     request = json.loads(request.body)
 
     userId = request['userId']
