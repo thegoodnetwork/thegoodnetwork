@@ -516,7 +516,7 @@ var initTGN = function (accessToken) {
             requestService.updateNonprofit = function (myProfileService, myNonprofitsService, nonprofit) {
                 //nonprofit is a dictionary object
 
-                console.log('called edit nonprofit for: ' + JSON.stringify(nonprofit));
+                console.log('CALLED EDIT NONPROFIT FOR: ' + JSON.stringify(nonprofit));
 
                 var requestUrl = requestPrefix + 'updateNonprofit';
 
@@ -704,7 +704,7 @@ var initTGN = function (accessToken) {
 
         $scope.newNPModel = {}
 
-
+        $scope.newNPModel.name = $scope.myNonprofit.name;
         $scope.newNPModel.description = $scope.myNonprofit.description;
         $scope.newNPModel.mission = $scope.myNonprofit.mission;
         $scope.newNPModel.website = $scope.myNonprofit.website;
@@ -737,6 +737,7 @@ var initTGN = function (accessToken) {
 //        };
 //
         $scope.resetNonprofitInfo = function () {
+            $scope.newNPModel.name = $scope.myNonprofit.name;
             $scope.newNPModel.description = $scope.myNonprofit.description;
             $scope.newNPModel.mission = $scope.myNonprofit.mission;
             $scope.newNPModel.website = $scope.myNonprofit.website;
