@@ -543,7 +543,7 @@ var initTGN = function (accessToken) {
 
             requestService.getNonprofit = function (nonprofitId) {
                 var nonprofitsRequestUrl = requestPrefix + 'viewNonprofit';
-                requestArgument = {'nonprofitId': nonprofitId};
+                requestArgument = {nonprofitId: nonprofitId};
                 makePostRequest(nonprofitsRequestUrl, requestArgument).then(function (responseData) {
                     var nonprofit = responseData.data.nonprofitToView;
                     if (nonprofit) {
