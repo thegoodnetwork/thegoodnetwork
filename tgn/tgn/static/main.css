@@ -3,8 +3,6 @@ body {
     background-color: #F2F2F2;
 }
 
-
-
 .nav .nav-pills .nav-stacked > li .active {
     background-color:#5986E4;
 }
@@ -376,8 +374,4 @@ a:hover {
 
 .skillsOrTitlesToAdd:hover {
     cursor: pointer;
-}
-
-#editProfileLink {
-
 }
