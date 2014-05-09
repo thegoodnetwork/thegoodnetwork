@@ -503,39 +503,36 @@ var initTGN = function (accessToken) {
                     }
                 });
             };
-<<<<<<< HEAD
-        
+
             //EDIT NONPROFIT PROFILE REQUEST
-            requestService.updateNonprofit = function(myProfileService, myNonprofitsService, nonprofit) {
+            requestService.updateNonprofit = function (myProfileService, myNonprofitsService, nonprofit) {
                 //nonprofit is a dictionary object
-                
+
                 console.log('called edit nonprofit for: ' + JSON.stringify(nonprofit));
-                
+
                 var requestUrl = requestPrefix + 'updateNonprofit';
-                
+
                 var editNonprofitRequestObject = {
                     userId: myProfileService.userModel().userId,
-                    nonprofit: nonprofit;
+                    nonprofit: nonprofit
                 };
-                
+
                 makePostRequest(requestUrl, editNonprofitRequestObject).then(function (responseData) {
                     //Set nonprofit profile model info here
-                    
+
                     var updatedNonprofitModel = responseData.data.nonprofitProfile;
                     var updatedNonprofitId = responseData.data.updatedNonprofitId;
-                    
+
                     if (updatedNonprofitModel) {
                         //if response is not null, update view
                         myNonprofitsService.updateNonprofit(updatedNonprofitId, updatedNonprofitModel);
                     } else {
                         console.log(responseData.errorMessage);
                     }
-                    
+
                 });
-                
+
             };
-        
-=======
 
 
             requestService.getSearchResults = function (query, userId, searchResultsService) {
@@ -582,7 +579,6 @@ var initTGN = function (accessToken) {
                 });
             };
 
->>>>>>> abf4d7cb8361c7d46ae113d91af226ad18bb8994
             return requestService;
         }
     );
@@ -648,7 +644,7 @@ var initTGN = function (accessToken) {
         $scope.myJob = myJobsService.getJob($routeParams.jobId, $routeParams.jobType);
     });
 
-    
+
     tgn.controller('viewMyNonprofitController', function ($scope, $routeParams, $location, $anchorScroll) {
 
         $scope.goToJobs = function () {
@@ -660,16 +656,15 @@ var initTGN = function (accessToken) {
         $scope.myNonprofit = $scope.myNonprofits.getNonprofit($routeParams.myNonprofit);
         console.log('my nonprofit: ' + JSON.stringify($scope.myNonprofit));
     });
-    
-    
-    
-    tgn.controller('updateNonprofitController', function($scope) {
-        
+
+
+    tgn.controller('updateNonprofitController', function ($scope) {
+
         //inherits the viewed nonprofit from viewMyNonprofitController
         //$scope.myNonprofit
-        
+
         $scope.newNPModel = {}
-        
+
         $scope.newNPModel.description = $scope.myNonprofit.description;
         $scope.newNPModel.mission = $scope.myNonprofit.mission;
         $scope.newNPModel.website = $scope.myNonprofit.website;
@@ -705,14 +700,14 @@ var initTGN = function (accessToken) {
 //            $scope.newModel.skills = $scope.myProfile.userModel().skills.slice(0);
 //            $scope.newModel.titles = $scope.myProfile.userModel().titles.slice(0);
 //        };
-        
+
         //DELETE THIS NONPROFIT METHOD
 //        $scope.removeNonprofit = function() {
 //        
 //        }
-        
-    }
-                   
+
+    });
+
 
     tgn.controller('searchResultsController', function ($scope, $routeParams) {
         $scope.viewingPeople = true;
