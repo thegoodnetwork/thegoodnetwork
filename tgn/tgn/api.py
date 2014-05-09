@@ -612,6 +612,7 @@ def applyToJob(request):
         errorMessage = verifiedRequestResponse['errorMessage']
         return formattedResponse(isError=True, errorMessage=errorMessage)
 
+    print request.body
     request = json.loads(request.body)
 
     userId = request['userId']
@@ -620,8 +621,9 @@ def applyToJob(request):
     if Account.objects.filter(userId=userId).exists():
         if PostedJob.objects.filter(pk=jobId).exists():
             applicant = Account.objects.get(userId=userId)
+            print 'got applicant'
             job = PostedJob.objects.get(pk=jobId)
-
+            print 'got job'
             newJobApplication, isNewApplication = PostedJobApplication \
                 .objects.get_or_create(
                 applicant=applicant,
