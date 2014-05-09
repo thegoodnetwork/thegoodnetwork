@@ -543,11 +543,6 @@ var initTGN = function (accessToken) {
                 });
             };
 
-            ======
-            =
-            >>>>>>>
-            9126e
-            d2437b03f2ad3f4f493793dd821b1aa0eac
             return requestService;
         }
     );
