@@ -61,8 +61,7 @@ tgn.config(
                 templateUrl: 'partials/myNonprofit'
             })
             .when('/otherNonprofit/:nonprofitId', {
-                templateUrl: 'partials/otherNonprofit',
-                controller: 'otherNonprofitController'
+                templateUrl: 'partials/otherNonprofit'
             })
             .when('/myJob/:jobId/:jobType', {
                 templateUrl: 'partials/myJob',
@@ -347,6 +346,7 @@ tgn.controller('userController', function ($scope, $location, myProfileService, 
 tgn.controller('otherNonprofitController', function ($scope, requestService, $routeParams) {
     $scope.nonprofitId = $routeParams.nonprofitId;
     $scope.nonprofit = requestService.getNonprofit($scope.nonprofitId);
+    $scope.testScope = "testScope";
 
 });
 
