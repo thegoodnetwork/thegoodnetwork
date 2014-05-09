@@ -80,6 +80,7 @@ def loginWithFacebook(request):
     else:
         userModel = getUserModel(account)
 
+        print 'got user model'
         titles = userModel['titles']
         aboutMe = userModel['aboutMe']
         resume = userModel['resume']
