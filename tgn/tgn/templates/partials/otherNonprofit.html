@@ -3,10 +3,11 @@
 {% verbatim %}
 <div class="container" data-ng-app="angularTGN"
      data-ng-controller="otherNonprofitController">
+    {{testScope}}
     <div class="row center">
         <div class="col-sm-6">
             <h2>
-                {{name}}
+                {{nonprofit.name}}
             </h2>
         </div>
         <div class="col-sm-6">
@@ -23,7 +24,7 @@
     </div>
     <hr>
     <div class="row center">
-        <img src="{{bannerLink}}"/>
+        <img src="{{nonprofit.bannerLink}}"/>
     </div>
     <hr>
     <div class="row">
