@@ -825,11 +825,11 @@ var initTGN = function (accessToken) {
         };
     });
 
-    tgn.controller('otherProfileController', function ($scope, $routeParams, requestService) {
+    tgn.controller('otherProfileController', function ($scope, $routeParams, requestService, viewContentService) {
 
         $scope.requestService = requestService;
-
-        requestService.viewOtherProfile($routeParams.userId, $scope.viewContentService);
+        requestService.viewOtherProfile($routeParams.userId, viewContentService);
+	$scope.viewContent = viewContentService;
     });
 
     tgn.controller('viewJobApplicantsController', function($scope, myNonprofitsService) {
